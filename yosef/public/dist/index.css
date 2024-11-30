@@ -1,0 +1,24 @@
+@charset "UTF-8";
+#loginRegisterButton {
+  background-color: white;
+  border: 2px solid white;
+  font-weight: bold;
+}
+
+#openMenu #login {
+  background-color: black;
+  color: white;
+}
+#openMenu a {
+  color: black;
+  font-size: 2rem;
+  text-decoration: none;
+}
+#openMenu a:hover {
+  background-color: #ff5722;
+  /* שינוי צבע רקע */
+  color: white;
+  /* צבע טקסט לבן */
+  transform: scale(1.1);
+  /* הגדלה עדינה של הכפתור */
+}

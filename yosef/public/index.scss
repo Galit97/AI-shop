@@ -1,0 +1,28 @@
+#loginRegisterButton{
+   background-color: rgb(255, 255, 255);
+   border: 2px solid white;
+   font-weight: bold;
+}
+
+#openMenu {
+
+    #login{
+        background-color: rgb(0, 0, 0);
+        color: white;
+
+    }
+
+    a{
+        color: rgb(0, 0, 0);       
+        font-size: 2rem;
+        text-decoration: none;
+
+    }
+
+    a:hover {
+        background-color: #ff5722; /* שינוי צבע רקע */
+        color: white; /* צבע טקסט לבן */
+        transform: scale(1.1); /* הגדלה עדינה של הכפתור */
+    }      
+  }
+  
