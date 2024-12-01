@@ -1,28 +1,149 @@
-#loginRegisterButton{
-   background-color: rgb(255, 255, 255);
-   border: 2px solid white;
-   font-weight: bold;
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#openMenu {
 
-    #login{
-        background-color: rgb(0, 0, 0);
-        color: white;
-
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 0 15rem; 
+    img {
+      height: 5rem;
+      margin-right: 20px;
     }
-
-    a{
-        color: rgb(0, 0, 0);       
-        font-size: 2rem;
-        text-decoration: none;
-
-    }
-
-    a:hover {
-        background-color: #ff5722; /* שינוי צבע רקע */
-        color: white; /* צבע טקסט לבן */
-        transform: scale(1.1); /* הגדלה עדינה של הכפתור */
-    }      
-  }
   
+    .search-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #dbdbdb;
+        border-radius: 30px;
+        padding: 5px;
+        background-color: white;
+      
+        input[type="text"] {
+          width: 50rem;
+          padding: 10px;
+          border: none;
+          outline: none;
+          border-radius: 30px;
+          font-size: 16px;
+        }
+      
+        button {
+            background-color: #ff5722;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 3rem;  
+            height: 3rem; 
+            padding: 0;
+            img {
+              width: 3rem;
+              height: 3rem; 
+            }
+
+          }
+      }
+  
+      .login-register {
+        position: relative;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+          button{
+            background: none; 
+            border: none;    
+            color: inherit;   
+            padding: 0;       
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            cursor: pointer; 
+  }
+      
+        img {
+          height: 4rem;
+          width: 4rem;
+          margin-right: 10px;
+          border-radius: 50%; 
+        }
+      
+        #openMenu {
+          display: none;
+          position: absolute;
+          top: 50px; 
+          right: 0;
+          background-color: white;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 10px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          width: 200px; 
+          z-index: 100;
+      
+          a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 4px;  
+            margin: 4px 0;
+      
+            &:hover {
+              background-color: #f5f5f5; 
+              color: #ff5722;  
+            }
+          }
+      
+          nav a {
+            font-size: 14px;
+          }
+      
+          hr {
+            margin: 10px 0;
+            border: 0;
+            border-top: 1px solid #ddd;
+          }
+        }
+      
+        &:hover #openMenu {
+          display: block;
+        }
+      }
+      
+      #openMenu {
+        display: none;
+      }
+
+    .cart {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+  
+      h3 {
+        font-size: 16px;
+      }
+  
+      img {
+        height: 3rem;
+        width: 3rem;
+      }
+      .cart-items-count {
+        position: absolute;
+        top: -5px;
+        right: -5px; 
+        background-color: #ff5722;
+        color: white;
+        width: 1.5rem; 
+        height: 1.5rem; 
+        border-radius: 50%; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+}

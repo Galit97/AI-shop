@@ -1,19 +1,19 @@
-function showRegisterLoginMenu(){
-    try{
-        const button = document.getElementById('loginRegisterButton') as HTMLElement;
-        const openMenu = document.getElementById('openMenu') as HTMLElement;
+const loginRegisterButton = document.querySelector('.login-register') as HTMLElement | null;
+const openMenu = document.getElementById('openMenu') as HTMLElement | null;
 
-        button.addEventListener('mouseenter', () => {
-            openMenu.style.display = 'block'; // הצג את האלמנט
-        });
+if (loginRegisterButton && openMenu) {
+  loginRegisterButton.addEventListener('mouseover', () => {
+    openMenu.style.display = 'block';
+  });
 
-        // button.addEventListener('mouseleave', () => {
-        // openMenu.style.display = 'none'; // החבא את האלמנט
-        // });
-    }
-    catch(error){
-        console.error('Error:', error);
-    }
+  const closeMenu = () => {
+    openMenu.style.display = 'none';
+  };
+
+  loginRegisterButton.addEventListener('mouseleave', closeMenu);
+  openMenu.addEventListener('mouseleave', closeMenu);
+
+  openMenu.addEventListener('mouseover', () => {
+    openMenu.style.display = 'block';
+  });
 }
-
-showRegisterLoginMenu()
