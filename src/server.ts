@@ -24,5 +24,3 @@ mongoose.connect(`${dbUrl}/${database}`).then(()=>{
 }).catch((err)=>{
     console.error(err)
 });
-
-console.log("test - yosef");
