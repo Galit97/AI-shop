@@ -14,7 +14,7 @@ app.listen(port, () => {
 });
 
 //DB
-const dbUrl = process.env.DB_URL;
+const dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
 const database = 'AI-Shop';
 
 

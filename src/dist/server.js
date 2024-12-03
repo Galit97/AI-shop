@@ -12,7 +12,7 @@ app.listen(port, function () {
     console.log("Server listening on port " + port);
 });
 //DB
-var dbUrl = process.env.DB_URL;
+var dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
 var database = 'AI-Shop';
 //DB connection
 mongoose_1["default"].connect(dbUrl + "/" + database).then(function () {
