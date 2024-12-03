@@ -6,7 +6,7 @@ body {
   font-size: 1rem;
 }
 
-.registerPopup {
+.loginPopup {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,18 +17,16 @@ body {
   justify-content: center;
   align-items: center;
 }
-.registerPopup-content {
+.loginPopup-content {
   background: #fff;
   border-radius: 0.625rem;
   padding: 1.25rem;
   width: 21.875rem;
-  max-height: 90vh;
-  overflow-y: auto;
   text-align: center;
   box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
   position: relative;
 }
-.registerPopup-content .closeRegister-btn {
+.loginPopup-content .closeLogin-btn {
   position: absolute;
   top: 0.625rem;
   right: 0.625rem;
@@ -38,53 +36,53 @@ body {
   cursor: pointer;
   color: #999;
 }
-.registerPopup-content .closeRegister-btn:hover {
+.loginPopup-content .closeLogin-btn:hover {
   color: #333;
 }
-.registerPopup-content .popup-title {
+.loginPopup-content .popup-title {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 1.25rem;
 }
-.registerPopup-content form input {
-  width: 18rem;
+.loginPopup-content form input {
+  width: 80%;
   padding: 0.75rem 0.625rem;
   margin: 0.625rem 0;
   border: 0.0625rem solid #ddd;
   border-radius: 0.3125rem;
   font-size: 0.875rem;
 }
-.registerPopup-content #registerButton {
-  background-color: #4caf50;
+.loginPopup-content #loginButton {
+  background-color: #ff4747;
   color: white;
   border: none;
   border-radius: 0.3125rem;
   padding: 0.75rem;
   font-size: 1rem;
   cursor: pointer;
-  width: 20rem;
+  width: 100%;
 }
-.registerPopup-content #registerButton:hover {
-  background-color: #45a049;
+.loginPopup-content #loginButton:hover {
+  background-color: #e63e3e;
 }
-.registerPopup-content .divider {
+.loginPopup-content .divider {
   display: flex;
   align-items: center;
   margin: 1.25rem 0;
 }
-.registerPopup-content .divider span {
+.loginPopup-content .divider span {
   background: white;
   padding: 0 0.625rem;
   font-size: 0.875rem;
   color: #999;
 }
-.registerPopup-content .divider::before, .registerPopup-content .divider::after {
+.loginPopup-content .divider::before, .loginPopup-content .divider::after {
   content: "";
   flex: 1;
   height: 0.0625rem;
   background: #ddd;
 }
-.registerPopup-content .social-login button {
+.loginPopup-content .social-login button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,21 +95,21 @@ body {
   font-size: 0.875rem;
   cursor: pointer;
 }
-.registerPopup-content .social-login button img {
+.loginPopup-content .social-login button img {
   height: 1.25rem;
   margin-right: 0.625rem;
 }
-.registerPopup-content .social-login button:hover {
+.loginPopup-content .social-login button:hover {
   background: #eaeaea;
 }
-.registerPopup-content .login-link {
+.loginPopup-content .register-link {
   font-size: 0.875rem;
   color: #999;
 }
-.registerPopup-content .login-link a {
+.loginPopup-content .register-link a {
   color: #1525d3;
   text-decoration: none;
 }
-.registerPopup-content .login-link a:hover {
+.loginPopup-content .register-link a:hover {
   text-decoration: underline;
-}
+}/*# sourceMappingURL=login.css.map */
