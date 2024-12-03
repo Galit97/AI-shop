@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>דף פופ-אפ</title>
+  <style>
+    /* סגנון לפופ-אפ */
+    .popup {
+      display: none; /* ברירת מחדל - הפופ-אפ מוסתר */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* רקע שקוף */
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+      text-align: center;
+    }
+    .close-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- כפתור לפתיחת הפופ-אפ -->
+  <button id="openPopupButton">פתח פופ-אפ</button>
+
+  <!-- פופ-אפ -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>ברוך הבא לפופ-אפ!</h2>
+      <p>כאן יש מידע נוסף או תוכן אחר</p>
+      <button class="close-btn" id="closePopupButton">סגור</button>
+    </div>
+  </div>
+
+  <script>
+    // קבלת האלמנטים
+    const openPopupButton = document.getElementById('openPopupButton');
+    const popup = document.getElementById('popup');
+    const closePopupButton = document.getElementById('closePopupButton');
+
+    // פעולה לפתיחת הפופ-אפ
+    openPopupButton.onclick = function() {
+      popup.style.display = 'flex';  // מציג את הפופ-אפ
+    };
+
+    // פעולה לסגירת הפופ-אפ
+    closePopupButton.onclick = function() {
+      popup.style.display = 'none';  // מסתיר את הפופ-אפ
+    };
+
+    // אפשרות לסגור את הפופ-אפ כשעושים קליק מחוץ לו
+    window.onclick = function(event) {
+      if (event.target === popup) {
+        popup.style.display = 'none';
+      }
+    };
+  </script>
+
+</body>
+</html>
