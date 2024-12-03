@@ -8,13 +8,24 @@
     <link rel="stylesheet" href="./dist/index.css">
 </head>
 <body>
-    <div class="popupLogin" id="popupLogin">
-        <div class="popupLogin-content">
-          <h2>Login</h2>
-          <button id="normalLogin" onclick=normalLogin()>כניסה רגילה</button><br><br>
-          <button id="googleLogin" onclick=googleLogin()>כניסה דרך חשבון גוגל שלך</button><br><br>
-          <button class="closeLogin-btn" id="closePopupLoginButton">סגור</button>
-        </div>
-      </div>
+  <div class="popupLogin" id="popupLogin" style="display: none;">
+    <div class="popupLogin-content">
+      <button class="closeLogin-btn" id="closePopupLoginButton">X</button>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        
+        <button type="submit" id="loginButton">Login</button>
+      </form>
+      <a href="../register/register.html">Don't have account? Click here to register</a>
+      <button id="googleLogin" onclick="googleLogin()">Login with Google</button>
+      <button id="facebookLogin" onclick="facebookLogin()">Login with facebook</button>
+
+    </div>
+  </div>
 </body>
 </html>
