@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./dist/register.css">
 </head>
 <body>
-  <div class="registerPopup" id="registerPopup" style="display: none;">
+  <div class="registerPopup" id="registerPopup" >
     <div class="registerPopup-content">
       <button class="closeRegister-btn" id="closeRegisterPopupButton">X</button>
       <h2 class="popup-title">Sign Up</h2>
@@ -17,6 +17,7 @@
         <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
         <input type="email" id="email" name="email" placeholder="Email Address" required />
         <input type="password" id="password" name="password" placeholder="Password" required />
+        <input type="password" id="repeatPassword" name="password" placeholder="Repeat Password" required />
         <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required />
         <input type="text" id="address" name="address" placeholder="Address" required />
         <button type="submit" id="registerButton">Sign Up</button>
