@@ -52,13 +52,14 @@ function renderHeader() {
 
 
 }
-
-const container = document.querySelector('#header'); // Adjust the selector to your target element
-if (container) {
-    container.innerHTML = renderHeader();
-} else {
-    console.error('Target container not found!');
-}
+function render() {
+    const container = document.querySelector('#header'); // Adjust the selector to your target element
+    if (container) {
+        container.innerHTML = renderHeader();
+    } else {
+        console.error('Target container not found!');
+    };
+};
 
 function closeMenu() {
 
@@ -123,4 +124,4 @@ const messagesContainer = document.getElementById('messages') as HTMLElement;
 
 
 
-renderHeader();
+render();
