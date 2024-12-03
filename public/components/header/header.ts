@@ -5,9 +5,10 @@ if (loginRegisterButton && openMenu) {
   loginRegisterButton.addEventListener('mouseover', () => {
     openMenu.style.display = 'block';
   });
-
+}
+console.log("first")
 function renderHeader() {
-    return `
+  return `
      <header id="header">
         <div class="logo-container">
             <img src="./images/Ai-shop-logo.png" alt="AI Shop Logo">
@@ -32,7 +33,7 @@ function renderHeader() {
           
             <div id="openMenu" class="dropdown-menu">
               <a id="login" onclick="login()">Login</a>
-              <a id="registerr" onclick="register()">Register</a>
+              <a id="register" onclick="register()">Register</a>
               <hr>
               <nav id="navbar">
                 <a href="/myOrders">My orders</a>
@@ -48,37 +49,35 @@ function renderHeader() {
             <h3>Cart</h3>
             <span class="cart-items-count">3</span>
         </div>
-    </header>` 
-
-
+    </header>`
 }
 function render() {
-    const container = document.querySelector('#header'); // Adjust the selector to your target element
-    if (container) {
-        container.innerHTML = renderHeader();
-    } else {
-        console.error('Target container not found!');
-    };
+  const container = document.querySelector('#header'); // Adjust the selector to your target element
+  if (container) {
+    container.innerHTML = renderHeader();
+  } else {
+    console.error('Target container not found!');
+  };
 };
 
 function closeMenu() {
 
-  try{
+  try {
     if (openMenu) {
       openMenu.style.display = 'none';
     }
   }
-  catch(error){
+  catch (error) {
     console.error('An error occurred:', error.message);
   }
 }
-  loginRegisterButton.addEventListener('mouseleave', closeMenu);
-  openMenu.addEventListener('mouseleave', closeMenu);
+// loginRegisterButton.addEventListener('mouseleave', closeMenu);
+// openMenu.addEventListener('mouseleave', closeMenu);
 
-  openMenu.addEventListener('mouseover', () => {
-    openMenu.style.display = 'block';
-  });
-}
+// openMenu.addEventListener('mouseover', () => {
+//   openMenu.style.display = 'block';
+// });
+
 
 const chatIcon = document.querySelector('.chat-AI') as HTMLElement;
 const chatWindow = document.getElementById('chatWindow') as HTMLElement;
@@ -106,9 +105,9 @@ const messagesContainer = document.getElementById('messages') as HTMLElement;
 //     userMessageElement.classList.add('user-message');
 //     userMessageElement.textContent = userMessage;
 //     messagesContainer.appendChild(userMessageElement);
-    
+
 //     simulateAIResponse(userMessage);
-    
+
 //     chatInput.value = '';
 //   }
 // });
