@@ -45,7 +45,7 @@ body {
   margin-bottom: 1.25rem;
 }
 .loginPopup-content form input {
-  width: 18rem;
+  width: 80%;
   padding: 0.75rem 0.625rem;
   margin: 0.625rem 0;
   border: 0.0625rem solid #ddd;
@@ -60,7 +60,7 @@ body {
   padding: 0.75rem;
   font-size: 1rem;
   cursor: pointer;
-  width: 20rem;
+  width: 100%;
 }
 .loginPopup-content #loginButton:hover {
   background-color: #e63e3e;
@@ -112,4 +112,4 @@ body {
 }
 .loginPopup-content .register-link a:hover {
   text-decoration: underline;
-}
+}/*# sourceMappingURL=login.css.map */
