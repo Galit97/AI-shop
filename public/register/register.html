@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store</title>
+    <title>Sign Up</title>
     <script src="./dist/register.js" defer></script>
     <link rel="stylesheet" href="./dist/register.css">
 </head>
 <body>
-    <div class="popupRegister" id="popupRegister">
-        <div class="popupRegister-content">
-          <h2>Sign up</h2>
-          <h1>האתר בבנייה, עמכם הסליחה</h1>
-          <button class="closeRegister-btn" id="closePopupRegisterButton">סגור</button>
-        </div>
+  <div class="registerPopup" id="registerPopup" style="display: none;">
+    <div class="registerPopup-content">
+      <button class="closeRegister-btn" id="closeRegisterPopupButton">X</button>
+      <h2 class="popup-title">Sign Up</h2>
+      <form id="registerForm">
+        <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+        <input type="email" id="email" name="email" placeholder="Email Address" required />
+        <input type="password" id="password" name="password" placeholder="Password" required />
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required />
+        <input type="text" id="address" name="address" placeholder="Address" required />
+        <button type="submit" id="registerButton">Sign Up</button>
+      </form>
+      <p class="divider"><span>or</span></p>
+      <div class="social-login">
+        <button id="googleRegister" onclick="googleRegister()">
+          <img src="../images/google-image.webp" alt="Google Logo" />
+          Sign up with Google
+        </button>
+        <button id="facebookRegister" onclick="facebookRegister()">
+          <img src="../images/facebook-image.webp" alt="Facebook Logo" />
+          Sign up with Facebook
+        </button>
       </div>
-    
+      <p class="login-link">
+        Already have an account? <a href="../login/login.html">Log in</a>
+      </p>
+    </div>
+  </div>
 </body>
 </html>
