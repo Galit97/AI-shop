@@ -2,7 +2,7 @@
 function renderChat() {
     return `
         <div class="chat-AI" id="chatAI">
-        <img src="./images/chat-image.jpg" alt="Chat Icon">
+        <img src="./images/chat-image.png" alt="Chat Icon">
         <div id="chatWindow" class="chat-window" style="display: none;">
           <div class="chat-header">
             <h4>Chat with us</h4>

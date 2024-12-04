@@ -1,11 +1,10 @@
-const loginRegisterButton = document.querySelector('.login-register') as HTMLElement | null;
-const openMenu = document.getElementById('openMenu') as HTMLElement | null;
 
-if (loginRegisterButton && openMenu) {
-  loginRegisterButton.addEventListener('mouseover', () => {
-    openMenu.style.display = 'block';
-  });
-}
+  interface Window {
+    login: () => void;
+    register: () => void;
+  }
+
+
 function renderHeader() {
   return `
      <header id="header">
@@ -25,8 +24,8 @@ function renderHeader() {
 
           <div class="login-register">
             <img src="./images/user-image.png" alt="User Icon">
-            <button id="loginRegisterButton" aria-haspopup="true" aria-expanded="false">
-              Welcome <br> Login / Register
+            <button id="loginRegisterButton" aria-hasPopup="true" aria-expanded="false">
+              Welcome, {$}Client.firstName} <br> Login / Register
             </button>
 
           
@@ -44,20 +43,24 @@ function renderHeader() {
             
           </div>
         <div class="cart">
-            <img src="./images/cart-image.jpg" alt="Cart Icon">
+            <img src="./images/cart-image.png" alt="Cart Icon">
             <h3>Cart</h3>
             <span class="cart-items-count">3</span>
         </div>
     </header>`
 }
+
 function render() {
-  const container = document.querySelector('#header'); // Adjust the selector to your target element
+  const container = document.querySelector('#header'); 
   if (container) {
     container.innerHTML = renderHeader();
   } else {
     console.error('Target container not found!');
   };
 };
+
+const openMenu = document.getElementById('openMenu') as HTMLElement | null;
+const loginRegisterButton = document.querySelector('#loginRegisterButton') as HTMLElement | null;
 
 function closeMenu() {
 
@@ -70,15 +73,54 @@ function closeMenu() {
     console.error('An error occurred:', error.message);
   }
 }
-// loginRegisterButton.addEventListener('mouseleave', closeMenu);
-// openMenu.addEventListener('mouseleave', closeMenu);
-
-// openMenu.addEventListener('mouseover', () => {
-//   openMenu.style.display = 'block';
-// });
 
 
 
+function initHeader() {
+  const container = document.querySelector('#header'); 
+  if (container) {
+    container.innerHTML = renderHeader();
 
+    const loginRegisterButton = document.querySelector('#loginRegisterButton') as HTMLElement | null;
+    const loginButton = document.getElementById('login') as HTMLElement | null;
+    const registerButton = document.getElementById('register') as HTMLElement | null;
+
+    if (loginRegisterButton && openMenu) {
+      loginRegisterButton.addEventListener('mouseover', () => {
+        openMenu.style.display = 'block';
+      });
+
+      loginRegisterButton.addEventListener('mouseleave', () => {
+        openMenu.style.display = 'none';
+      });
+    }
+
+    if (loginButton) {
+      loginButton.addEventListener('click', window.login);
+    }
+
+    if (registerButton) {
+      registerButton.addEventListener('click', window.register);
+    }
+  } else {
+    console.error('Target container not found!');
+  }
+}
+
+window.login = function () {
+  const loginPopup = document.getElementById('loginPopup');
+  if (loginPopup) {
+    loginPopup.style.display = 'flex';
+  }
+};
+
+window.register = function () {
+  const registerPopup = document.getElementById('registerPopup');
+  if (registerPopup) {
+    registerPopup.style.display = 'flex';
+  }
+};
+
+initHeader();
 
 render();
