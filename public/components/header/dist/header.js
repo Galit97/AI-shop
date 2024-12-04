@@ -1,5 +1,5 @@
 function renderHeader() {
-    return "\n     <header id=\"header\">\n        <div class=\"logo-container\">\n            <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n        </div>\n        \n        <div class=\"search-container\">\n            <input \n              type=\"text\" \n              placeholder=\"Search for products...\" \n              aria-label=\"Search\">\n            <button aria-label=\"Search\">\n              <img src=\"./images/Search_Icon.svg.png\" alt=\"Search Icon\">\n            </button>\n          </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n              Welcome, {$}Client.firstName} <br> Login / Register\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n              <a id=\"login\" onclick=\"login()\">Login</a>\n              <a id=\"register\" onclick=\"register()\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"/connectUs\">Contact us</a>\n                <a href=\"/logOut\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\">\n            <img src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <h3>Cart</h3>\n            <span class=\"cart-items-count\">3</span>\n        </div>\n    </header>";
+    return "\n     <header id=\"header\">\n        <div class=\"logo-container\">\n            <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n        </div>\n        \n        <div class=\"search-container\">\n            <input \n              type=\"text\" \n              placeholder=\"Search for products...\" \n              aria-label=\"Search\">\n            <button aria-label=\"Search\">\n              <img src=\"./images/Search_Icon.svg.png\" alt=\"Search Icon\">\n            </button>\n          </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n              Welcome, {$}Client.firstName} <br> Login / Register\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n                <a href=\"#loginPopup\">Login</a>\n                <a href=\"#registerPopup\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"/connectUs\">Contact us</a>\n                <a href=\"/logOut\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\">\n            <img src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <h3>Cart</h3>\n            <span class=\"cart-items-count\">3</span>\n        </div>\n    </header>";
 }
 function render() {
     var container = document.querySelector('#header');
@@ -40,23 +40,23 @@ function initHeader() {
             });
         }
         if (loginButton) {
-            loginButton.addEventListener('click', window.login);
+            loginButton.addEventListener('click', window.initLoginPopup);
         }
         if (registerButton) {
-            registerButton.addEventListener('click', window.register);
+            registerButton.addEventListener('click', window.RegisterPopup);
         }
     }
     else {
         console.error('Target container not found!');
     }
 }
-window.login = function () {
+window.initLoginPopup = function () {
     var loginPopup = document.getElementById('loginPopup');
     if (loginPopup) {
         loginPopup.style.display = 'flex';
     }
 };
-window.register = function () {
+window.registerPopup = function () {
     var registerPopup = document.getElementById('registerPopup');
     if (registerPopup) {
         registerPopup.style.display = 'flex';

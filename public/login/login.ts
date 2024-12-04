@@ -1,6 +1,6 @@
 function renderLogin() {
   return `
-    <div class="loginPopup" id="loginPopup" style="display: none;">
+    <div class="loginPopup" id="loginPopup" >
       <div class="loginPopup-content">
         <button class="closeLogin-btn" id="closeLoginPopupButton">X</button>
         <h2 class="popup-title">Sign In</h2>

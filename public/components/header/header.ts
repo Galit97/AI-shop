@@ -1,9 +1,9 @@
-
+declare global {
   interface Window {
-    login: () => void;
-    register: () => void;
+    showLoginPopup: () => void;
+    showRegisterPopup: () => void;
   }
-
+}
 
 function renderHeader() {
   return `
@@ -30,8 +30,8 @@ function renderHeader() {
 
           
             <div id="openMenu" class="dropdown-menu">
-              <a id="login" onclick="login()">Login</a>
-              <a id="register" onclick="register()">Register</a>
+                <a href="#loginPopup">Login</a>
+                <a href="#registerPopup">Register</a>
               <hr>
               <nav id="navbar">
                 <a href="/myOrders">My orders</a>
@@ -96,25 +96,25 @@ function initHeader() {
     }
 
     if (loginButton) {
-      loginButton.addEventListener('click', window.login);
+      loginButton.addEventListener('click', window.initLoginPopup);
     }
 
     if (registerButton) {
-      registerButton.addEventListener('click', window.register);
+      registerButton.addEventListener('click', window.RegisterPopup);
     }
   } else {
     console.error('Target container not found!');
   }
 }
 
-window.login = function () {
+window.initLoginPopup = function () {
   const loginPopup = document.getElementById('loginPopup');
   if (loginPopup) {
     loginPopup.style.display = 'flex';
   }
 };
 
-window.register = function () {
+window.registerPopup = function () {
   const registerPopup = document.getElementById('registerPopup');
   if (registerPopup) {
     registerPopup.style.display = 'flex';
