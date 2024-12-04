@@ -1,5 +1,5 @@
 import {Schema, model, Document} from 'mongoose';
-import { Comment } from './comments';
+import { Comment } from './commentsModel';
 
 export interface Product extends Document{
     id: string;

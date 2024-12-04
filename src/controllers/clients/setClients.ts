@@ -1,19 +1,36 @@
 import { ClientModel } from "../../models/clientModel";
+import bcrypt from 'bcrypt';
+import 'dotenv/config';
+
+export const secret="shsxxsloswk520"; //temporary secret
+const saltRounds = parseInt("12", 10); //temporary rounds
+// const saltRounds = parseInt(process.env.SALTROUNDS||"", 10);
+
 
 export async function register(req: any, res: any) {
     try {
-        const { firstName, lastName, email, password, phoneNumber, address } = req.body;
+        if(!saltRounds) throw new Error("no Salt!");
+
+        const { firstName, 
+                lastName, 
+                email, 
+                password, 
+                phoneNumber, 
+            } = req.body;
 
         if(!firstName || !lastName || !email || !password || !phoneNumber) {
             throw new Error('Please fill all fields');
-        }
+        };
+
+        //hash password
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         //send request to DB
         await ClientModel.create({
             firstName,
             lastName,
             email,
-            password,
+            password: hashedPassword,
             phoneNumber,
         });
 
@@ -31,24 +48,27 @@ export async function login(req: any, res: any) {
     try {
         const { email, password } = req.body;
 
-        if (!email || !password) throw new Error("Please fill all fields");
+        const client = await ClientModel.findOne({ email });
+        if (!client) {
+            return res.status(400).send({ message: "You are not registered" });
+        };
 
-        // Find user by email
-        const user = await ClientModel.findOne({ email, password });
-        if (!user) {
-            return res.status(400).send({ error: "Invalid email or password" });
-        }
+        // Check if the password is correct
+        const passwordValid = await bcrypt.compare(password, client.password);
+        if(!passwordValid) {
+            return res.status(400).send({ message: "The password you provided is incorrect" });
+        };
 
-        //send cookie to client
-        res.cookie('user', user._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+        //send client's id to the cookie
+        res.cookie('client', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
 
         return res.status(200).send({ message: "Login successful" });
 
     } catch (error: any) {
         if (error.code = "11000") {
-            res.status(400).send({ error: "user already exists" })
+            res.status(400).send({ error: "You are not registered" })
         }
         console.error(error);
         return res.status(500).send({ error: error.message });
     };
-}
+};

@@ -36,37 +36,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.login = exports.register = void 0;
+exports.login = exports.register = exports.secret = void 0;
 var clientModel_1 = require("../../models/clientModel");
+var bcrypt_1 = require("bcrypt");
+require("dotenv/config");
+exports.secret = "shsxxsloswk520"; //temporary secret
+var saltRounds = parseInt("12", 10); //temporary rounds
+// const saltRounds = parseInt(process.env.SALTROUNDS||"", 10);
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, password, phoneNumber, address, error_1;
+        var _a, firstName, lastName, email, password, phoneNumber, hashedPassword, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, phoneNumber = _a.phoneNumber, address = _a.address;
+                    _b.trys.push([0, 3, , 4]);
+                    if (!saltRounds)
+                        throw new Error("no Salt!");
+                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, phoneNumber = _a.phoneNumber;
                     if (!firstName || !lastName || !email || !password || !phoneNumber) {
                         throw new Error('Please fill all fields');
                     }
+                    ;
+                    return [4 /*yield*/, bcrypt_1["default"].hash(password, saltRounds)];
+                case 1:
+                    hashedPassword = _b.sent();
                     //send request to DB
                     return [4 /*yield*/, clientModel_1.ClientModel.create({
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
-                            password: password,
+                            password: hashedPassword,
                             phoneNumber: phoneNumber
                         })];
-                case 1:
+                case 2:
                     //send request to DB
                     _b.sent();
                     res.cookie('user', { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
                     return [2 /*return*/, res.status(201).send({ message: "User registered successfully" })];
-                case 2:
+                case 3:
                     error_1 = _b.sent();
                     console.error(error_1);
                     return [2 /*return*/, res.status(500).send({ error: error_1.message })];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -74,31 +85,37 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, user, error_2;
+        var _a, email, password, client, passwordValid, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, email = _a.email, password = _a.password;
-                    if (!email || !password)
-                        throw new Error("Please fill all fields");
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ email: email, password: password })];
+                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ email: email })];
                 case 1:
-                    user = _b.sent();
-                    if (!user) {
-                        return [2 /*return*/, res.status(400).send({ error: "Invalid email or password" })];
+                    client = _b.sent();
+                    if (!client) {
+                        return [2 /*return*/, res.status(400).send({ message: "You are not registered" })];
                     }
-                    //send cookie to client
-                    res.cookie('user', user._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
-                    return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
+                    ;
+                    return [4 /*yield*/, bcrypt_1["default"].compare(password, client.password)];
                 case 2:
+                    passwordValid = _b.sent();
+                    if (!passwordValid) {
+                        return [2 /*return*/, res.status(400).send({ message: "The password you provided is incorrect" })];
+                    }
+                    ;
+                    //send client's id to the cookie
+                    res.cookie('client', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+                    return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
+                case 3:
                     error_2 = _b.sent();
                     if (error_2.code = "11000") {
-                        res.status(400).send({ error: "user already exists" });
+                        res.status(400).send({ error: "You are not registered" });
                     }
                     console.error(error_2);
                     return [2 /*return*/, res.status(500).send({ error: error_2.message })];
-                case 3:
+                case 4:
                     ;
                     return [2 /*return*/];
             }
@@ -106,3 +123,4 @@ function login(req, res) {
     });
 }
 exports.login = login;
+;

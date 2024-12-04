@@ -36,31 +36,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteComment = exports.getCommentsByProduct = exports.addComment = void 0;
-function addComment(req, res) {
+exports.loginAdmin = exports.registerAdmin = exports.secret = void 0;
+require("dotenv/config");
+exports.secret = "shsxxsloswk520"; //temporary secret
+var saltRounds = parseInt("12", 10); //temporary rounds
+// const saltRounds = parseInt(process.env.SALTROUNDS||"", 10);
+function registerAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
+            try {
+            }
+            catch (error) {
+                console.error(error);
+                return [2 /*return*/, res.status(500).send({ error: error.message })];
+            }
             return [2 /*return*/];
         });
     });
 }
-exports.addComment = addComment;
-;
-function getCommentsByProduct(req, res) {
+exports.registerAdmin = registerAdmin;
+function loginAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
+            try {
+            }
+            catch (error) {
+            }
+            ;
             return [2 /*return*/];
         });
     });
 }
-exports.getCommentsByProduct = getCommentsByProduct;
-;
-function deleteComment(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/];
-        });
-    });
-}
-exports.deleteComment = deleteComment;
+exports.loginAdmin = loginAdmin;
 ;
