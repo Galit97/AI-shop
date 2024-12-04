@@ -38,7 +38,7 @@ function render() {
     };
   };
 
-  render();
+render();
 
 function login() {
   try {
