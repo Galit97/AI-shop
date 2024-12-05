@@ -2,7 +2,7 @@
 function renderChat() {
     return `
         <div class="chat-AI" id="chatAI">
-        <img src="./images/chat-image.png" alt="Chat Icon">
+        <img src="./images/chat-image.png" id="chatBotIcon" alt="Chat Icon">
         <div id="chatWindow" class="chat-window" style="display: none;">
           <div class="chat-header">
             <h4>Chat with us</h4>
@@ -36,6 +36,7 @@ const closeButton = document.getElementById('closeChat') as HTMLElement;
 const sendButton = document.getElementById('sendMessage') as HTMLElement;
 const chatInput = document.getElementById('chatInput') as HTMLInputElement;
 const messagesContainer = document.getElementById('messages') as HTMLElement;
+const chatBotIcon = document.getElementById('chatBotIcon') as HTMLElement;
 
 
 
@@ -44,8 +45,12 @@ chatIcon.addEventListener('click', () => {
 });
 
 closeButton.addEventListener('click', () => {
-  chatWindow.style.display = 'none'; 
+  chatWindow.style.display = 'none';
+  window.location.href = "/";  // Adjust the redirect URL as needed
 });
+
+chatBotIcon.addEventListener('click', () => {
+})
 
 sendButton.addEventListener('click', () => {
   const userMessage = chatInput.value.trim();
