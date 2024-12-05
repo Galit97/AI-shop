@@ -1,4 +1,4 @@
-
+let chatOpended = false;
 function renderChat() {
     return `
         <div class="chat-AI" id="chatAI">
@@ -42,6 +42,7 @@ const chatBotIcon = document.getElementById('chatBotIcon') as HTMLElement;
 
 chatIcon.addEventListener('click', () => {
   chatWindow.style.display = 'flex'; 
+  chatOpended = true;
 });
 
 closeButton.addEventListener('click', () => {
@@ -50,6 +51,11 @@ closeButton.addEventListener('click', () => {
 });
 
 chatBotIcon.addEventListener('click', () => {
+  if (chatOpended){
+    chatWindow.style.display = 'none';
+    window.location.href = "/";  // Adjust the redirect URL as needed
+  }
+  chatOpended = false;
 })
 
 sendButton.addEventListener('click', () => {
