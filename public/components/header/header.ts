@@ -87,6 +87,7 @@ function initHeader() {
     if (loginRegisterButton && openMenu) {
       loginRegisterButton.addEventListener('mouseover', () => {
         alert('Login Register')
+        openMenu.style.display = 'block';
       });
 
       loginRegisterButton.addEventListener('mouseleave', () => {
