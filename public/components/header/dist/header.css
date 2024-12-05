@@ -175,7 +175,7 @@ header .cart .cart-items-count {
     font-size: 12px;
   }
 }
-@media (min-width: 768px) and (max-width: 1024px) and (min-width: 480px) and (max-width: 768px) {
+@media (min-width: 480px) and (max-width: 768px) {
   header {
     display: flex;
     align-items: center;
@@ -194,7 +194,7 @@ header .cart .cart-items-count {
     padding: 5px;
   }
   header .search-container input[type=text] {
-    width: 50rem;
+    width: 10rem;
     padding: 10px;
     border: none;
     outline: none;
@@ -219,19 +219,7 @@ header .cart .cart-items-count {
     height: 3rem;
     width: 3rem;
   }
-  header .login-register nav a {
-    font-size: 14px;
-  }
-  header .login-register hr {
-    margin: 10px 0;
-    border: 0;
-    border-top: 1px solid #ddd;
-  }
-  header:hover #openMenu {
-    display: block;
-  }
-
-  .cart {
+  header .login-register .cart {
     display: flex;
     align-items: center;
     cursor: pointer;
