@@ -1,3 +1,4 @@
+var chatOpended = false;
 function renderChat() {
     return "\n        <div class=\"chat-AI\" id=\"chatAI\">\n        <img src=\"./images/chat-image.png\" id=\"chatBotIcon\" alt=\"Chat Icon\">\n        <div id=\"chatWindow\" class=\"chat-window\" style=\"display: none;\">\n          <div class=\"chat-header\">\n            <h4>Chat with us</h4>\n            <button id=\"closeChat\">X</button>\n          </div>\n          <div class=\"chat-body\">\n            <div class=\"messages\" id=\"messages\"></div>\n            <input type=\"text\" id=\"chatInput\" placeholder=\"Type your message...\" />\n            <button id=\"sendMessage\">Send</button>\n          </div>\n        </div>\n      </div>\n    ";
 }
@@ -23,12 +24,18 @@ var messagesContainer = document.getElementById('messages');
 var chatBotIcon = document.getElementById('chatBotIcon');
 chatIcon.addEventListener('click', function () {
     chatWindow.style.display = 'flex';
+    chatOpended = true;
 });
 closeButton.addEventListener('click', function () {
     chatWindow.style.display = 'none';
     window.location.href = "/"; // Adjust the redirect URL as needed
 });
 chatBotIcon.addEventListener('click', function () {
+    if (chatOpended) {
+        chatWindow.style.display = 'none';
+        window.location.href = "/"; // Adjust the redirect URL as needed
+    }
+    chatOpended = false;
 });
 sendButton.addEventListener('click', function () {
     var userMessage = chatInput.value.trim();
