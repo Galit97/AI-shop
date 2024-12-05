@@ -6,8 +6,8 @@ function renderLogin() {
         <button class="closeLogin-btn" id="closeLoginPopupButton">X</button>
         <h2 class="popup-title">Sign In</h2>
         <form id="loginForm">
-          <input type="text" id="email" name="email" placeholder="Email" required />
-          <input type="password" id="password" name="password" placeholder="Password" required />
+          <input type="text" id="loginEmail" name="email" placeholder="Email" required />
+          <input type="password" id="loginPassword" name="password" placeholder="Password" required />
           <button type="submit" id="loginButton">Sign In</button>
         </form>
         <p class="divider"><span>or</span></p>

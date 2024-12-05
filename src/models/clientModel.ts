@@ -26,12 +26,11 @@ export const ClientSchema = new Schema<Client>({
     },
     password: {
         type:String,
-        unique:true,
+        unique:false,
         required:true,
     },
     phoneNumber:{
         type:String,
-        unique:true,
         required:true
     },
     address: {

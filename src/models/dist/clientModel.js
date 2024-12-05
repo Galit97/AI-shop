@@ -18,12 +18,11 @@ exports.ClientSchema = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        unique: true,
+        unique: false,
         required: true
     },
     phoneNumber: {
         type: String,
-        unique: true,
         required: true
     },
     address: {

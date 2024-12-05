@@ -7,11 +7,10 @@ function renderRegister() {
         <form id="registerForm">
           <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
           <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
-          <input type="email" id="email" name="email" placeholder="Email Address" required />
-          <input type="password" id="password" name="password" placeholder="Password" required />
-          <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" required />
+          <input type="email" id="registerEmail" name="email" placeholder="Email Address" required />
           <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required />
-          <input type="text" id="address" name="address" placeholder="Address" required />
+          <input type="password" id="registerPassword" name="password" placeholder="Password" required />
+          <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" required />
           <button type="submit" id="registerButton">Sign Up</button>
         </form>
         <p class="divider"><span>or</span></p>
@@ -31,7 +30,7 @@ function renderRegister() {
       </div>
     </div>
   `;
-}
+};
 
 function openRegisterPopup() {
       const queryString = window.location.search;
@@ -59,7 +58,7 @@ function closeRegisterPopup() {
     registerPopup!.style.display = 'none';
     window.location.href = "/";
   });
-}
+};
 
 function render() {
       console.log('render');
@@ -74,3 +73,53 @@ function render() {
 };
 
 render();
+
+
+function handleFormRegister(): void {
+  // Select the form element
+      const form = (document.getElementById('registerForm') as HTMLFormElement);
+  
+      if (form) {
+          form.addEventListener('submit', (event: Event) => {
+              event.preventDefault();
+              
+              const formData = new FormData(form);
+              const firstName = formData.get('firstName') as string;
+              const lastName = formData.get('lastName') as string;
+              const phoneNumber = formData.get('phoneNumber') as string;
+              const email = formData.get('registerEmail') as string;
+              const password = formData.get('registerPassword') as string;
+              const repeatPassword = formData.get('repeatPassword') as string;
+  
+              if (password !== repeatPassword) {
+                  alert('Passwords do not match! Please try again'); //todo:change
+              } else {
+                 addClient(firstName, lastName, email, password, phoneNumber);
+              }
+          });
+      } else {
+          console.error('Login form not found in the DOM');
+      };
+  };
+
+
+ async function addClient(firstName:string, lastName:string, email:string, password:string, phoneNumber:string) {
+    try {
+            const response = await fetch('http://localhost:3000/api/clients/add-client', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ firstName, lastName, email, password, phoneNumber}),
+            });
+            
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('success');
+            } else {
+                alert(data.message);
+            }
+
+      } catch (error) {
+          console.error('Error sending post:', error);
+      }
+  }
