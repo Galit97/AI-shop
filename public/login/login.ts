@@ -1,5 +1,9 @@
+
+
 function renderLogin() {
+  console.log('render2');
   return `
+  
     <div class="loginPopup" id="loginPopup" >
       <div class="loginPopup-content">
         <button class="closeLogin-btn" id="closeLoginPopupButton">X</button>
@@ -29,7 +33,7 @@ function renderLogin() {
 }
 
 function initLoginPopup() {
-  const loginPopup = document.getElementById('loginPopup');
+  const loginPopup = document.getElementById('loginPopup'); 
   const closeLoginButton = document.getElementById('closeLoginPopupButton');
 
   closeLoginButton?.addEventListener('click', () => {
@@ -44,12 +48,14 @@ function initLoginPopup() {
 }
 
 function render() {
-  const container = document.querySelector('body');
+  console.log('render');
+  const container = document.querySelector('#loginPopup');
   if (container) {
     container.innerHTML += renderLogin();
     initLoginPopup();
   } else {
     console.error('Target container not found!');
+    //  container.innerHTML = renderHeader();
   }
 }
 

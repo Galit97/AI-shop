@@ -25,7 +25,6 @@ function renderHeader() {
           <div class="login-register">
             <img src="./images/user-image.png" alt="User Icon">
             <button id="loginRegisterButton" aria-hasPopup="true" aria-expanded="false">
-              Welcome, {$}Client.firstName} <br> Login / Register
             </button>
 
           

@@ -1,4 +1,4 @@
-export function renderRegister() {
+function renderRegister() {
   return `
     <div class="registerPopup" id="registerPopup">
       <div class="registerPopup-content">
@@ -33,7 +33,7 @@ export function renderRegister() {
   `;
 }
 
-export function initRegisterPopup() {
+function initRegisterPopup() {
   try {
     let registerPopup = document.getElementById('registerPopup');
     if (!registerPopup) {
@@ -68,4 +68,4 @@ export function initRegisterPopup() {
   }
 }
 
-render();
+// render();
