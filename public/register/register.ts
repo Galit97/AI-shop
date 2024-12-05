@@ -26,46 +26,51 @@ function renderRegister() {
           </button>
         </div>
         <p class="login-link">
-          Already have an account? <a href="../login/login.html">Log in</a>
+          Already have an account? <a href="?loginParam=login">Log in</a>
         </p>
       </div>
     </div>
   `;
 }
 
-function initRegisterPopup() {
-  try {
-    let registerPopup = document.getElementById('registerPopup');
-    if (!registerPopup) {
-      const container = document.createElement('div');
-      container.innerHTML = renderRegister();
-      document.body.appendChild(container.firstElementChild as HTMLElement);
-      registerPopup = document.getElementById('registerPopup') as HTMLElement;
-    }
+function openRegisterPopup() {
+      const queryString = window.location.search;
+      const params:any = new URLSearchParams(queryString);
 
-    const openRegisterPage = document.getElementById('register') as HTMLElement;
-    const closeRegisterButton = document.getElementById('closeRegisterPopupButton') as HTMLElement;
+      const registerParam = params.get('registerParam');
 
-    if (!openRegisterPage || !closeRegisterButton) {
-      throw new Error('Register open or close button not found.');
-    }
 
-    openRegisterPage.addEventListener('click', () => {
-      registerPopup!.style.display = 'flex';
-    });
+      const registerPopup = document.getElementById('registerPopup'); 
 
-    closeRegisterButton.addEventListener('click', () => {
-      registerPopup!.style.display = 'none';
-    });
+      if (!registerParam) {
+        registerPopup!.style.display = 'none';
+      } else {
+        registerPopup!.style.display = 'block';
+      };
+};
 
-    window.addEventListener('click', (event) => {
-      if (event.target === registerPopup) {
-        registerPopup.style.display = 'none';
-      }
-    });
-  } catch (err) {
-    console.error('Error in initializeRegisterPopup function:', err);
-  }
+
+function closeRegisterPopup() {
+
+  const registerPopup = document.getElementById('registerPopup'); 
+  const closeRegisterButton = document.getElementById('closeRegisterPopupButton');
+
+  closeRegisterButton?.addEventListener('click', () => {
+    registerPopup!.style.display = 'none';
+    window.location.href = "/";
+  });
 }
 
-// render();
+function render() {
+      console.log('render');
+      const container = document.querySelector('#registerPopup');
+      if (container) {
+        container.innerHTML += renderRegister();
+        openRegisterPopup();
+        closeRegisterPopup();
+      } else {
+        console.error('Target container not found!');
+      };
+};
+
+render();

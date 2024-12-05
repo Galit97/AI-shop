@@ -1,9 +1,9 @@
-declare global {
-  interface Window {
+// declare global {
+interface Window {
     showLoginPopup: () => void;
     showRegisterPopup: () => void;
-  }
 }
+// }
 
 function renderHeader() {
   return `
@@ -29,8 +29,8 @@ function renderHeader() {
 
           
             <div id="openMenu" class="dropdown-menu">
-                <a href="#loginPopup">Login</a>
-                <a href="#registerPopup">Register</a>
+                <a href="?loginParam=login">Login</a>
+                <a href="?registerParam=register">Register</a>
               <hr>
               <nav id="navbar">
                 <a href="/myOrders">My orders</a>

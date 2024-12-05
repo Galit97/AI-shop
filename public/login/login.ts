@@ -1,10 +1,7 @@
-
-
 function renderLogin() {
-  console.log('render2');
   return `
   
-    <div class="loginPopup" id="loginPopup" >
+    <div class="loginPopup" id="loginPopup">
       <div class="loginPopup-content">
         <button class="closeLogin-btn" id="closeLoginPopupButton">X</button>
         <h2 class="popup-title">Sign In</h2>
@@ -25,38 +22,54 @@ function renderLogin() {
           </button>
         </div>
         <p class="register-link">
-          Don't have an account? <a href="../register/register.html">Register</a>
+          Don't have an account? <a href="?registerParam=register">Register</a>
         </p>
       </div>
     </div>
   `;
+};
+
+
+function openLoginPopup() {
+      const queryString = window.location.search;
+      const params:any = new URLSearchParams(queryString);
+
+      const loginParam = params.get('loginParam');
+
+
+      const loginPopup = document.getElementById('loginPopup'); 
+
+      if (!loginParam) {
+        loginPopup!.style.display = 'none';
+      } else {
+        loginPopup!.style.display = 'block';
+      };
 }
 
-function initLoginPopup() {
-  const loginPopup = document.getElementById('loginPopup'); 
-  const closeLoginButton = document.getElementById('closeLoginPopupButton');
 
-  closeLoginButton?.addEventListener('click', () => {
-    loginPopup!.style.display = 'none';
-  });
+function closeLoginPopup() {
 
-  window.addEventListener('click', (event) => {
-    if (event.target === loginPopup) {
-      loginPopup!.style.display = 'none';
-    }
-  });
+      const loginPopup = document.getElementById('loginPopup'); 
+      const closeLoginButton = document.getElementById('closeLoginPopupButton');
+
+      closeLoginButton?.addEventListener('click', () => {
+        loginPopup!.style.display = 'none';
+        window.location.href = "/";
+      });
 }
 
 function render() {
-  console.log('render');
-  const container = document.querySelector('#loginPopup');
-  if (container) {
-    container.innerHTML += renderLogin();
-    initLoginPopup();
-  } else {
-    console.error('Target container not found!');
-    //  container.innerHTML = renderHeader();
-  }
-}
+    console.log('render');
+    const container = document.querySelector('#loginPopup');
+    if (container) {
+      container.innerHTML += renderLogin();
+      openLoginPopup();
+      closeLoginPopup();
+    } else {
+      console.error('Target container not found!');
+    };
+};
 
 render();
+
+
