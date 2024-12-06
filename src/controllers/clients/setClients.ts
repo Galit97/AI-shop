@@ -13,12 +13,12 @@ export async function register(req: any, res: any) {
 
         const { firstName, 
                 lastName, 
-                email, 
+                email,
+                phoneNumber,  
                 password, 
-                phoneNumber, 
             } = req.body;
 
-        if(!firstName || !lastName || !email || !password || !phoneNumber) {
+        if(!firstName || !lastName || !email || !phoneNumber || !password ) {
             throw new Error('Please fill all fields');
         };
 
@@ -30,11 +30,11 @@ export async function register(req: any, res: any) {
             firstName,
             lastName,
             email,
-            password: hashedPassword,
             phoneNumber,
+            password: hashedPassword,
         });
 
-        res.cookie('user', { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+        res.cookie('client', { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
 
         return res.status(201).send({ message: "User registered successfully" });
 

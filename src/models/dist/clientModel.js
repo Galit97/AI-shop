@@ -16,13 +16,13 @@ exports.ClientSchema = new mongoose_1.Schema({
         unique: true,
         required: true
     },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         unique: false,
-        required: true
-    },
-    phoneNumber: {
-        type: String,
         required: true
     },
     address: {

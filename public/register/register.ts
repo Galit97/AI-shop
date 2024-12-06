@@ -7,9 +7,9 @@ function renderRegister() {
         <form id="registerForm">
           <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
           <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
-          <input type="email" id="registerEmail" name="email" placeholder="Email Address" required />
+          <input type="email" id="registerEmail" name="registerEmail" placeholder="Email Address" required />
           <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required />
-          <input type="password" id="registerPassword" name="password" placeholder="Password" required />
+          <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" required />
           <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" required />
           <button type="submit" id="registerButton">Sign Up</button>
         </form>
@@ -37,10 +37,9 @@ function openRegisterPopup() {
       const params:any = new URLSearchParams(queryString);
 
       const registerParam = params.get('registerParam');
-
-
       const registerPopup = document.getElementById('registerPopup'); 
 
+      handleFormRegister();
       if (!registerParam) {
         registerPopup!.style.display = 'none';
       } else {
@@ -76,6 +75,7 @@ render();
 
 
 function handleFormRegister(): void {
+  console.log('handleFormRegister');
   // Select the form element
       const form = (document.getElementById('registerForm') as HTMLFormElement);
   
@@ -90,10 +90,11 @@ function handleFormRegister(): void {
               const email = formData.get('registerEmail') as string;
               const password = formData.get('registerPassword') as string;
               const repeatPassword = formData.get('repeatPassword') as string;
-  
+              console.log(`${firstName} ${lastName} ${phoneNumber} ${email} ${password}`);
               if (password !== repeatPassword) {
                   alert('Passwords do not match! Please try again'); //todo:change
               } else {
+                
                  addClient(firstName, lastName, email, password, phoneNumber);
               }
           });
@@ -104,6 +105,7 @@ function handleFormRegister(): void {
 
 
  async function addClient(firstName:string, lastName:string, email:string, password:string, phoneNumber:string) {
+  
     try {
             const response = await fetch('http://localhost:3000/api/clients/add-client', {
                 method: 'POST',
@@ -112,9 +114,11 @@ function handleFormRegister(): void {
             });
             
             const data = await response.json();
-
+            const registerPopup = document.getElementById('registerPopup'); 
             if (response.ok) {
                 console.log('success');
+                registerPopup!.style.display = 'none';
+                window.location.href = "/";
             } else {
                 alert(data.message);
             }

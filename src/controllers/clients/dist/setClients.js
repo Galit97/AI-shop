@@ -45,15 +45,15 @@ var saltRounds = parseInt("12", 10); //temporary rounds
 // const saltRounds = parseInt(process.env.SALTROUNDS||"", 10);
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, firstName, lastName, email, password, phoneNumber, hashedPassword, error_1;
+        var _a, firstName, lastName, email, phoneNumber, password, hashedPassword, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 3, , 4]);
                     if (!saltRounds)
                         throw new Error("no Salt!");
-                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, phoneNumber = _a.phoneNumber;
-                    if (!firstName || !lastName || !email || !password || !phoneNumber) {
+                    _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, phoneNumber = _a.phoneNumber, password = _a.password;
+                    if (!firstName || !lastName || !email || !phoneNumber || !password) {
                         throw new Error('Please fill all fields');
                     }
                     ;
@@ -65,13 +65,13 @@ function register(req, res) {
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
-                            password: hashedPassword,
-                            phoneNumber: phoneNumber
+                            phoneNumber: phoneNumber,
+                            password: hashedPassword
                         })];
                 case 2:
                     //send request to DB
                     _b.sent();
-                    res.cookie('user', { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+                    res.cookie('client', { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
                     return [2 /*return*/, res.status(201).send({ message: "User registered successfully" })];
                 case 3:
                     error_1 = _b.sent();

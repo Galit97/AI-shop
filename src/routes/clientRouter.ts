@@ -4,7 +4,7 @@ import { getAllClients, getClient } from '../controllers/clients/getClients';
 const clientRouter = express.Router();
 
 clientRouter.post("/add-client", register);
-clientRouter.post("/login", login);
+clientRouter.post("/login-client", login);
 clientRouter.get("/get-all-clients", getAllClients);
 clientRouter.post("/get-client", getClient);
 

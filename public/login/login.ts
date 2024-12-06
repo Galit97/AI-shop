@@ -6,8 +6,8 @@ function renderLogin() {
         <button class="closeLogin-btn" id="closeLoginPopupButton">X</button>
         <h2 class="popup-title">Sign In</h2>
         <form id="loginForm">
-          <input type="text" id="loginEmail" name="email" placeholder="Email" required />
-          <input type="password" id="loginPassword" name="password" placeholder="Password" required />
+          <input type="text" id="loginEmail" name="loginEmail" placeholder="Email" required />
+          <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required />
           <button type="submit" id="loginButton">Sign In</button>
         </form>
         <p class="divider"><span>or</span></p>
@@ -38,7 +38,7 @@ function openLoginPopup() {
 
 
       const loginPopup = document.getElementById('loginPopup'); 
-
+      handleFormLogin();
       if (!loginParam) {
         loginPopup!.style.display = 'none';
       } else {
@@ -59,7 +59,6 @@ function closeLoginPopup() {
 }
 
 function render() {
-    console.log('render');
     const container = document.querySelector('#loginPopup');
     if (container) {
       container.innerHTML += renderLogin();
@@ -73,3 +72,46 @@ function render() {
 render();
 
 
+function handleFormLogin(): void {
+      const form = (document.getElementById('loginForm') as HTMLFormElement);
+  
+      if (form) {
+          form.addEventListener('submit', (event: Event) => {
+              event.preventDefault();
+              
+              const formData = new FormData(form);
+              const email = formData.get('loginEmail') as string;
+              const password = formData.get('loginPassword') as string;
+              console.log(` ${email} ${password}`);
+
+              loginClient(email, password);
+          });
+        } else {
+          console.error('Login form not found in the DOM');
+      };                
+  };
+
+
+ async function loginClient(email:string, password:string) {
+    try {
+            const response = await fetch('http://localhost:3000/api/clients/login-client', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({email, password}),
+            });
+            
+            const data = await response.json();
+            const loginPopup = document.getElementById('loginPopup'); 
+            
+            if (response.ok) {
+                console.log('success login');
+                loginPopup!.style.display = 'none';
+                window.location.href = "/";
+            } else {
+                alert(data.message);
+            }
+
+      } catch (error) {
+          console.error('Error sending post:', error);
+      }
+  }

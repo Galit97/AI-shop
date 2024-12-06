@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 function renderRegister() {
-    return "\n    <div class=\"registerPopup\" id=\"registerPopup\">\n      <div class=\"registerPopup-content\">\n        <button class=\"closeRegister-btn\" id=\"closeRegisterPopupButton\">X</button>\n        <h2 class=\"popup-title\">Sign Up</h2>\n        <form id=\"registerForm\">\n          <input type=\"text\" id=\"firstName\" name=\"firstName\" placeholder=\"First Name\" required />\n          <input type=\"text\" id=\"lastName\" name=\"lastName\" placeholder=\"Last Name\" required />\n          <input type=\"email\" id=\"registerEmail\" name=\"email\" placeholder=\"Email Address\" required />\n          <input type=\"text\" id=\"phoneNumber\" name=\"phoneNumber\" placeholder=\"Phone Number\" required />\n          <input type=\"password\" id=\"registerPassword\" name=\"password\" placeholder=\"Password\" required />\n          <input type=\"password\" id=\"repeatPassword\" name=\"repeatPassword\" placeholder=\"Repeat Password\" required />\n          <button type=\"submit\" id=\"registerButton\">Sign Up</button>\n        </form>\n        <p class=\"divider\"><span>or</span></p>\n        <div class=\"social-login\">\n          <button id=\"googleRegister\" onclick=\"googleRegister()\">\n            <img src=\"../images/google-image.webp\" alt=\"Google Logo\" />\n            Sign up with Google\n          </button>\n          <button id=\"facebookRegister\" onclick=\"facebookRegister()\">\n            <img src=\"../images/facebook-image.webp\" alt=\"Facebook Logo\" />\n            Sign up with Facebook\n          </button>\n        </div>\n        <p class=\"login-link\">\n          Already have an account? <a href=\"?loginParam=login\">Log in</a>\n        </p>\n      </div>\n    </div>\n  ";
+    return "\n    <div class=\"registerPopup\" id=\"registerPopup\">\n      <div class=\"registerPopup-content\">\n        <button class=\"closeRegister-btn\" id=\"closeRegisterPopupButton\">X</button>\n        <h2 class=\"popup-title\">Sign Up</h2>\n        <form id=\"registerForm\">\n          <input type=\"text\" id=\"firstName\" name=\"firstName\" placeholder=\"First Name\" required />\n          <input type=\"text\" id=\"lastName\" name=\"lastName\" placeholder=\"Last Name\" required />\n          <input type=\"email\" id=\"registerEmail\" name=\"registerEmail\" placeholder=\"Email Address\" required />\n          <input type=\"text\" id=\"phoneNumber\" name=\"phoneNumber\" placeholder=\"Phone Number\" required />\n          <input type=\"password\" id=\"registerPassword\" name=\"registerPassword\" placeholder=\"Password\" required />\n          <input type=\"password\" id=\"repeatPassword\" name=\"repeatPassword\" placeholder=\"Repeat Password\" required />\n          <button type=\"submit\" id=\"registerButton\">Sign Up</button>\n        </form>\n        <p class=\"divider\"><span>or</span></p>\n        <div class=\"social-login\">\n          <button id=\"googleRegister\" onclick=\"googleRegister()\">\n            <img src=\"../images/google-image.webp\" alt=\"Google Logo\" />\n            Sign up with Google\n          </button>\n          <button id=\"facebookRegister\" onclick=\"facebookRegister()\">\n            <img src=\"../images/facebook-image.webp\" alt=\"Facebook Logo\" />\n            Sign up with Facebook\n          </button>\n        </div>\n        <p class=\"login-link\">\n          Already have an account? <a href=\"?loginParam=login\">Log in</a>\n        </p>\n      </div>\n    </div>\n  ";
 }
 ;
 function openRegisterPopup() {
@@ -43,6 +43,7 @@ function openRegisterPopup() {
     var params = new URLSearchParams(queryString);
     var registerParam = params.get('registerParam');
     var registerPopup = document.getElementById('registerPopup');
+    handleFormRegister();
     if (!registerParam) {
         registerPopup.style.display = 'none';
     }
@@ -77,6 +78,7 @@ function render() {
 ;
 render();
 function handleFormRegister() {
+    console.log('handleFormRegister');
     // Select the form element
     var form = document.getElementById('registerForm');
     if (form) {
@@ -89,6 +91,7 @@ function handleFormRegister() {
             var email = formData.get('registerEmail');
             var password = formData.get('registerPassword');
             var repeatPassword = formData.get('repeatPassword');
+            console.log(firstName + " " + lastName + " " + phoneNumber + " " + email + " " + password);
             if (password !== repeatPassword) {
                 alert('Passwords do not match! Please try again'); //todo:change
             }
@@ -105,7 +108,7 @@ function handleFormRegister() {
 ;
 function addClient(firstName, lastName, email, password, phoneNumber) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, error_1;
+        var response, data, registerPopup, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -120,8 +123,11 @@ function addClient(firstName, lastName, email, password, phoneNumber) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
+                    registerPopup = document.getElementById('registerPopup');
                     if (response.ok) {
                         console.log('success');
+                        registerPopup.style.display = 'none';
+                        window.location.href = "/";
                     }
                     else {
                         alert(data.message);

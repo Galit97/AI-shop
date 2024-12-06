@@ -5,8 +5,8 @@ export interface Client extends Document{
     firstName: string;
     lastName: string;
     email: string;
-    password:string
     phoneNumber: string;
+    password:string;
     address: string;
 }
 
@@ -24,14 +24,14 @@ export const ClientSchema = new Schema<Client>({
         unique:true,
         required:true
     },
+    phoneNumber:{
+        type:String,
+        required:true
+    },
     password: {
         type:String,
         unique:false,
         required:true,
-    },
-    phoneNumber:{
-        type:String,
-        required:true
     },
     address: {
         type:String,
