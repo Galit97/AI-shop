@@ -37,25 +37,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.getAllClients = exports.getClient = void 0;
-var clientModel_1 = require("../../models/clientModel");
 function getClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, client, error_1;
+        var id;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    id = req.cookie.id;
-                    return [4 /*yield*/, clientModel_1.ClientModel.findOne()];
-                case 1:
-                    client = _a.sent();
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
-                case 3: return [2 /*return*/];
+            try {
+                id = req.cookie.id;
+                // const client = await ClientModel.findOne(id: id);
             }
+            catch (error) {
+                console.error(error);
+                return [2 /*return*/, res.status(500).send({ error: error.message })];
+            }
+            return [2 /*return*/];
         });
     });
 }

@@ -4,7 +4,7 @@ export async function getClient(req: any, res: any) {
     try {
         const { id } = req.cookie;
 
-        const client = await ClientModel.findOne()
+        // const client = await ClientModel.findOne(id: id);
 
     } catch (error: any) {
         console.error(error);
