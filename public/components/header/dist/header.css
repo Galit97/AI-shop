@@ -194,7 +194,7 @@ header .cart .cart-items-count {
     padding: 5px;
   }
   header .search-container input[type=text] {
-    width: 10rem;
+    width: 50rem;
     padding: 10px;
     border: none;
     outline: none;
