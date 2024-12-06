@@ -9,7 +9,7 @@ header {
   justify-content: space-between;
   padding: 10px 0;
   margin: 0 15rem;
-  
+
   img {
     height: 5rem;
     margin-right: 20px;
@@ -210,68 +210,68 @@ header {
 }
 
 
-@media (min-width: 768px) and (max-width: 1024px) and (min-width: 480px) and (max-width: 768px) {
-    header {
+@media (min-width: 480px) and (max-width: 768px) {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    img {
+      height: 5rem;
+      margin-right: 20px;
+    }
+
+    .search-container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 10px 0;
-      
-      img {
-        height: 5rem;
-        margin-right: 20px;
-      }
-    
-      .search-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      justify-content: center;
+      border-radius: 30px;
+      padding: 5px;
+
+      input[type="text"] {
+        width: 10rem;
+        padding: 10px;
+        border: none;
+        outline: none;
         border-radius: 30px;
-        padding: 5px;
-    
-        input[type="text"] {
-          width: 50rem;
-          padding: 10px;
-          border: none;
-          outline: none;
-          border-radius: 30px;
-          font-size: 16px;
-        }
-    
-        button {
-     
-          width: 3rem;
-          height: 3rem;
-    
-          img {
-            width: 3rem;
-            height: 3rem;
-          }
-        }
+        font-size: 16px;
       }
-    
-      .login-register {
-        position: relative;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    
+
+      button {
+
+        width: 3rem;
+        height: 3rem;
 
         img {
-          height: 3rem;
           width: 3rem;
+          height: 3rem;
         }
-    
- 
+      }
+    }
+
+    .login-register {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+
+      img {
+        height: 3rem;
+        width: 3rem;
+      }
+
+
       .cart {
         display: flex;
         align-items: center;
         cursor: pointer;
         position: relative;
-    
-       
-  
-}
+
+
+
+      }
+    }
   }
 }
-  }
