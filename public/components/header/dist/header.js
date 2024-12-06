@@ -34,7 +34,7 @@ function initHeader() {
         var registerButton = document.getElementById('register');
         if (loginRegisterButton_1 && openMenu) {
             loginRegisterButton_1.addEventListener('mouseover', function () {
-                openMenu.style.display = 'block';
+                alert('Login Register');
             });
             loginRegisterButton_1.addEventListener('mouseleave', function () {
                 openMenu.style.display = 'none';
