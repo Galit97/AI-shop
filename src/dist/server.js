@@ -19,7 +19,7 @@ app.listen(port, function () {
 app.use("/api/clients", clientRouter_1["default"]);
 app.use("/api/products", productRouter_1["default"]);
 app.use("/api/comments", commentsRouter_1["default"]);
-app.use("/api/admin", adminRouter_1["default"]);
+app.use("/api/admins", adminRouter_1["default"]);
 //DB
 var dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
 var database = 'AI-Shop';

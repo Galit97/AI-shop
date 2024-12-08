@@ -36,6 +36,8 @@ function renderHeader() {
               <nav id="navbar">
                 <a href="/myOrders">My orders</a>
                 <a href="/connectUs">Contact us</a>
+                <a href="?AdminLoginParam=AdminLogin">Admin login</a>
+                <a href="?AdminRegisterParam=AdminRegister">Admin register</a>
                 <a href="/logOut">Log out</a>
               </nav>
             </div>
