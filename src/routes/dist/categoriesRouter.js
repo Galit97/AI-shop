@@ -1,0 +1,12 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var setCategory_1 = require("../controllers/category/setCategory");
+var getCategory_1 = require("../controllers/category/getCategory");
+var categoryRouter = express_1["default"].Router();
+categoryRouter.post("/add-category", setCategory_1.addCategory);
+categoryRouter["delete"]("/delete-category", setCategory_1.deleteCategory);
+categoryRouter.put("/update-category", setCategory_1.updateCategory);
+categoryRouter.get("/get-all-categories", getCategory_1.getAllCategories);
+categoryRouter.get("/get-category/:id", getCategory_1.getCategory);
+exports["default"] = categoryRouter;

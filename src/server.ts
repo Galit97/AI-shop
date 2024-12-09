@@ -22,7 +22,7 @@ app.use("/api/clients", clientRouter);
 app.use("/api/products", productRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/admin", adminRouter);
-app.use("/api/categories", adminRouter);
+app.use("/api/categories", categoriesRouter);
 
 //DB
 const dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
