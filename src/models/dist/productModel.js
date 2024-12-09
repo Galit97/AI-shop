@@ -13,7 +13,8 @@ exports.ProductSchema = new mongoose_1.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
     },
     price: {

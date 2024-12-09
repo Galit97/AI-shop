@@ -83,6 +83,7 @@ function register(req, res) {
     });
 }
 exports.register = register;
+;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, email, password, client, passwordValid, error_2;

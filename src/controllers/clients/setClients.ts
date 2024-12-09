@@ -42,7 +42,7 @@ export async function register(req: any, res: any) {
         console.error(error);
         return res.status(500).send({ error: error.message });
     }
-}
+};
 
 export async function login(req: any, res: any) {
     try {

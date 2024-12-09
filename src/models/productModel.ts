@@ -1,16 +1,18 @@
 import {Schema, model, Document} from 'mongoose';
 import { Comment } from './commentsModel';
+import { Category } from './categoryModel';
 
 export interface Product extends Document{
     id: string;
     name: string;
     description: string;
-    category: string;
+    category: Category | null;
     price: number;
     quantity: number;
     inStock: boolean;
     onSale: boolean;
     comments: Comment[];
+    image: string;
     rating: number; //calculate the rating from the comments, using the productId
 }
 
@@ -25,7 +27,8 @@ export const ProductSchema = new Schema<Product>({
         required: true,
     },
     category: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
         required: true,
     },
     price: {
