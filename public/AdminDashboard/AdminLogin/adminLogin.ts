@@ -21,9 +21,6 @@ function renderAdminLogin() {
               Sign in with Facebook
             </button>
           </div>
-          <p class="register-link">
-            Don't have an account? <a href="?AdminRegisterParam=register">Admin Register</a>
-          </p>
         </div>
       </div>
     `;
@@ -54,7 +51,7 @@ function renderAdminLogin() {
   
         closeAdminLoginButton?.addEventListener('click', () => {
             AdminLoginPopup!.style.display = 'none';
-          window.location.href = "/";
+            window.location.href = "/";
         });
   }
   
@@ -91,10 +88,10 @@ function renderAdminLogin() {
         };                
     };
   
-  
    async function loginAdmin(email:string, password:string) {
+    console.log(` hcnlav l;ad ${email} ${password}`);
       try {
-              const response = await fetch('http://localhost:3000/api/admins/login-admin', {
+              const response = await fetch('http://localhost:3000/api/admin/login-admin', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({email, password}),
@@ -102,11 +99,11 @@ function renderAdminLogin() {
               
               const data = await response.json();
               const AdminLoginPopup = document.getElementById('AdminLoginPopup'); 
-              
+              console.log('g', data);
               if (response.ok) {
                   console.log('success login');
                   AdminLoginPopup!.style.display = 'none';
-                  window.location.href = "/";
+                  window.location.href = "./adminDashboard/adminDashboard.html";
               } else {
                   alert(data.message);
               }

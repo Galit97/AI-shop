@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 function renderAdminLogin() {
-    return "\n    \n      <div class=\"AdminLoginPopup\" id=\"AdminLoginPopup\">\n        <div class=\"AdminLoginPopup-content\">\n          <button class=\"closeAdminLogin-btn\" id=\"closeAdminLoginPopupButton\">X</button>\n          <h2 class=\"popup-title\">Sign In</h2>\n          <form id=\"AdminLoginForm\">\n            <input type=\"text\" id=\"AdminLoginEmail\" name=\"AdminLoginEmail\" placeholder=\"Email\" required />\n            <input type=\"password\" id=\"AdminLoginPassword\" name=\"AdminLoginPassword\" placeholder=\"Password\" required />\n            <button type=\"submit\" id=\"AdminLoginButton\">Sign In</button>\n          </form>\n          <p class=\"divider\"><span>or</span></p>\n          <div class=\"social-login\">\n            <button id=\"googleLogin\" onclick=\"googleLogin()\">\n              <img src=\"../images/google-image.webp\" alt=\"Google Logo\" />\n              Sign in with Google\n            </button>\n            <button id=\"facebookLogin\" onclick=\"facebookLogin()\">\n              <img src=\"../images/facebook-image.webp\" alt=\"Facebook Logo\" />\n              Sign in with Facebook\n            </button>\n          </div>\n          <p class=\"register-link\">\n            Don't have an account? <a href=\"?AdminRegisterParam=register\">Admin Register</a>\n          </p>\n        </div>\n      </div>\n    ";
+    return "\n    \n      <div class=\"AdminLoginPopup\" id=\"AdminLoginPopup\">\n        <div class=\"AdminLoginPopup-content\">\n          <button class=\"closeAdminLogin-btn\" id=\"closeAdminLoginPopupButton\">X</button>\n          <h2 class=\"popup-title\">Sign In</h2>\n          <form id=\"AdminLoginForm\">\n            <input type=\"text\" id=\"AdminLoginEmail\" name=\"AdminLoginEmail\" placeholder=\"Email\" required />\n            <input type=\"password\" id=\"AdminLoginPassword\" name=\"AdminLoginPassword\" placeholder=\"Password\" required />\n            <button type=\"submit\" id=\"AdminLoginButton\">Sign In</button>\n          </form>\n          <p class=\"divider\"><span>or</span></p>\n          <div class=\"social-login\">\n            <button id=\"googleLogin\" onclick=\"googleLogin()\">\n              <img src=\"../images/google-image.webp\" alt=\"Google Logo\" />\n              Sign in with Google\n            </button>\n            <button id=\"facebookLogin\" onclick=\"facebookLogin()\">\n              <img src=\"../images/facebook-image.webp\" alt=\"Facebook Logo\" />\n              Sign in with Facebook\n            </button>\n          </div>\n        </div>\n      </div>\n    ";
 }
 ;
 function openAdminLoginPopup() {
@@ -98,32 +98,36 @@ function loginAdmin(email, password) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/admins/login-admin', {
+                    console.log(" hcnlav l;ad " + email + " " + password);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/admin/login-admin', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email: email, password: password })
                         })];
-                case 1:
+                case 2:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
-                case 2:
+                case 3:
                     data = _a.sent();
                     AdminLoginPopup = document.getElementById('AdminLoginPopup');
+                    console.log('g', data);
                     if (response.ok) {
                         console.log('success login');
                         AdminLoginPopup.style.display = 'none';
-                        window.location.href = "/";
+                        window.location.href = "./adminDashboard/adminDashboard.html";
                     }
                     else {
                         alert(data.message);
                     }
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 5];
+                case 4:
                     error_1 = _a.sent();
                     console.error('Error sending post:', error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });

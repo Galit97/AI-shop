@@ -5,19 +5,12 @@ function renderAddProduct() {
           <form id="AddProductForm">
             <input type="text" id="name" name="name" placeholder="Name" required />
             <input type="text" id="description" name="description" placeholder="Description" required />
+           
             <label for="category">Select a Category:</label>
-            <select id="category" name="category">
-            <option value="technology">Technology</option>
-            <option value="health">Health</option>
-            <option value="education">Education</option>
-            <option value="sports">Sports</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="fashion">Fashion</option>
-            <option value="HomeAndGarden">Home & Garden</option>
-            <option value="toys">Toys</option>
-            <option value="office">Office</option>
-           <option value="other">Other</option>
-            </select>  
+            <label for="category">Select category:</label>
+            <select name="category" id="category" required>
+                <option value="">-- Select category --</option>
+            </select>
            <input type="number" id="price" name="price" placeholder="Price" required />
            <input type="number" id="quantity" name="quantity" placeholder="quantity" required />
            <label for="inStock">In Stock:</label>

@@ -24,7 +24,6 @@ export const AdminSchema = new Schema<Admin>({
     },
     password: {
         type:String,
-        unique:true,
         required:true,
     },
     

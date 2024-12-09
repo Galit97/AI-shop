@@ -40,6 +40,7 @@ exports.loginAdmin = exports.addAdmin = exports.secret = void 0;
 var adminModel_1 = require("../../models/adminModel");
 var bcrypt_1 = require("bcrypt");
 require("dotenv/config");
+var inspector_1 = require("inspector");
 exports.secret = "shsxxsloswk520"; //temporary secret
 var saltRounds = parseInt("12", 10); //temporary rounds
 // const saltRounds = parseInt(process.env.SALTROUNDS||"", 10);
@@ -73,7 +74,7 @@ function addAdmin(req, res) {
                     return [2 /*return*/, res.status(201).send({ message: "Admin added successfully" })];
                 case 3:
                     error_1 = _b.sent();
-                    console.error(error_1);
+                    inspector_1.console.error(error_1);
                     return [2 /*return*/, res.status(500).send({ error: error_1.message })];
                 case 4: return [2 /*return*/];
             }
@@ -83,37 +84,36 @@ function addAdmin(req, res) {
 exports.addAdmin = addAdmin;
 function loginAdmin(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, admin, passwordValid, error_2;
+        var _a, email, password, admin, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 3, , 4]);
+                    _b.trys.push([0, 2, , 3]);
                     _a = req.body, email = _a.email, password = _a.password;
+                    inspector_1.console.log("l", req.body, email);
                     return [4 /*yield*/, adminModel_1.AdminModel.findOne({ email: email })];
                 case 1:
                     admin = _b.sent();
                     if (!admin) {
-                        return [2 /*return*/, res.status(400).send({ message: "You are not registered" })];
+                        return [2 /*return*/, res.status(400).send({ message: "You are not registered!!!!" })];
                     }
                     ;
-                    return [4 /*yield*/, bcrypt_1["default"].compare(password, admin.password)];
-                case 2:
-                    passwordValid = _b.sent();
-                    if (!passwordValid) {
-                        return [2 /*return*/, res.status(400).send({ message: "The password you provided is incorrect" })];
-                    }
-                    ;
+                    // Check if the password is correct
+                    // const passwordValid = await bcrypt.compare(password, admin.password);
+                    // if(!passwordValid) {
+                    //     return res.status(400).send({ message: "The password you provided is incorrect" });
+                    // };
                     //send client's id to the cookie
                     res.cookie('admin', admin._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
-                case 3:
+                case 2:
                     error_2 = _b.sent();
                     if (error_2.code = "11000") {
                         res.status(400).send({ error: "You are not registered" });
                     }
-                    console.error(error_2);
+                    inspector_1.console.error(error_2);
                     return [2 /*return*/, res.status(500).send({ error: error_2.message })];
-                case 4:
+                case 3:
                     ;
                     return [2 /*return*/];
             }

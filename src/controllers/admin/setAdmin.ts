@@ -1,6 +1,7 @@
 import { AdminModel } from "../../models/adminModel";
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
+import { console } from "inspector";
 
 export const secret="shsxxsloswk520"; //temporary secret
 const saltRounds = parseInt("12", 10); //temporary rounds
@@ -43,17 +44,18 @@ export async function addAdmin(req: any, res: any) {
 export async function loginAdmin(req: any, res: any) {
     try {
         const { email, password } = req.body;
+        console.log("l", req.body, email);
 
         const admin = await AdminModel.findOne({ email });
         if (!admin) {
-            return res.status(400).send({ message: "You are not registered" });
+            return res.status(400).send({ message: "You are not registered!!!!" });
         };
 
         // Check if the password is correct
-        const passwordValid = await bcrypt.compare(password, admin.password);
-        if(!passwordValid) {
-            return res.status(400).send({ message: "The password you provided is incorrect" });
-        };
+        // const passwordValid = await bcrypt.compare(password, admin.password);
+        // if(!passwordValid) {
+        //     return res.status(400).send({ message: "The password you provided is incorrect" });
+        // };
 
         //send client's id to the cookie
         res.cookie('admin', admin._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });

@@ -18,7 +18,6 @@ exports.AdminSchema = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        unique: true,
         required: true
     }
 });
