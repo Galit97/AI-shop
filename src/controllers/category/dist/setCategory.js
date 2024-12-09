@@ -97,6 +97,7 @@ function getCategoryById(req, res) {
     });
 }
 exports.getCategoryById = getCategoryById;
+;
 function deleteCategory(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var id, category, error_3;
@@ -132,6 +133,7 @@ function deleteCategory(req, res) {
     });
 }
 exports.deleteCategory = deleteCategory;
+;
 function editCategory(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, id, name, updatedCategoryFields, updatedCategory, error_4;

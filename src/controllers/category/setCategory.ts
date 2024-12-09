@@ -45,7 +45,7 @@ export async function getCategoryById(req: any, res: any) {
         console.error("Error in getCategoryById:", error);
         return res.status(500).send({ error: "Internal Server Error" });
     }
-}
+};
 
 
 
@@ -67,7 +67,7 @@ export async function deleteCategory(req: any, res: any) {
         console.error('Error deleting category:', error);
         res.status(500).json({ error: "Internal server error" });
     }
-}
+};
 
 export async function editCategory(req: any, res: any) {
     const { id, name } = req.body;

@@ -4,7 +4,7 @@ export async function getCategory(req: any, res: any) {
     try {
         const { id } = req.cookie;
 
-        const Category = await CategoryModel.findOne(id: id);
+        const Category = await CategoryModel.findOne(id);
 
     } catch (error: any) {
         console.error(error);

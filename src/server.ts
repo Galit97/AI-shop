@@ -6,6 +6,7 @@ import clientRouter from './routes/clientRouter';
 import productRouter from './routes/productRouter';
 import commentsRouter from './routes/commentsRouter';
 import adminRouter from './routes/adminRouter';
+import categoryRouter from './routes/categoriesRouter';
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -22,7 +23,7 @@ app.use("/api/clients", clientRouter);
 app.use("/api/products", productRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/admin", adminRouter);
-app.use("/api/categories", categoriesRouter);
+app.use("/api/categories", categoryRouter);
 
 //DB
 const dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";

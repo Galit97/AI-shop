@@ -46,7 +46,7 @@ function getCategory(req, res) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     id = req.cookie.id;
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.findOne(id, id)];
+                    return [4 /*yield*/, categoryModel_1.CategoryModel.findOne(id)];
                 case 1:
                     Category = _a.sent();
                     return [3 /*break*/, 3];
