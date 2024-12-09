@@ -28,7 +28,7 @@ exports.ProductSchema = new mongoose_1.Schema({
         type: Boolean,
         required: true
     },
-    inSale: {
+    onSale: {
         type: Boolean,
         required: true
     },

@@ -9,7 +9,7 @@ export interface Product extends Document{
     price: number;
     quantity: number;
     inStock: boolean;
-    inSale: boolean;
+    onSale: boolean;
     comments: Comment[];
     rating: number; //calculate the rating from the comments, using the productId
 }
@@ -40,7 +40,7 @@ export const ProductSchema = new Schema<Product>({
         type: Boolean,
         required: true,
     },
-    inSale: {
+    onSale: {
         type: Boolean,
         required: true,
     },
