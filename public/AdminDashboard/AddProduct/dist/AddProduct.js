@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 function renderAddProduct() {
-    return "\n      <div class=\"AddProduct\" id=\"AddProduct\">\n          <h2 class=\"AddProduct-title\">Add Product</h2>\n          <form id=\"AddProductForm\">\n            <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Name\" required />\n            <input type=\"text\" id=\"description\" name=\"description\" placeholder=\"Description\" required />\n           \n            <label for=\"category\">Select a Category:</label>\n            <label for=\"category\">Select category:</label>\n            <select name=\"category\" id=\"category\" required>\n                <option value=\"\">-- Select category --</option>\n            </select>\n           <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Price\" required />\n           <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"quantity\" required />\n           <label for=\"inStock\">In Stock:</label>\n           <select id=\"inStock\" name=\"in Stock\">\n           <option value=\"yes\">Yes</option>\n           <option value=\"no\">No</option>\n         </select>\n          <select id=\"onSale\" name=\"on Sale\">\n           <option value=\"yes\">Yes</option>\n           <option value=\"no\">No</option>\n         </select>\n           <label for=\"comments\">Add a Comment:</label>\n           <textarea id=\"comments\" name=\"comments\" rows=\"3\" placeholder=\"Write your comment here...\"></textarea>\n           <label for=\"rating\">Rating:</label>\n        <select id=\"rating\" name=\"rating\">\n        <option value=\"5\">5 - Excellent</option>\n        <option value=\"4\">4 - Very Good</option>\n        <option value=\"3\">3 - Good</option>\n        <option value=\"2\">2 - Fair</option>\n       <option value=\"1\">1 - Poor</option>\n       </select>\n        <button type=\"submit\" id=\"AddProductButton\">Add Product</button>\n          </form>\n        </div>\n      </div>\n    ";
+    return "\n      <div class=\"AddProduct\" id=\"AddProduct\">\n          <h2 class=\"AddProduct-title\">Add Product</h2>\n          <form id=\"AddProductForm\">\n            <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Name\" required />\n            <input type=\"text\" id=\"description\" name=\"description\" placeholder=\"Description\" required />\n            <label for=\"category\">Select a Category:</label>\n            <select name=\"category\" id=\"category\" required>\n                <option value=\"\">-- Select category --</option>\n            </select>\n           <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Price\" required />\n           <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"quantity\" required />\n           <label for=\"inStock\">In Stock:</label>\n           <select id=\"inStock\" name=\"in Stock\">\n                <option value=\"yes\">Yes</option>\n                <option value=\"no\">No</option>\n          </select>\n       </select>\n        <button type=\"submit\" id=\"AddProductButton\">Add Product</button>\n              </form>\n        </div>\n      </div>\n    ";
 }
 ;
 function handleFormAddProduct() {
@@ -100,7 +100,7 @@ function addProduct(productData) {
     });
 }
 function render() {
-    var container = document.getElementById('root');
+    var container = document.getElementById('AddProduct');
     if (container) {
         container.innerHTML += renderAddProduct();
         handleFormAddProduct();

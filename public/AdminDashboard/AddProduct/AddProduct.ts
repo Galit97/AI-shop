@@ -5,9 +5,7 @@ function renderAddProduct() {
           <form id="AddProductForm">
             <input type="text" id="name" name="name" placeholder="Name" required />
             <input type="text" id="description" name="description" placeholder="Description" required />
-           
             <label for="category">Select a Category:</label>
-            <label for="category">Select category:</label>
             <select name="category" id="category" required>
                 <option value="">-- Select category --</option>
             </select>
@@ -15,25 +13,12 @@ function renderAddProduct() {
            <input type="number" id="quantity" name="quantity" placeholder="quantity" required />
            <label for="inStock">In Stock:</label>
            <select id="inStock" name="in Stock">
-           <option value="yes">Yes</option>
-           <option value="no">No</option>
-         </select>
-          <select id="onSale" name="on Sale">
-           <option value="yes">Yes</option>
-           <option value="no">No</option>
-         </select>
-           <label for="comments">Add a Comment:</label>
-           <textarea id="comments" name="comments" rows="3" placeholder="Write your comment here..."></textarea>
-           <label for="rating">Rating:</label>
-        <select id="rating" name="rating">
-        <option value="5">5 - Excellent</option>
-        <option value="4">4 - Very Good</option>
-        <option value="3">3 - Good</option>
-        <option value="2">2 - Fair</option>
-       <option value="1">1 - Poor</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+          </select>
        </select>
         <button type="submit" id="AddProductButton">Add Product</button>
-          </form>
+              </form>
         </div>
       </div>
     `;
@@ -90,7 +75,7 @@ function renderAddProduct() {
   }
   
   function render() {
-    const container = document.getElementById('root');
+    const container = document.getElementById('AddProduct');
     if (container) {
       container.innerHTML += renderAddProduct();
       handleFormAddProduct();
