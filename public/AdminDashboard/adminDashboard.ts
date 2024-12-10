@@ -52,6 +52,19 @@ function renderProductPage(): void {
     fetchCategories()
 }
 
+function renderClientPage(): void {
+    const clientsSection = document.getElementById("clients");
+    if (!clientsSection) return;
+
+    clientsSection.innerHTML = `
+        <div id="client-form-container"></div>
+        <div id="client-list"></div>
+    `;
+
+    renderClientForm();  
+    fetchAllClients();
+}
+
 function handleMenuClick(ev: Event): void {
     ev.preventDefault();
 
@@ -72,6 +85,9 @@ function handleMenuClick(ev: Event): void {
     } else if (sectionId === "products") {
         renderProductPage(); 
     }
+   else if (sectionId === "clients") {
+    renderClientPage(); 
+}
 }
 
 function initializeDashboard(): void {

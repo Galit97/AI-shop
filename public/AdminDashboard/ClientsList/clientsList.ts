@@ -1,3 +1,11 @@
+interface Client {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
+}
 
 interface Client {
     _id: string;

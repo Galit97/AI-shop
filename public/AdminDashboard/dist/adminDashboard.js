@@ -17,6 +17,14 @@ function renderProductPage() {
     renderProductForm();
     fetchCategories();
 }
+function renderClientPage() {
+    var clientsSection = document.getElementById("clients");
+    if (!clientsSection)
+        return;
+    clientsSection.innerHTML = "\n        <div id=\"client-form-container\"></div>\n        <div id=\"client-list\"></div>\n    ";
+    renderClientForm();
+    fetchAllClients();
+}
 function handleMenuClick(ev) {
     var _a;
     ev.preventDefault();
@@ -35,6 +43,9 @@ function handleMenuClick(ev) {
     }
     else if (sectionId === "products") {
         renderProductPage();
+    }
+    else if (sectionId === "clients") {
+        renderClientPage();
     }
 }
 function initializeDashboard() {
