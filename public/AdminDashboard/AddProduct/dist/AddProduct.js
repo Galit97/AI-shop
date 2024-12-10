@@ -34,79 +34,173 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function renderAddProduct() {
-    return "\n      <div class=\"AddProduct\" id=\"AddProduct\">\n          <h2 class=\"AddProduct-title\">Add Product</h2>\n          <form id=\"AddProductForm\">\n            <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Name\" required />\n            <input type=\"text\" id=\"description\" name=\"description\" placeholder=\"Description\" required />\n            <label for=\"category\">Select a Category:</label>\n            <select name=\"category\" id=\"category\" required>\n                <option value=\"\">-- Select category --</option>\n            </select>\n           <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Price\" required />\n           <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"quantity\" required />\n           <label for=\"inStock\">In Stock:</label>\n           <select id=\"inStock\" name=\"in Stock\">\n                <option value=\"yes\">Yes</option>\n                <option value=\"no\">No</option>\n          </select>\n       </select>\n        <button type=\"submit\" id=\"AddProductButton\">Add Product</button>\n              </form>\n        </div>\n      </div>\n    ";
-}
-;
-function handleFormAddProduct() {
-    var form = document.getElementById('AddProductForm');
-    if (form) {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            var formData = new FormData(form);
-            var productData = {
-                name: formData.get('name'),
-                description: formData.get('description'),
-                category: formData.get('category'),
-                price: parseFloat(formData.get('price')),
-                quantity: parseInt(formData.get('quantity'), 10),
-                inStock: formData.get('inStock') === 'yes',
-                inSale: formData.get('onSale') === 'yes',
-                comments: formData.get('comments'),
-                rating: parseInt(formData.get('rating'), 10)
-            };
-            console.log('Product Data:', productData);
-            addProduct(productData);
-        });
-    }
-    else {
-        console.error('Add Product form not found');
-    }
-}
-function addProduct(productData) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, result, error, error_1;
+function handleAddProduct(ev) {
+    return __awaiter(this, void 0, Promise, function () {
+        var formData, productData, response, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 6, , 7]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/products/add-product', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                    ev.preventDefault();
+                    formData = new FormData(ev.target);
+                    productData = {
+                        name: formData.get("name"),
+                        description: formData.get("description"),
+                        category: formData.get("category"),
+                        price: parseFloat(formData.get("price")),
+                        quantity: parseInt(formData.get("quantity"), 10),
+                        inStock: formData.get("inStock") === "yes",
+                        inSale: formData.get("inSale") === "yes",
+                        image: formData.get("image")
+                    };
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 6, , 7]);
+                    return [4 /*yield*/, fetch("/api/products/add-product", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify(productData)
                         })];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
                 case 2:
-                    result = _a.sent();
-                    console.log('Product added successfully:', result);
-                    alert('Product added successfully!');
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 4];
+                    console.log("Product added successfully");
+                    ev.target.reset();
+                    return [4 /*yield*/, fetchAllProducts()];
+                case 3:
+                    _a.sent();
                     return [3 /*break*/, 5];
-                case 3: return [4 /*yield*/, response.json()];
-                case 4:
-                    error = _a.sent();
-                    alert("Error: " + error.message);
-                    _a.label = 5;
+                case 4: throw new Error("Failed to add product");
                 case 5: return [3 /*break*/, 7];
                 case 6:
-                    error_1 = _a.sent();
-                    console.error('Error adding product:', error_1);
+                    err_1 = _a.sent();
+                    console.error("Error adding product:", err_1);
                     return [3 /*break*/, 7];
                 case 7: return [2 /*return*/];
             }
         });
     });
 }
-function render() {
-    var container = document.getElementById('AddProduct');
-    if (container) {
-        container.innerHTML += renderAddProduct();
-        handleFormAddProduct();
-    }
-    else {
-        console.error('Root container not found!');
-    }
+function fetchAllProducts() {
+    return __awaiter(this, void 0, Promise, function () {
+        var response, products, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("/api/products/get-all-products")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to fetch products");
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    products = _a.sent();
+                    renderProducts(products);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error("Error fetching products:", error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }
-render();
+function renderProducts(products) {
+    var container = document.getElementById("product-list");
+    if (!container)
+        return;
+    container.innerHTML = "\n      <table>\n          <thead>\n              <tr>\n                  <th>Product Name</th>\n                  <th>Description</th>\n                  <th>Category</th>\n                  <th>Price</th>\n                  <th>Quantity</th>\n                  <th>In Stock</th>\n                  <th>Actions</th>\n              </tr>\n          </thead>\n          <tbody>\n              " + products
+        .map(function (product) {
+        var _a;
+        return "\n                      <tr id=\"product-" + product._id + "\">\n                          <td>" + product.name + "</td>\n                          <td>" + product.description + "</td>\n                          <td>" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</td>\n                          <td>" + product.price + "</td>\n                          <td>" + product.quantity + "</td>\n                          <td>" + (product.inStock ? "Yes" : "No") + "</td>\n                          <td>\n                              <button onclick=\"handleEditProduct('" + product._id + "')\">Edit</button>\n                              <button onclick=\"handleDeleteProduct('" + product._id + "')\">Delete</button>\n                          </td>\n                      </tr>\n                  ";
+    })
+        .join("") + "\n          </tbody>\n      </table>\n  ";
+}
+function handleDeleteProduct(id) {
+    var _a;
+    return __awaiter(this, void 0, Promise, function () {
+        var response, error_2;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch("/api/products/delete-product", {
+                            method: "DELETE",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: id })
+                        })];
+                case 1:
+                    response = _b.sent();
+                    if (response.ok) {
+                        (_a = document.getElementById("product-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
+                        console.log("Product deleted successfully");
+                    }
+                    else {
+                        throw new Error("Failed to delete product");
+                    }
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _b.sent();
+                    console.error("Error deleting product:", error_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function handleEditProduct(id) {
+    return __awaiter(this, void 0, Promise, function () {
+        var name, description, price, quantity, inStock, response, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    name = prompt("Enter new product name:");
+                    if (!name)
+                        return [2 /*return*/];
+                    description = prompt("Enter new product description:");
+                    if (!description)
+                        return [2 /*return*/];
+                    price = parseFloat(prompt("Enter new product price:") || "0");
+                    quantity = parseInt(prompt("Enter new product quantity:") || "0", 10);
+                    inStock = confirm("Is the product in stock?");
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 6, , 7]);
+                    return [4 /*yield*/, fetch("/api/products/edit-product", {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: id, name: name, description: description, price: price, quantity: quantity, inStock: inStock })
+                        })];
+                case 2:
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 4];
+                    console.log("Product edited successfully");
+                    return [4 /*yield*/, fetchAllProducts()];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4: throw new Error("Failed to edit product");
+                case 5: return [3 /*break*/, 7];
+                case 6:
+                    error_3 = _a.sent();
+                    console.error("Error editing product:", error_3);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
+            }
+        });
+    });
+}
+function renderProductForm() {
+    var container = document.getElementById("product-form-container");
+    if (!container)
+        return;
+    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">--Select category--</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inStock\">In Stock:</label>\n          <select id=\"inStock\" name=\"inStock\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
+    var form = document.getElementById("product-form");
+    if (form)
+        form.addEventListener("submit", handleAddProduct);
+}
+window.onload = function () {
+    renderProductForm();
+    fetchAllProducts();
+};

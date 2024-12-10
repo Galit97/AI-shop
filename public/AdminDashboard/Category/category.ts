@@ -1,10 +1,10 @@
 async function handleAddCategory(ev: Event): Promise<void> {
+    ev.preventDefault();
+
+    const formData = new FormData(ev.target as HTMLFormElement);
+    const name = formData.get("name") as string;
+
     try {
-        ev.preventDefault();
-
-        const formData = new FormData(ev.target as HTMLFormElement);
-        const name = formData.get("name") as string;
-
         const response = await fetch("/api/categories/add-category", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -12,9 +12,7 @@ async function handleAddCategory(ev: Event): Promise<void> {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log("Category added:", data);
-
+            console.log("Category added successfully");
             (ev.target as HTMLFormElement).reset();
             await fetchAllCategories();
         } else {
@@ -27,7 +25,7 @@ async function handleAddCategory(ev: Event): Promise<void> {
 
 async function fetchAllCategories(): Promise<void> {
     try {
-        const response = await fetch("/api/categories/all-categories");
+        const response = await fetch("/api/categories/get-all-categories");
         if (!response.ok) throw new Error("Failed to fetch categories");
 
         const categories = await response.json();
@@ -70,34 +68,38 @@ function renderCategories(categories: any[]): void {
 
 async function handleDeleteCategory(id: string): Promise<void> {
     try {
-        const response = await fetch(`/api/categories/delete-category`, {
+        const response = await fetch("/api/categories/delete-category", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id }),
         });
 
-        if (!response.ok) throw new Error("Failed to delete category");
-
-        document.getElementById(`category-${id}`)?.remove();
+        if (response.ok) {
+            document.getElementById(`category-${id}`)?.remove();
+        } else {
+            throw new Error("Failed to delete category");
+        }
     } catch (error) {
         console.error("Error deleting category:", error);
     }
 }
 
 async function handleEditCategory(id: string): Promise<void> {
-    try {
-        const name = prompt("Enter new category name:");
-        if (!name) return;
+    const name = prompt("Enter new category name:");
+    if (!name) return;
 
-        const response = await fetch(`/api/categories/edit-category`, {
+    try {
+        const response = await fetch("/api/categories/edit-category", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, name }),
         });
 
-        if (!response.ok) throw new Error("Failed to update category");
-
-        await fetchAllCategories();
+        if (response.ok) {
+            await fetchAllCategories();
+        } else {
+            throw new Error("Failed to edit category");
+        }
     } catch (error) {
         console.error("Error editing category:", error);
     }
@@ -108,14 +110,11 @@ function renderCategoryForm(): void {
     if (!container) return;
 
     container.innerHTML = `
-        <div class="form-container">
-            <h1>Add a New Category</h1>
-            <form id="category-form">
-                <label for="name">Category Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter category name" required />
-                <button type="submit">Add Category</button>
-            </form>
-        </div>
+        <form id="category-form">
+            <label for="name">Category Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter category name" required />
+            <button type="submit">Add Category</button>
+        </form>
     `;
 
     const form = document.getElementById("category-form") as HTMLFormElement;

@@ -6,6 +6,6 @@ var getCategory_1 = require("../controllers/category/getCategory");
 var categoryRouter = express_1["default"].Router();
 categoryRouter.post("/add-category", setCategory_1.addCategory);
 categoryRouter["delete"]("/delete-category", setCategory_1.deleteCategory);
-// categoryRouter.put("/update-category", updateCategory);
+categoryRouter.patch("/edit-category", setCategory_1.editCategory);
 categoryRouter.get("/get-all-categories", getCategory_1.getAllCategories);
 exports["default"] = categoryRouter;

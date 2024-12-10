@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -88,4 +89,122 @@ button:nth-child(1) {
 button:nth-child(2) {
   background-color: #dc3545;
   color: #fff;
+=======
+/* General Styling */
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* Form Container */
+#category-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+#category-form-container form {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+#category-form-container form label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+}
+#category-form-container form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+#category-form-container form input:focus {
+  outline: none;
+  border-color: #ff6a00;
+  box-shadow: 0 0 4px rgba(255, 106, 0, 0.5);
+}
+#category-form-container form button {
+  display: inline-block;
+  background: #ff6a00;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#category-form-container form button:hover {
+  background: #e55a00;
+}
+
+/* Category List */
+#category-list {
+  margin: 2rem auto;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+#category-list table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+#category-list table thead {
+  background: #ff6a00;
+  color: #fff;
+}
+#category-list table thead th {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+#category-list table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+#category-list table tbody tr td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+#category-list table tbody tr td button {
+  background: #ff6a00;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#category-list table tbody tr td button:hover {
+  background: #e55a00;
+}
+#category-list table tbody tr td button.edit {
+  margin-right: 0.5rem;
+}
+#category-list table tbody tr td button.delete {
+  background: #ff3333;
+}
+#category-list table tbody tr td button.delete:hover {
+  background: #d60000;
+}
+#category-list table tbody tr:last-child td {
+  border-bottom: none;
+>>>>>>> 2dd9e23b9710cb12427a2d70b0d01487f191c743
 }/*# sourceMappingURL=category.css.map */
