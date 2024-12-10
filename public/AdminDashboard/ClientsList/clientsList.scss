@@ -1,4 +1,4 @@
-// General Styling
+/* General Styling */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -7,11 +7,11 @@ body {
     color: #333;
   }
   
-  // Form Container
-  #category-form-container {
+  /* Form Container */
+  #client-form-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin: 2rem auto;
     max-width: 800px;
   
@@ -22,18 +22,19 @@ body {
       padding: 2rem;
       width: 100%;
       max-width: 500px;
-      text-align: center;
   
       label {
-        font-size: 1.2rem;
+        display: block;
+        font-size: 1rem;
         font-weight: bold;
         color: #222;
+        margin-bottom: 0.5rem;
       }
   
       input {
         width: 100%;
         padding: 0.8rem;
-        margin: 1rem 0;
+        margin-bottom: 1rem;
         font-size: 1rem;
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -41,14 +42,13 @@ body {
   
         &:focus {
           outline: none;
-          border-color: #ff6a00;
-          box-shadow: 0 0 4px rgba(255, 106, 0, 0.5);
+          border-color: #ff4500;
+          box-shadow: 0 0 4px rgba(255, 69, 0, 0.5);
         }
       }
   
       button {
-        display: inline-block;
-        background: #ff6a00;
+        background: #ff4500;
         color: #fff;
         font-size: 1.2rem;
         font-weight: bold;
@@ -59,20 +59,19 @@ body {
         transition: background 0.3s;
   
         &:hover {
-          background: #e55a00;
+          background: #e03c00;
         }
       }
     }
   }
   
-  // Category List
-  #category-list {
+  /* Client List */
+  #client-list {
     margin: 2rem auto;
     max-width: 800px;
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
   
     table {
       width: 100%;
@@ -80,7 +79,7 @@ body {
       text-align: left;
   
       thead {
-        background: #ff6a00;
+        background: #ff4500;
         color: #fff;
   
         th {
@@ -101,7 +100,7 @@ body {
             border-bottom: 1px solid #ddd;
   
             button {
-              background: #ff6a00;
+              background: #ff4500;
               color: #fff;
               font-size: 0.9rem;
               font-weight: bold;
@@ -112,7 +111,7 @@ body {
               transition: background 0.3s;
   
               &:hover {
-                background: #e55a00;
+                background: #e03c00;
               }
   
               &.edit {
