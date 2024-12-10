@@ -11,6 +11,7 @@ async function handleAddProduct(ev: Event): Promise<void> {
       inSale: formData.get("inSale") === "no",
   };
 
+  console.log(productData);
   try {
       const response = await fetch("http://localhost:3000/api/products/add-product", {
           method: "POST",

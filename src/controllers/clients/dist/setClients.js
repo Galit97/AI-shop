@@ -66,7 +66,8 @@ function register(req, res) {
                             lastName: lastName,
                             email: email,
                             phoneNumber: phoneNumber,
-                            password: hashedPassword
+                            password: hashedPassword,
+                            address: ""
                         })];
                 case 2:
                     //send request to DB

@@ -32,6 +32,7 @@ export async function register(req: any, res: any) {
             email,
             phoneNumber,
             password: hashedPassword,
+            address: "",
         });
 
         res.cookie('client', { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });

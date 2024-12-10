@@ -1,4 +1,13 @@
 
+interface Client {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    adress: string | null;
+}
+
 async function handleAddClient(ev: Event): Promise<void> {
     ev.preventDefault();
 
@@ -62,15 +71,15 @@ function renderClients(clients: Client[]): void {
                 ${clients
                     .map(
                         (client) => `
-                        <tr id="client-${client.id}">
+                        <tr id="client-${client._id}">
                             <td>${client.firstName}</td>
                             <td>${client.lastName}</td>
                             <td>${client.email}</td>
                             <td>${client.phoneNumber}</td>
-                            <td>${client.address}</td>
+                            
                             <td>
-                                <button onclick="setClients('update', '${client.id}')">Edit</button>
-                                <button onclick="setClients('delete', '${client.id}')">Delete</button>
+                                <button onclick="setClients('update', '${client._id}')">Edit</button>
+                                <button onclick="setClients('delete', '${client._id}')">Delete</button>
                             </td>
                         </tr>
                     `
@@ -79,6 +88,7 @@ function renderClients(clients: Client[]): void {
             </tbody>
         </table>
     `;
+    // <td>${client.address}</td> todo: add up
 }
 
 async function setClients(action: "update" | "delete", id: string): Promise<void> {

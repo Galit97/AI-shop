@@ -50,6 +50,7 @@ function handleAddProduct(ev) {
                         quantity: parseInt(formData.get("quantity"), 10),
                         inSale: formData.get("inSale") === "no"
                     };
+                    console.log(productData);
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
