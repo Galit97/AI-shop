@@ -178,6 +178,7 @@ function renderProductForm(): void {
 
 interface Category {
     name: string;
+    _id: string;
 };
 
 async function fetchCategories(): Promise<void> {
@@ -193,7 +194,7 @@ async function fetchCategories(): Promise<void> {
 
         categories.forEach((category: Category) => {
             const option = document.createElement('option');
-            option.value = category.name.toLowerCase();
+            option.value = category._id;
             option.textContent = category.name;
             categorySelect.appendChild(option);
         });

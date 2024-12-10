@@ -14,7 +14,7 @@ export async function addProduct(req: Request, res: Response) {
       upload.single('image');
  
       const { name, description, category, price, quantity, inSale } = req.body;
-
+console.log("category", category);
       const newProduct = new ProductModel({
         name,
         description,
