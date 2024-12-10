@@ -83,39 +83,38 @@ function register(req, res) {
     });
 }
 exports.register = register;
+;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, client, passwordValid, error_2;
+        var _a, email, password, client, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 3, , 4]);
+                    _b.trys.push([0, 2, , 3]);
                     _a = req.body, email = _a.email, password = _a.password;
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({ email: email })];
                 case 1:
                     client = _b.sent();
                     if (!client) {
-                        return [2 /*return*/, res.status(400).send({ message: "You are not registered" })];
+                        return [2 /*return*/, res.status(400).send({ message: "You are not registered!!!!" })];
                     }
                     ;
-                    return [4 /*yield*/, bcrypt_1["default"].compare(password, client.password)];
-                case 2:
-                    passwordValid = _b.sent();
-                    if (!passwordValid) {
-                        return [2 /*return*/, res.status(400).send({ message: "The password you provided is incorrect" })];
-                    }
-                    ;
+                    // Check if the password is correct
+                    // const passwordValid = await bcrypt.compare(password, client.password);
+                    // if(!passwordValid) {
+                    //     return res.status(400).send({ message: "The password you provided is incorrect" });
+                    // };
                     //send client's id to the cookie
                     res.cookie('client', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
                     return [2 /*return*/, res.status(200).send({ message: "Login successful" })];
-                case 3:
+                case 2:
                     error_2 = _b.sent();
                     if (error_2.code = "11000") {
                         res.status(400).send({ error: "You are not registered" });
                     }
                     console.error(error_2);
                     return [2 /*return*/, res.status(500).send({ error: error_2.message })];
-                case 4:
+                case 3:
                     ;
                     return [2 /*return*/];
             }

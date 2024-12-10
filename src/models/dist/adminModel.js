@@ -18,8 +18,7 @@ exports.AdminSchema = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        unique: true,
         required: true
     }
 });
-exports.AdminModel = mongoose_1.model("Admin", exports.AdminSchema);
+exports.AdminModel = mongoose_1.model("admin", exports.AdminSchema);

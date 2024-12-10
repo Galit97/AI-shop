@@ -24,10 +24,9 @@ export const AdminSchema = new Schema<Admin>({
     },
     password: {
         type:String,
-        unique:true,
         required:true,
     },
     
 })
 
-export const AdminModel = model("Admin", AdminSchema); 
+export const AdminModel = model("admin", AdminSchema); 

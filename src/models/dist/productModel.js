@@ -13,7 +13,8 @@ exports.ProductSchema = new mongoose_1.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
     },
     price: {
@@ -24,20 +25,12 @@ exports.ProductSchema = new mongoose_1.Schema({
         type: Number,
         required: true
     },
-    inStock: {
-        type: Boolean,
-        required: true
-    },
     inSale: {
         type: Boolean,
         required: true
     },
-    comments: {
-        type: [String],
-        required: true
-    },
-    rating: {
-        type: Number
+    image: {
+        type: String
     }
 });
-exports.ProductModel = mongoose_1.model("Product", exports.ProductSchema);
+exports.ProductModel = mongoose_1.model('Product', exports.ProductSchema);

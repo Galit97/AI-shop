@@ -106,14 +106,15 @@ function loginClient(email, password) {
                         })];
                 case 1:
                     response = _a.sent();
+                    console.log(response);
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
                     loginPopup = document.getElementById('loginPopup');
                     if (response.ok) {
                         console.log('success login');
-                        loginPopup.style.display = 'none';
-                        window.location.href = "/";
+                        // loginPopup!.style.display = 'none';
+                        // window.location.href = "/";
                     }
                     else {
                         alert(data.message);

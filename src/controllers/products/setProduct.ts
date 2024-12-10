@@ -1,21 +1,35 @@
 import { Request, Response } from 'express';
 import { ProductModel } from '../../models/productModel';
+import multer from 'multer';
 
-export const addProduct = async (req: Request, res: Response) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+});
+const upload = multer({ storage });
+
+export async function addProduct(req: Request, res: Response) {
+  console.log("inserting product");
     try {
-        const { name, price, description, category, inStock } = req.body;
+      
+      const { name, description, category, price, quantity, inSale } = req.body;
 
-        const newProduct = new ProductModel({
-            name,
-            description,
-            category,
-            inStock,
-        });
+      const newProduct = new ProductModel({
+        name,
+        description,
+        category,
+        price,
+        quantity,
+        inSale,
+        image: ""
+        // req.file?.path || '',
+      });
 
-        const savedProduct = await newProduct.save();
+      console.log("new product", newProduct);
 
-        res.status(201).json({ message: 'Product saved', savedProduct });
+      await newProduct.save();
+      res.status(201).json({ message: 'Product saved'});
     } catch (error) {
-        res.status(500).json({ message: 'Error saving product', error });
+      res.status(500).json({ message: 'Error saving product', error });
     }
-};
+  }

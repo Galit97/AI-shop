@@ -38,29 +38,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.addProduct = void 0;
 var productModel_1 = require("../../models/productModel");
-exports.addProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, price, description, category, inStock, newProduct, savedProduct, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 2, , 3]);
-                _a = req.body, name = _a.name, price = _a.price, description = _a.description, category = _a.category, inStock = _a.inStock;
-                newProduct = new productModel_1.ProductModel({
-                    name: name,
-                    description: description,
-                    category: category,
-                    inStock: inStock
-                });
-                return [4 /*yield*/, newProduct.save()];
-            case 1:
-                savedProduct = _b.sent();
-                res.status(201).json({ message: 'Product saved', savedProduct: savedProduct });
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _b.sent();
-                res.status(500).json({ message: 'Error saving product', error: error_1 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
+var multer_1 = require("multer");
+var storage = multer_1["default"].diskStorage({
+    destination: function (req, file, cb) { return cb(null, 'uploads/'); },
+    filename: function (req, file, cb) { return cb(null, Date.now() + "-" + file.originalname); }
+});
+var upload = multer_1["default"]({ storage: storage });
+function addProduct(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, name, description, category, price, quantity, inSale, newProduct, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    console.log("inserting product");
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 3, , 4]);
+                    _a = req.body, name = _a.name, description = _a.description, category = _a.category, price = _a.price, quantity = _a.quantity, inSale = _a.inSale;
+                    newProduct = new productModel_1.ProductModel({
+                        name: name,
+                        description: description,
+                        category: category,
+                        price: price,
+                        quantity: quantity,
+                        inSale: inSale,
+                        image: ""
+                        // req.file?.path || '',
+                    });
+                    console.log("new product", newProduct);
+                    return [4 /*yield*/, newProduct.save()];
+                case 2:
+                    _b.sent();
+                    res.status(201).json({ message: 'Product saved' });
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _b.sent();
+                    res.status(500).json({ message: 'Error saving product', error: error_1 });
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+exports.addProduct = addProduct;
