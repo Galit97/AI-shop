@@ -1,138 +1,139 @@
-$primary-color: #FF5722; // Vibrant orange
-$secondary-color: #F9F9F9; // Light background
-$text-color: #333333; // Dark text
-$border-color: #E0E0E0; // Subtle border
-$hover-color: #FF784E; // Hover color for buttons
-$font-family: 'Arial, sans-serif';
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+// General Styling
 body {
-  font-family: $font-family;
-  background-color: $secondary-color;
-  color: $text-color;
-  padding: 20px;
-}
-
-#client-form-container, #client-list {
-  max-width: 1200px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-form {
-  display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input {
-  border: 1px solid $border-color;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 14px;
-  transition: border-color 0.3s;
-
-  &:focus {
-    border-color: $primary-color;
-    outline: none;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
   }
-}
-
-button {
-  grid-column: span 2;
-  padding: 12px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: $primary-color;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: $hover-color;
-  }
-}
-
-// Table styling
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-thead {
-  background-color: $primary-color;
-  color: #fff;
-
-  th {
-    padding: 10px;
-    text-align: left;
-    font-size: 14px;
-  }
-}
-
-tbody {
-  tr {
-    &:nth-child(even) {
-      background-color: $secondary-color;
-    }
-
-    td {
-      padding: 10px;
-      border-bottom: 1px solid $border-color;
-      font-size: 14px;
-    }
-
-    button {
-      padding: 6px 12px;
-      font-size: 14px;
-      background-color: $primary-color;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: $hover-color;
+  
+  // Form Container
+  #category-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 800px;
+  
+    form {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+  
+      label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #222;
       }
-
-      & + button {
-        margin-left: 10px;
+  
+      input {
+        width: 100%;
+        padding: 0.8rem;
+        margin: 1rem 0;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+        &:focus {
+          outline: none;
+          border-color: #ff6a00;
+          box-shadow: 0 0 4px rgba(255, 106, 0, 0.5);
+        }
+      }
+  
+      button {
+        display: inline-block;
+        background: #ff6a00;
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+  
+        &:hover {
+          background: #e55a00;
+        }
       }
     }
   }
-}
-
-@media (max-width: 768px) {
-  form {
-    grid-template-columns: 1fr;
-  }
-
-  button {
-    grid-column: span 1;
-  }
-
-  table {
-    font-size: 12px;
-
-    td, th {
-      padding: 8px;
+  
+  // Category List
+  #category-list {
+    margin: 2rem auto;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+  
+      thead {
+        background: #ff6a00;
+        color: #fff;
+  
+        th {
+          padding: 1rem;
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
+  
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background: #f9f9f9;
+          }
+  
+          td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+  
+            button {
+              background: #ff6a00;
+              color: #fff;
+              font-size: 0.9rem;
+              font-weight: bold;
+              padding: 0.5rem 1rem;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background 0.3s;
+  
+              &:hover {
+                background: #e55a00;
+              }
+  
+              &.edit {
+                margin-right: 0.5rem;
+              }
+  
+              &.delete {
+                background: #ff3333;
+  
+                &:hover {
+                  background: #d60000;
+                }
+              }
+            }
+          }
+        }
+  
+        tr:last-child td {
+          border-bottom: none;
+        }
+      }
     }
   }
-}
+  
