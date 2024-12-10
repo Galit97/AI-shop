@@ -11,7 +11,8 @@ const upload = multer({ storage });
 export async function addProduct(req: Request, res: Response) {
   console.log("inserting product");
     try {
-      
+      upload.single('image');
+ 
       const { name, description, category, price, quantity, inSale } = req.body;
 
       const newProduct = new ProductModel({
@@ -21,8 +22,8 @@ export async function addProduct(req: Request, res: Response) {
         price,
         quantity,
         inSale,
-        image: ""
-        // req.file?.path || '',
+        image: req.file?.path || '',
+        
       });
 
       console.log("new product", newProduct);

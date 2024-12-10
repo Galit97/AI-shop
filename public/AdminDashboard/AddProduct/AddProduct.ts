@@ -121,11 +121,11 @@ async function handleEditProduct(id: string): Promise<void> {
       const response = await fetch("/api/products/edit-product", {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, name, description, price, quantity, inStock }),
+          body: JSON.stringify({ id, name, category, description, price, quantity, inStock }),
       });
 
       if (response.ok) {
-          console.log("Product edited successfully");
+          console.log("Product edited successfully"); 
           await fetchAllProducts();
       } else {
           throw new Error("Failed to edit product");
@@ -179,7 +179,6 @@ interface Category {
     name: string;
 };
 
-
 async function fetchCategories(): Promise<void> {
     try {
         console.log("Fetching categories");
@@ -200,4 +199,4 @@ async function fetchCategories(): Promise<void> {
     } catch (error) {
         console.error("Error fetching categories:", error);
     }
-};
+}

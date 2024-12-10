@@ -36,6 +36,7 @@ function renderCategoryPage(): void {
 
     renderCategoryForm();
     fetchAllCategories();
+
 }
 
 function renderProductPage(): void {
@@ -48,7 +49,7 @@ function renderProductPage(): void {
     `;
 
     renderProductForm();  
-    fetchAllProducts();  
+    fetchCategories()
 }
 
 function handleMenuClick(ev: Event): void {

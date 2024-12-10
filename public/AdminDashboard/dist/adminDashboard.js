@@ -15,7 +15,7 @@ function renderProductPage() {
         return;
     productsSection.innerHTML = "\n        <div id=\"product-form-container\"></div>\n        <div id=\"product-list\"></div>\n    ";
     renderProductForm();
-    fetchAllProducts();
+    fetchCategories();
 }
 function handleMenuClick(ev) {
     var _a;

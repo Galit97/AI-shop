@@ -45,16 +45,18 @@ var storage = multer_1["default"].diskStorage({
 });
 var upload = multer_1["default"]({ storage: storage });
 function addProduct(req, res) {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var _a, name, description, category, price, quantity, inSale, newProduct, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var _b, name, description, category, price, quantity, inSale, newProduct, error_1;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
                     console.log("inserting product");
-                    _b.label = 1;
+                    _c.label = 1;
                 case 1:
-                    _b.trys.push([1, 3, , 4]);
-                    _a = req.body, name = _a.name, description = _a.description, category = _a.category, price = _a.price, quantity = _a.quantity, inSale = _a.inSale;
+                    _c.trys.push([1, 3, , 4]);
+                    upload.single('image');
+                    _b = req.body, name = _b.name, description = _b.description, category = _b.category, price = _b.price, quantity = _b.quantity, inSale = _b.inSale;
                     newProduct = new productModel_1.ProductModel({
                         name: name,
                         description: description,
@@ -62,17 +64,16 @@ function addProduct(req, res) {
                         price: price,
                         quantity: quantity,
                         inSale: inSale,
-                        image: ""
-                        // req.file?.path || '',
+                        image: ((_a = req.file) === null || _a === void 0 ? void 0 : _a.path) || ''
                     });
                     console.log("new product", newProduct);
                     return [4 /*yield*/, newProduct.save()];
                 case 2:
-                    _b.sent();
+                    _c.sent();
                     res.status(201).json({ message: 'Product saved' });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _b.sent();
+                    error_1 = _c.sent();
                     res.status(500).json({ message: 'Error saving product', error: error_1 });
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
