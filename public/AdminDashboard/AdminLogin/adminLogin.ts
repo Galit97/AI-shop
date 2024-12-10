@@ -4,7 +4,7 @@ function renderAdminLogin() {
       <div class="AdminLoginPopup" id="AdminLoginPopup">
         <div class="AdminLoginPopup-content">
           <button class="closeAdminLogin-btn" id="closeAdminLoginPopupButton">X</button>
-          <h2 class="popup-title">Sign In</h2>
+          <h2 class="popup-title">Admin Sign In</h2>
           <form id="AdminLoginForm">
             <input type="text" id="AdminLoginEmail" name="AdminLoginEmail" placeholder="Email" required />
             <input type="password" id="AdminLoginPassword" name="AdminLoginPassword" placeholder="Password" required />
@@ -55,7 +55,7 @@ function renderAdminLogin() {
         });
   }
   
-  function render() {
+  function renderAdmin() {
       const container = document.querySelector('#AdminLoginPopup');
       if (container) {
         container.innerHTML += renderAdminLogin();
@@ -66,7 +66,7 @@ function renderAdminLogin() {
       };
   };
   
-  render();
+  renderAdmin();
   
   
   function handleFormAdminLogin(): void {

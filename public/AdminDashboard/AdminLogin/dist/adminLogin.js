@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 function renderAdminLogin() {
-    return "\n    \n      <div class=\"AdminLoginPopup\" id=\"AdminLoginPopup\">\n        <div class=\"AdminLoginPopup-content\">\n          <button class=\"closeAdminLogin-btn\" id=\"closeAdminLoginPopupButton\">X</button>\n          <h2 class=\"popup-title\">Sign In</h2>\n          <form id=\"AdminLoginForm\">\n            <input type=\"text\" id=\"AdminLoginEmail\" name=\"AdminLoginEmail\" placeholder=\"Email\" required />\n            <input type=\"password\" id=\"AdminLoginPassword\" name=\"AdminLoginPassword\" placeholder=\"Password\" required />\n            <button type=\"submit\" id=\"AdminLoginButton\">Sign In</button>\n          </form>\n          <p class=\"divider\"><span>or</span></p>\n          <div class=\"social-login\">\n            <button id=\"googleLogin\" onclick=\"googleLogin()\">\n              <img src=\"../images/google-image.webp\" alt=\"Google Logo\" />\n              Sign in with Google\n            </button>\n            <button id=\"facebookLogin\" onclick=\"facebookLogin()\">\n              <img src=\"../images/facebook-image.webp\" alt=\"Facebook Logo\" />\n              Sign in with Facebook\n            </button>\n          </div>\n        </div>\n      </div>\n    ";
+    return "\n    \n      <div class=\"AdminLoginPopup\" id=\"AdminLoginPopup\">\n        <div class=\"AdminLoginPopup-content\">\n          <button class=\"closeAdminLogin-btn\" id=\"closeAdminLoginPopupButton\">X</button>\n          <h2 class=\"popup-title\">Admin Sign In</h2>\n          <form id=\"AdminLoginForm\">\n            <input type=\"text\" id=\"AdminLoginEmail\" name=\"AdminLoginEmail\" placeholder=\"Email\" required />\n            <input type=\"password\" id=\"AdminLoginPassword\" name=\"AdminLoginPassword\" placeholder=\"Password\" required />\n            <button type=\"submit\" id=\"AdminLoginButton\">Sign In</button>\n          </form>\n          <p class=\"divider\"><span>or</span></p>\n          <div class=\"social-login\">\n            <button id=\"googleLogin\" onclick=\"googleLogin()\">\n              <img src=\"../images/google-image.webp\" alt=\"Google Logo\" />\n              Sign in with Google\n            </button>\n            <button id=\"facebookLogin\" onclick=\"facebookLogin()\">\n              <img src=\"../images/facebook-image.webp\" alt=\"Facebook Logo\" />\n              Sign in with Facebook\n            </button>\n          </div>\n        </div>\n      </div>\n    ";
 }
 ;
 function openAdminLoginPopup() {
@@ -60,7 +60,7 @@ function closeAdminLoginPopup() {
         window.location.href = "/";
     });
 }
-function render() {
+function renderAdmin() {
     var container = document.querySelector('#AdminLoginPopup');
     if (container) {
         container.innerHTML += renderAdminLogin();
@@ -73,7 +73,7 @@ function render() {
     ;
 }
 ;
-render();
+renderAdmin();
 function handleFormAdminLogin() {
     var form = document.getElementById('AdminLoginForm');
     if (form) {

@@ -105,8 +105,8 @@ function handleFormLogin(): void {
             
             if (response.ok) {
                 console.log('success login');
-                loginPopup!.style.display = 'none';
-                window.location.href = "/";
+                // loginPopup!.style.display = 'none';
+                // window.location.href = "/";
             } else {
                 alert(data.message);
             }
