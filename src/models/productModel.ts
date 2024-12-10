@@ -8,7 +8,6 @@ export interface Product extends Document {
   category: Category | null;
   price: number;
   quantity: number;
-  inStock: boolean;
   inSale: boolean;
   image: string;
 }
@@ -36,17 +35,13 @@ export const ProductSchema = new Schema<Product>({
     type: Number,
     required: true,
   },
-  inStock: {
-    type: Boolean,
-    required: true,
-  },
   inSale: {
     type: Boolean,
     required: true,
   },
   image: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 

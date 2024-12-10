@@ -47,7 +47,8 @@ function renderProductPage(): void {
         <div id="product-list"></div>
     `;
 
-    renderProductForm();  
+    renderProductForm();
+    fetchCategories();  
     fetchAllProducts();  
 }
 

@@ -8,33 +8,35 @@ async function handleAddProduct(ev: Event): Promise<void> {
       category: formData.get("category") as string,
       price: parseFloat(formData.get("price") as string),
       quantity: parseInt(formData.get("quantity") as string, 10),
-      inStock: formData.get("inStock") === "yes",
-      inSale: formData.get("inSale") === "yes",
-      image: formData.get("image") as File,
+      inSale: formData.get("inSale") === "no",
   };
 
   try {
-      const response = await fetch("/api/products/add-product", {
+      const response = await fetch("http://localhost:3000/api/products/add-product", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(productData),
       });
 
+      console.log(response);
+
       if (response.ok) {
           console.log("Product added successfully");
           (ev.target as HTMLFormElement).reset();
-          await fetchAllProducts();
+        //   await fetchAllProducts();
       } else {
           throw new Error("Failed to add product");
       }
   } catch (err) {
       console.error("Error adding product:", err);
   }
-}
+};
+
+
 
 async function fetchAllProducts(): Promise<void> {
   try {
-      const response = await fetch("/api/products/get-all-products");
+      const response = await fetch("http://localhost:3000/api/products/get-all-products");
       if (!response.ok) throw new Error("Failed to fetch products");
 
       const products = await response.json();
@@ -156,12 +158,6 @@ function renderProductForm(): void {
           <label for="quantity">Quantity:</label>
           <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required />
 
-          <label for="inStock">In Stock:</label>
-          <select id="inStock" name="inStock">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-          </select>
-
           <label for="inSale">In Sale:</label>
           <select id="inSale" name="inSale">
               <option value="yes">Yes</option>
@@ -177,9 +173,31 @@ function renderProductForm(): void {
 
   const form = document.getElementById("product-form") as HTMLFormElement;
   if (form) form.addEventListener("submit", handleAddProduct);
-}
+};
 
-window.onload = () => {
-  renderProductForm();
-  fetchAllProducts();
+interface Category {
+    name: string;
+};
+
+
+async function fetchCategories(): Promise<void> {
+    try {
+        console.log("Fetching categories");
+        const response = await fetch("/api/categories/get-all-categories");
+        if (!response.ok) throw new Error("Failed to fetch categories");
+        
+        const categories = await response.json();
+
+        const categorySelect = document.getElementById('category') as HTMLSelectElement;
+        categorySelect.innerHTML = '<option value="">--Select category--</option>';
+
+        categories.forEach((category: Category) => {
+            const option = document.createElement('option');
+            option.value = category.name.toLowerCase();
+            option.textContent = category.name;
+            categorySelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+    }
 };

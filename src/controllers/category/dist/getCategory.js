@@ -59,3 +59,4 @@ function getAllCategories(req, res) {
     });
 }
 exports.getAllCategories = getAllCategories;
+;

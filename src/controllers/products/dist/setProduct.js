@@ -44,37 +44,40 @@ var storage = multer_1["default"].diskStorage({
     filename: function (req, file, cb) { return cb(null, Date.now() + "-" + file.originalname); }
 });
 var upload = multer_1["default"]({ storage: storage });
-exports.addProduct = [
-    upload.single('image'),
-    function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, name, description, category, price, quantity, inStock, inSale, newProduct, savedProduct, error_1;
-        var _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+function addProduct(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, name, description, category, price, quantity, inSale, newProduct, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _c.trys.push([0, 2, , 3]);
-                    _a = req.body, name = _a.name, description = _a.description, category = _a.category, price = _a.price, quantity = _a.quantity, inStock = _a.inStock, inSale = _a.inSale;
+                    console.log("inserting product");
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 3, , 4]);
+                    _a = req.body, name = _a.name, description = _a.description, category = _a.category, price = _a.price, quantity = _a.quantity, inSale = _a.inSale;
                     newProduct = new productModel_1.ProductModel({
                         name: name,
                         description: description,
                         category: category,
                         price: price,
                         quantity: quantity,
-                        inStock: inStock,
                         inSale: inSale,
-                        image: ((_b = req.file) === null || _b === void 0 ? void 0 : _b.path) || ''
+                        image: ""
+                        // req.file?.path || '',
                     });
+                    console.log("new product", newProduct);
                     return [4 /*yield*/, newProduct.save()];
-                case 1:
-                    savedProduct = _c.sent();
-                    res.status(201).json({ message: 'Product saved', savedProduct: savedProduct });
-                    return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _c.sent();
+                    _b.sent();
+                    res.status(201).json({ message: 'Product saved' });
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _b.sent();
                     res.status(500).json({ message: 'Error saving product', error: error_1 });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
-    }); },
-];
+    });
+}
+exports.addProduct = addProduct;

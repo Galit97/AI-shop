@@ -8,11 +8,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-export const addProduct = [
-  upload.single('image'),
-  async (req: Request, res: Response) => {
+export async function addProduct(req: Request, res: Response) {
+  console.log("inserting product");
     try {
-      const { name, description, category, price, quantity, inStock, inSale } = req.body;
+      
+      const { name, description, category, price, quantity, inSale } = req.body;
 
       const newProduct = new ProductModel({
         name,
@@ -20,15 +20,16 @@ export const addProduct = [
         category,
         price,
         quantity,
-        inStock,
         inSale,
-        image: req.file?.path || '',
+        image: ""
+        // req.file?.path || '',
       });
 
-      const savedProduct = await newProduct.save();
-      res.status(201).json({ message: 'Product saved', savedProduct });
+      console.log("new product", newProduct);
+
+      await newProduct.save();
+      res.status(201).json({ message: 'Product saved'});
     } catch (error) {
       res.status(500).json({ message: 'Error saving product', error });
     }
-  },
-];
+  }

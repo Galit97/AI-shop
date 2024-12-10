@@ -8,7 +8,8 @@ export interface Category extends Document{
 export const CategorySchema = new Schema<Category>({
     name:{
         type:String,
-        required:true
+        required:true,
+        unique:true,
     },
 });
 

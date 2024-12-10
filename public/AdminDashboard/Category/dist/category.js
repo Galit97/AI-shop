@@ -97,6 +97,7 @@ function fetchAllCategories() {
         });
     });
 }
+;
 function renderCategories(categories) {
     var container = document.getElementById("category-list");
     if (!container)

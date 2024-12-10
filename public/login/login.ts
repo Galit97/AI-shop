@@ -99,6 +99,7 @@ function handleFormLogin(): void {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({email, password}),
             });
+            console.log(response);
             
             const data = await response.json();
             const loginPopup = document.getElementById('loginPopup'); 

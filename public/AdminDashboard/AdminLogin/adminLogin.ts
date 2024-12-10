@@ -103,7 +103,7 @@ function renderAdminLogin() {
               if (response.ok) {
                   console.log('success login');
                   AdminLoginPopup!.style.display = 'none';
-                  window.location.href = "./adminDashboard/adminDashboard.html";
+                  window.location.href = "/AdminDashboard/adminDashboard.html";
               } else {
                   alert(data.message);
               }

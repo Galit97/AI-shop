@@ -25,17 +25,12 @@ exports.ProductSchema = new mongoose_1.Schema({
         type: Number,
         required: true
     },
-    inStock: {
-        type: Boolean,
-        required: true
-    },
     inSale: {
         type: Boolean,
         required: true
     },
     image: {
-        type: String,
-        required: true
+        type: String
     }
 });
 exports.ProductModel = mongoose_1.model('Product', exports.ProductSchema);

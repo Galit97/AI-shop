@@ -8,4 +8,4 @@ export async function getAllCategories(req: any, res: any) {
         console.error("Error in getAllCategories:", error);
         return res.status(500).send({ error: "Internal Server Error" });
     }
-}
+}; 

@@ -48,38 +48,38 @@ function handleAddProduct(ev) {
                         category: formData.get("category"),
                         price: parseFloat(formData.get("price")),
                         quantity: parseInt(formData.get("quantity"), 10),
-                        inStock: formData.get("inStock") === "yes",
-                        inSale: formData.get("inSale") === "yes",
-                        image: formData.get("image")
+                        inSale: formData.get("inSale") === "no"
                     };
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 6, , 7]);
-                    return [4 /*yield*/, fetch("/api/products/add-product", {
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/products/add-product", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify(productData)
                         })];
                 case 2:
                     response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
-                    console.log("Product added successfully");
-                    ev.target.reset();
-                    return [4 /*yield*/, fetchAllProducts()];
+                    console.log(response);
+                    if (response.ok) {
+                        console.log("Product added successfully");
+                        ev.target.reset();
+                        //   await fetchAllProducts();
+                    }
+                    else {
+                        throw new Error("Failed to add product");
+                    }
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4: throw new Error("Failed to add product");
-                case 5: return [3 /*break*/, 7];
-                case 6:
                     err_1 = _a.sent();
                     console.error("Error adding product:", err_1);
-                    return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
+;
 function fetchAllProducts() {
     return __awaiter(this, void 0, Promise, function () {
         var response, products, error_1;
@@ -87,7 +87,7 @@ function fetchAllProducts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("/api/products/get-all-products")];
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/products/get-all-products")];
                 case 1:
                     response = _a.sent();
                     if (!response.ok)
@@ -195,12 +195,45 @@ function renderProductForm() {
     var container = document.getElementById("product-form-container");
     if (!container)
         return;
-    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">--Select category--</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inStock\">In Stock:</label>\n          <select id=\"inStock\" name=\"inStock\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
+    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">--Select category--</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
     var form = document.getElementById("product-form");
     if (form)
         form.addEventListener("submit", handleAddProduct);
 }
-window.onload = function () {
-    renderProductForm();
-    fetchAllProducts();
-};
+;
+;
+function fetchCategories() {
+    return __awaiter(this, void 0, Promise, function () {
+        var response, categories, categorySelect_1, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    console.log("Fetching categories");
+                    return [4 /*yield*/, fetch("/api/categories/get-all-categories")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to fetch categories");
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    categories = _a.sent();
+                    categorySelect_1 = document.getElementById('category');
+                    categorySelect_1.innerHTML = '<option value="">--Select category--</option>';
+                    categories.forEach(function (category) {
+                        var option = document.createElement('option');
+                        option.value = category.name.toLowerCase();
+                        option.textContent = category.name;
+                        categorySelect_1.appendChild(option);
+                    });
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_4 = _a.sent();
+                    console.error("Error fetching categories:", error_4);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+;

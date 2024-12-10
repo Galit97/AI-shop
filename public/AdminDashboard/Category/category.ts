@@ -33,7 +33,7 @@ async function fetchAllCategories(): Promise<void> {
     } catch (error) {
         console.error("Error fetching categories:", error);
     }
-}
+};
 
 function renderCategories(categories: any[]): void {
     const container = document.getElementById("category-list");
