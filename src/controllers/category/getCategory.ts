@@ -1,22 +1,11 @@
 import { CategoryModel } from "../../models/categoryModel";
 
-export async function getCategory(req: any, res: any) {
-    try {
-        const { id } = req.cookie;
-
-        const Category = await CategoryModel.findOne(id);
-
-    } catch (error: any) {
-        console.error(error);
-        return res.status(500).send({ error: error.message });
-    }
-};
-
 export async function getAllCategories(req: any, res: any) {
     try {
-      
-
-    } catch (error: any) {
-     
-    };
-};
+        const categories = await CategoryModel.find();
+        return res.status(200).send(categories);
+    } catch (error) {
+        console.error("Error in getAllCategories:", error);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+}

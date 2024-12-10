@@ -1,91 +1,138 @@
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #f7f7f7;
+    color: #333;
 }
 
-.form-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-form {
+/* Form Container */
+#category-form-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 800px;
+
+    form {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+
+        label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+
+            &:focus {
+                outline: none;
+                border-color: #ff6a00;
+                box-shadow: 0 0 4px rgba(255, 106, 0, 0.5);
+            }
+        }
+
+        button {
+            display: inline-block;
+            background: #ff6a00;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+
+            &:hover {
+                background: #e55a00;
+            }
+        }
+    }
 }
 
-form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-form button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-form button:hover {
-    background-color: #0056b3;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px auto;
+/* Category List */
+#category-list {
+    margin: 2rem auto;
+    max-width: 800px;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 
-table th,
-table td {
-    text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
 
-table th {
-    background-color: #007bff;
-    color: #fff;
-}
+        thead {
+            background: #ff6a00;
+            color: #fff;
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
+            th {
+                padding: 1rem;
+                font-size: 1rem;
+                font-weight: bold;
+            }
+        }
 
-button {
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        tbody {
+            tr {
+                &:nth-child(even) {
+                    background: #f9f9f9;
+                }
 
-button:hover {
-    opacity: 0.9;
-}
+                td {
+                    padding: 1rem;
+                    border-bottom: 1px solid #ddd;
 
-button:nth-child(1) {
-    background-color: #ffc107;
-    color: #fff;
-}
+                    button {
+                        background: #ff6a00;
+                        color: #fff;
+                        font-size: 0.9rem;
+                        font-weight: bold;
+                        padding: 0.5rem 1rem;
+                        border: none;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: background 0.3s;
 
-button:nth-child(2) {
-    background-color: #dc3545;
-    color: #fff;
+                        &:hover {
+                            background: #e55a00;
+                        }
+
+                        &.edit {
+                            margin-right: 0.5rem;
+                        }
+
+                        &.delete {
+                            background: #ff3333;
+
+                            &:hover {
+                                background: #d60000;
+                            }
+                        }
+                    }
+                }
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+        }
+    }
 }

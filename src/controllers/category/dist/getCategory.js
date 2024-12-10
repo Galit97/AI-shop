@@ -36,42 +36,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getAllCategories = exports.getCategory = void 0;
+exports.getAllCategories = void 0;
 var categoryModel_1 = require("../../models/categoryModel");
-function getCategory(req, res) {
+function getAllCategories(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, Category, error_1;
+        var categories, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    id = req.cookie.id;
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.findOne(id)];
+                    return [4 /*yield*/, categoryModel_1.CategoryModel.find()];
                 case 1:
-                    Category = _a.sent();
-                    return [3 /*break*/, 3];
+                    categories = _a.sent();
+                    return [2 /*return*/, res.status(200).send(categories)];
                 case 2:
                     error_1 = _a.sent();
-                    console.error(error_1);
-                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
+                    console.error("Error in getAllCategories:", error_1);
+                    return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getCategory = getCategory;
-;
-function getAllCategories(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            try {
-            }
-            catch (error) {
-            }
-            ;
-            return [2 /*return*/];
-        });
-    });
-}
 exports.getAllCategories = getAllCategories;
-;

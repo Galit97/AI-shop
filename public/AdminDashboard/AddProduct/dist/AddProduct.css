@@ -1,71 +1,138 @@
-.AddProduct {
-  width: 100%;
+@charset "UTF-8";
+#product-form-container {
   max-width: 600px;
-  margin: 50px auto;
+  margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
+  background-color: #fff;
+  border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
 }
-.AddProduct-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-}
-.AddProduct form {
+
+#product-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.AddProduct form input,
-.AddProduct form select {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #d0d0d0;
-  border-radius: 5px;
-  transition: border-color 0.3s;
-}
-.AddProduct form input:focus,
-.AddProduct form select:focus {
-  border-color: #ff5722;
-  outline: none;
-}
-.AddProduct form label {
+
+label {
   font-size: 14px;
-  color: #666;
+  font-weight: 600;
+  color: #333;
   margin-bottom: 5px;
 }
-.AddProduct form #AddProductButton {
+
+input[type=text],
+input[type=number],
+textarea,
+select,
+input[type=file] {
+  padding: 12px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+textarea:focus,
+select:focus {
+  border-color: #ff5e00;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+select {
+  background-color: #f8f8f8;
+}
+
+button[type=submit] {
   padding: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  background-color: #ff5722;
+  background-color: #ff5e00;
   color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.AddProduct form #AddProductButton:hover {
-  background-color: #e64a19;
+
+button[type=submit]:hover {
+  background-color: #e14a00;
 }
-@media (max-width: 768px) {
-  .AddProduct {
-    padding: 15px;
-  }
-  .AddProduct .AddProduct-title {
-    font-size: 20px;
-  }
-  .AddProduct input,
-.AddProduct select {
-    font-size: 14px;
-    padding: 10px;
-  }
-  .AddProduct #AddProductButton {
-    font-size: 16px;
-    padding: 10px;
-  }
+
+button[type=submit]:active {
+  background-color: #d14300;
+}
+
+input[type=file] {
+  padding: 10px 15px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+}
+
+input[type=file]:focus {
+  border-color: #ff5e00;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  background-color: #ff5e00;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+input[type=file]::-webkit-file-upload-button:hover {
+  background-color: #e14a00;
+}
+
+input[type=file]::-webkit-file-upload-button:active {
+  background-color: #d14300;
+}
+
+.select-container {
+  position: relative;
+}
+
+.select-container select {
+  padding-right: 35px;
+}
+
+.select-container::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #333;
+  pointer-events: none;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+textarea:focus {
+  border-color: #ff5e00;
+}
+
+input[type=text],
+input[type=number],
+textarea,
+select,
+input[type=file] {
+  background-color: #f8f8f8;
 }

@@ -36,26 +36,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleAddCategory(ev) {
     return __awaiter(this, void 0, Promise, function () {
-        var formData, name, response, data, err_1;
+        var formData, name, response, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 6, , 7]);
                     ev.preventDefault();
                     formData = new FormData(ev.target);
                     name = formData.get("name");
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 6, , 7]);
                     return [4 /*yield*/, fetch("/api/categories/add-category", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ name: name })
                         })];
-                case 1:
+                case 2:
                     response = _a.sent();
                     if (!response.ok) return [3 /*break*/, 4];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log("Category added:", data);
+                    console.log("Category added successfully");
                     ev.target.reset();
                     return [4 /*yield*/, fetchAllCategories()];
                 case 3:
@@ -79,7 +78,7 @@ function fetchAllCategories() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("/api/categories/all-categories")];
+                    return [4 /*yield*/, fetch("/api/categories/get-all-categories")];
                 case 1:
                     response = _a.sent();
                     if (!response.ok)
@@ -121,9 +120,12 @@ function handleDeleteCategory(id) {
                         })];
                 case 1:
                     response = _b.sent();
-                    if (!response.ok)
+                    if (response.ok) {
+                        (_a = document.getElementById("category-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
+                    }
+                    else {
                         throw new Error("Failed to delete category");
-                    (_a = document.getElementById("category-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
+                    }
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _b.sent();
@@ -140,28 +142,31 @@ function handleEditCategory(id) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
                     name = prompt("Enter new category name:");
                     if (!name)
                         return [2 /*return*/];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 6, , 7]);
                     return [4 /*yield*/, fetch("/api/categories/edit-category", {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ id: id, name: name })
                         })];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok)
-                        throw new Error("Failed to update category");
-                    return [4 /*yield*/, fetchAllCategories()];
                 case 2:
-                    _a.sent();
-                    return [3 /*break*/, 4];
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 4];
+                    return [4 /*yield*/, fetchAllCategories()];
                 case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4: throw new Error("Failed to edit category");
+                case 5: return [3 /*break*/, 7];
+                case 6:
                     error_3 = _a.sent();
                     console.error("Error editing category:", error_3);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
@@ -170,7 +175,7 @@ function renderCategoryForm() {
     var container = document.getElementById("category-form-container");
     if (!container)
         return;
-    container.innerHTML = "\n        <div class=\"form-container\">\n            <h1>Add a New Category</h1>\n            <form id=\"category-form\">\n                <label for=\"name\">Category Name:</label>\n                <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter category name\" required />\n                <button type=\"submit\">Add Category</button>\n            </form>\n        </div>\n    ";
+    container.innerHTML = "\n        <form id=\"category-form\">\n            <label for=\"name\">Category Name:</label>\n            <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter category name\" required />\n            <button type=\"submit\">Add Category</button>\n        </form>\n    ";
     var form = document.getElementById("category-form");
     if (form)
         form.addEventListener("submit", handleAddCategory);

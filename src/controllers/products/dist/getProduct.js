@@ -36,45 +36,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.addProduct = void 0;
+exports.getProducts = void 0;
 var productModel_1 = require("../../models/productModel");
-var multer_1 = require("multer");
-var storage = multer_1["default"].diskStorage({
-    destination: function (req, file, cb) { return cb(null, 'uploads/'); },
-    filename: function (req, file, cb) { return cb(null, Date.now() + "-" + file.originalname); }
-});
-var upload = multer_1["default"]({ storage: storage });
-exports.addProduct = [
-    upload.single('image'),
-    function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, name, description, category, price, quantity, inStock, inSale, newProduct, savedProduct, error_1;
-        var _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _c.trys.push([0, 2, , 3]);
-                    _a = req.body, name = _a.name, description = _a.description, category = _a.category, price = _a.price, quantity = _a.quantity, inStock = _a.inStock, inSale = _a.inSale;
-                    newProduct = new productModel_1.ProductModel({
-                        name: name,
-                        description: description,
-                        category: category,
-                        price: price,
-                        quantity: quantity,
-                        inStock: inStock,
-                        inSale: inSale,
-                        image: ((_b = req.file) === null || _b === void 0 ? void 0 : _b.path) || ''
-                    });
-                    return [4 /*yield*/, newProduct.save()];
-                case 1:
-                    savedProduct = _c.sent();
-                    res.status(201).json({ message: 'Product saved', savedProduct: savedProduct });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _c.sent();
-                    res.status(500).json({ message: 'Error saving product', error: error_1 });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    }); },
-];
+exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var products, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, productModel_1.ProductModel.find().populate('category')];
+            case 1:
+                products = _a.sent();
+                res.status(200).json(products);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                res.status(500).json({ message: 'Error fetching products', error: error_1 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };

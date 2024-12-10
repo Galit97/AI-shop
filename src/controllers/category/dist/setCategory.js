@@ -36,34 +36,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.editCategory = exports.deleteCategory = exports.getCategoryById = exports.addCategory = void 0;
+exports.editCategory = exports.deleteCategory = exports.addCategory = void 0;
 var categoryModel_1 = require("../../models/categoryModel");
 function addCategory(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var name, result, error_1, duplicateField;
+        var name, category, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     name = req.body.name;
                     if (!name) {
-                        return [2 /*return*/, res.status(400).send({ error: "Missing required fields." })];
+                        return [2 /*return*/, res.status(400).send({ error: "Name is required." })];
                     }
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.create({
-                            name: name
-                        })];
+                    return [4 /*yield*/, categoryModel_1.CategoryModel.create({ name: name })];
                 case 1:
-                    result = _a.sent();
-                    if (!result) {
-                        return [2 /*return*/, res.status(400).send({ error: "Failed to create category." })];
-                    }
-                    return [2 /*return*/, res.status(201).send({ message: "Category added successfully", Category: result })];
+                    category = _a.sent();
+                    return [2 /*return*/, res.status(201).send({ message: "Category added successfully", category: category })];
                 case 2:
                     error_1 = _a.sent();
                     console.error("Error in addCategory:", error_1);
                     if (error_1.code === 11000) {
-                        duplicateField = Object.keys(error_1.keyValue)[0];
-                        return [2 /*return*/, res.status(400).send({ error: duplicateField + " already exists." })];
+                        return [2 /*return*/, res.status(400).send({ error: "Category already exists." })];
                     }
                     return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
                 case 3: return [2 /*return*/];
@@ -72,98 +66,54 @@ function addCategory(req, res) {
     });
 }
 exports.addCategory = addCategory;
-function getCategoryById(req, res) {
+function deleteCategory(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var id, category, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    id = req.params.id;
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.findById(id)];
+                    id = req.body.id;
+                    return [4 /*yield*/, categoryModel_1.CategoryModel.findByIdAndDelete(id)];
                 case 1:
                     category = _a.sent();
                     if (!category) {
                         return [2 /*return*/, res.status(404).send({ error: "Category not found" })];
                     }
-                    return [2 /*return*/, res.status(200).send(category)];
+                    return [2 /*return*/, res.status(200).send({ message: "Category deleted successfully" })];
                 case 2:
                     error_2 = _a.sent();
-                    console.error("Error in getCategoryById:", error_2);
+                    console.error("Error in deleteCategory:", error_2);
                     return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getCategoryById = getCategoryById;
-;
-function deleteCategory(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var id, category, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    id = req.body.id;
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    console.log("Deleting category with id: " + id);
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.findById(id)];
-                case 2:
-                    category = _a.sent();
-                    if (!category) {
-                        console.log("Category with id " + id + " not found");
-                        return [2 /*return*/, res.status(401).json({ error: "Category not found" })];
-                    }
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.findByIdAndDelete(id)];
-                case 3:
-                    _a.sent();
-                    console.log("Category with id " + id + " deleted");
-                    res.status(200).json({ message: "Category deleted successfully" });
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_3 = _a.sent();
-                    console.error('Error deleting category:', error_3);
-                    res.status(500).json({ error: "Internal server error" });
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
-            }
-        });
-    });
-}
 exports.deleteCategory = deleteCategory;
-;
 function editCategory(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, id, name, updatedCategoryFields, updatedCategory, error_4;
+        var _a, id, name, category, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    _b.trys.push([0, 2, , 3]);
                     _a = req.body, id = _a.id, name = _a.name;
-                    _b.label = 1;
-                case 1:
-                    _b.trys.push([1, 3, , 4]);
-                    console.log("Editing Category with id: " + id);
-                    updatedCategoryFields = {};
-                    if (name !== undefined)
-                        updatedCategoryFields.name = name;
-                    return [4 /*yield*/, categoryModel_1.CategoryModel.findByIdAndUpdate(id, updatedCategoryFields, { "new": true })];
-                case 2:
-                    updatedCategory = _b.sent();
-                    if (!updatedCategory) {
-                        console.log("Category with id " + id + " not found");
-                        return [2 /*return*/, res.status(404).json({ error: "Category not found" })];
+                    if (!id || !name) {
+                        return [2 /*return*/, res.status(400).send({ error: "ID and name are required." })];
                     }
-                    console.log("Category with id " + id + " updated");
-                    res.status(200).json({ message: "Category updated successfully", Category: updatedCategory });
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_4 = _b.sent();
-                    console.error('Error updating category:', error_4);
-                    res.status(500).json({ error: "Internal server error" });
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [4 /*yield*/, categoryModel_1.CategoryModel.findByIdAndUpdate(id, { name: name }, { "new": true })];
+                case 1:
+                    category = _b.sent();
+                    if (!category) {
+                        return [2 /*return*/, res.status(404).send({ error: "Category not found" })];
+                    }
+                    return [2 /*return*/, res.status(200).send({ message: "Category updated successfully", category: category })];
+                case 2:
+                    error_3 = _b.sent();
+                    console.error("Error in editCategory:", error_3);
+                    return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
+                case 3: return [2 /*return*/];
             }
         });
     });

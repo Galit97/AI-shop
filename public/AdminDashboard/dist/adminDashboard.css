@@ -2,10 +2,13 @@
   width: 250px;
   height: 100vh;
   background-color: #ecf0f1;
-  color: #ecf0f1;
+  color: #2c3e50;
   display: flex;
   flex-direction: column;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .sidebar .sidebar-menu {
   list-style: none;
@@ -43,5 +46,32 @@
   }
   .sidebar .sidebar-menu .sidebar-item a {
     font-size: 16px;
+    padding: 8px 12px;
   }
+  .sidebar .sidebar-menu .sidebar-item a .icon {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+}
+
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+@media (max-width: 768px) {
+  .content {
+    margin-left: 200px;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.page-section.active {
+  display: block;
+}
+.page-section.hidden {
+  display: none;
 }

@@ -29,16 +29,13 @@ exports.ProductSchema = new mongoose_1.Schema({
         type: Boolean,
         required: true
     },
-    onSale: {
+    inSale: {
         type: Boolean,
         required: true
     },
-    comments: {
-        type: [String],
+    image: {
+        type: String,
         required: true
-    },
-    rating: {
-        type: Number
     }
 });
-exports.ProductModel = mongoose_1.model("Product", exports.ProductSchema);
+exports.ProductModel = mongoose_1.model('Product', exports.ProductSchema);
