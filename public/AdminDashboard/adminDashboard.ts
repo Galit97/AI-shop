@@ -87,7 +87,7 @@ function handleMenuClick(ev: Event): void {
     }
    else if (sectionId === "clients") {
     renderClientPage(); 
-}
+    }
 }
 
 function initializeDashboard(): void {
