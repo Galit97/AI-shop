@@ -1,3 +1,11 @@
+interface Client {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
+}
 
 async function handleAddClient(ev: Event): Promise<void> {
     ev.preventDefault();
