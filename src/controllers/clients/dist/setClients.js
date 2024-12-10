@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.login = exports.register = exports.secret = void 0;
+exports.updateClient = exports.deleteClient = exports.login = exports.register = exports.secret = void 0;
 var clientModel_1 = require("../../models/clientModel");
 var bcrypt_1 = require("bcrypt");
 require("dotenv/config");
@@ -122,4 +122,54 @@ function login(req, res) {
     });
 }
 exports.login = login;
+;
+function deleteClient(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    id = req.body.id;
+                    if (!id)
+                        throw new Error("Client ID is required");
+                    return [4 /*yield*/, clientModel_1.ClientModel.findByIdAndDelete(id)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/, res.status(200).send({ message: "Client deleted successfully" })];
+                case 2:
+                    error_3 = _a.sent();
+                    console.error(error_3);
+                    return [2 /*return*/, res.status(500).send({ error: error_3.message })];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.deleteClient = deleteClient;
+;
+function updateClient(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, id, updates, error_4;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, id = _a.id, updates = _a.updates;
+                    if (!id || !updates)
+                        throw new Error("Client ID and updates are required");
+                    return [4 /*yield*/, clientModel_1.ClientModel.findByIdAndUpdate(id, updates, { "new": true })];
+                case 1:
+                    _b.sent();
+                    return [2 /*return*/, res.status(200).send({ message: "Client updated successfully" })];
+                case 2:
+                    error_4 = _b.sent();
+                    console.error(error_4);
+                    return [2 /*return*/, res.status(500).send({ error: error_4.message })];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.updateClient = updateClient;
 ;

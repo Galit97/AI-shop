@@ -72,3 +72,29 @@ export async function login(req: any, res: any) {
         return res.status(500).send({ error: error.message });
     };
 };
+
+export async function deleteClient(req: any, res: any) {
+    try {
+        const { id } = req.body;
+        if (!id) throw new Error("Client ID is required");
+
+        await ClientModel.findByIdAndDelete(id);
+        return res.status(200).send({ message: "Client deleted successfully" });
+    } catch (error: any) {
+        console.error(error);
+        return res.status(500).send({ error: error.message });
+    }
+};
+
+export async function updateClient(req: any, res: any) {
+    try {
+        const { id, updates } = req.body;
+        if (!id || !updates) throw new Error("Client ID and updates are required");
+
+        await ClientModel.findByIdAndUpdate(id, updates, { new: true });
+        return res.status(200).send({ message: "Client updated successfully" });
+    } catch (error: any) {
+        console.error(error);
+        return res.status(500).send({ error: error.message });
+    }
+};
