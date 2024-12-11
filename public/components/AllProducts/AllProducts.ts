@@ -26,7 +26,7 @@ function renderPage(): void {
     appContainer.innerHTML = `
         <div id="filter-sort-controls">
             <select id="category" name="category">
-              <option value="">-Select category-</option>
+              <option value="">Select category</option>
             </select>
             <select id="sort-filter">
                 <option value="default">Sort By</option>
@@ -70,7 +70,7 @@ function renderProducts(products: any[]): void {
 interface Category {
     name: string;
     _id: string;
-};
+}
 
 async function fetchCategories(): Promise<void> {
     try {
@@ -79,9 +79,11 @@ async function fetchCategories(): Promise<void> {
         if (!response.ok) throw new Error("Failed to fetch categories");
         
         const categories = await response.json();
-
+        
         const categorySelect = document.getElementById('category') as HTMLSelectElement;
-        categorySelect.innerHTML = '<option value="">-Select category-</option>';
+        if (!categorySelect) return; 
+
+        categorySelect.innerHTML = '<option value="">Select category</option>';
 
         categories.forEach((category: Category) => {
             const option = document.createElement('option');
@@ -94,14 +96,21 @@ async function fetchCategories(): Promise<void> {
     }
 }
 
+
 function filterByCategory(category: string): void {
     const filteredProducts =
-        category === "all"
+        category === "all" || category === "" 
             ? allProducts
             : allProducts.filter((product) => product.category === category);
 
     renderProducts(filteredProducts);
 };
+
+const categoryFilter = document.getElementById('category') as HTMLSelectElement;
+categoryFilter.addEventListener('change', (event) => {
+    const selectedCategory = (event.target as HTMLSelectElement).value;
+    filterByCategory(selectedCategory);
+});
 
 function sortProducts(criteria: string): void {
     const sortedProducts = [...allProducts];
@@ -127,7 +136,7 @@ function sortProducts(criteria: string): void {
 }
 
 function setupEventListeners(): void {
-    const categoryFilter = document.getElementById("category") as HTMLSelectElement; 
+    const categoryFilter = document.getElementById("category") as HTMLSelectElement;
     const sortFilter = document.getElementById("sort-filter") as HTMLSelectElement;
 
     if (categoryFilter) {

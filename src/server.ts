@@ -30,9 +30,7 @@ app.use("/api/clients", clientRouter);
 app.use("/api/products", productRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/admin", adminRouter);
-
 app.use("/api/chatBot", chatBotRouter);
-
 app.use("/api/categories", categoryRouter);
 
 
