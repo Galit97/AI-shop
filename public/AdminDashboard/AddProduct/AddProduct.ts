@@ -131,7 +131,7 @@ async function fetchCategories(): Promise<void> {
         const categories = await response.json();
 
         const categorySelect = document.getElementById('category') as HTMLSelectElement;
-        categorySelect.innerHTML = '<option value="">--Select category--</option>';
+        categorySelect.innerHTML = '<option value="">-Select category-</option>';
 
         categories.forEach((category: Category) => {
             const option = document.createElement('option');

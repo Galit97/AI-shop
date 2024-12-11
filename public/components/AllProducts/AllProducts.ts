@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    await fetchAllProducts();
     await fetchCategories();
+    await fetchAllProducts();
     setupEventListeners();
 });
 
-const allProducts: any[] = [];
+let allProducts: any[] = [];
 
 async function fetchAllProducts(): Promise<void> {
     try {

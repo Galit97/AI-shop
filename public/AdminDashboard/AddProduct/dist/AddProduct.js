@@ -148,7 +148,7 @@ function fetchCategories() {
                 case 2:
                     categories = _a.sent();
                     categorySelect_1 = document.getElementById('category');
-                    categorySelect_1.innerHTML = '<option value="">--Select category--</option>';
+                    categorySelect_1.innerHTML = '<option value="">-Select category-</option>';
                     categories.forEach(function (category) {
                         var option = document.createElement('option');
                         option.value = category._id;
