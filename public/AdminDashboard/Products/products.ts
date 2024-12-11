@@ -20,8 +20,8 @@ function renderProductsTable(products: Product[]): void {
     if (!container) throw new Error("products table not found");
 
   container.innerHTML = `
-       <div class="admin-table-container">
-            <table class="admin-table">
+       <div class="admin-table-container" id="admin-table-container">
+            <table class="admin-table" id="admin-table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -66,6 +66,7 @@ async function fetchAllProducts(): Promise<void> {
         const response = await fetch("http://localhost:3000/api/products/get-products");
         if (!response.ok) throw new Error("Failed to fetch products");
         
+        
         const products = await response.json();
         renderProductsTable(products);
     } catch (error) {
@@ -81,7 +82,7 @@ async function fetchAllProducts(): Promise<void> {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id }),
         });
-  
+        // deletePopup();
         if (response.ok) {
             document.getElementById(`product-${id}`)?.remove();
             console.log("Product deleted successfully");
@@ -91,7 +92,25 @@ async function fetchAllProducts(): Promise<void> {
     } catch (error) {
         console.error("Error deleting product:", error);
     }
-  }
+  };
+
+
+//   function deletePopup() {
+//     const container = document.getElementById("products-table");
+//     if (!container) throw new Error("products table not found");
+
+//     container.innerHTML = `
+//         <div id="deletePopup" class="popup">
+//             <div class="popup-content">
+//                  <p>Are you sure you want to delete this item?</p>
+//                 <div class="popup-actions">
+//                     <button id="confirmDelete" class="popup-btn confirm">Yes</button>
+//                     <button id="cancelDelete" class="popup-btn cancel">No</button>
+//                 </div>
+//             </div>
+//         </div>
+//     `
+//   };
   
   async function handleEditProduct(id: string): Promise<void> {
     const name = prompt("Enter new product name:");

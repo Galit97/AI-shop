@@ -31,6 +31,12 @@ function renderDashboard(): string {
                     <span>Clients</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="#" data-section="home-page">
+                   <i class="icon fa-solid fa-house"></i>
+                    <span>Home Page</span>
+                </a>
+            </li>
         </ul>
        </div>
     `;
@@ -69,6 +75,8 @@ function handleMenuClick(ev: Event): void {
         renderCategoryPage();
     } else if (sectionId === "clients") {
         renderClientPage(); 
+    } else if (sectionId === "home-page") {
+        window.location.href = "/"; 
     }
 }
 

@@ -53,8 +53,13 @@ function renderProducts(products: any[]): void {
                     <div class="product-card" id="product-${product._id}">
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
-                        <p class="product-price">$${product.price}</p>
-                        <p class="product-description">${product.description}</p>
+                        <div class="description-container"><p class="product-description">${product.description}</p></div>
+                        <div class="bottom-section">
+                            <p class="product-price">$${product.price}</p>
+                            <button class="button-more">More</button>
+                            <i class="icon fa-solid fa-cart-plus"></i>
+                            ${product.inSale ? `<i class="icon-sale fa-solid fa-tag sale-icon"></i>` : ''}
+                        </div>
                     </div>
                 `
                 )
@@ -97,7 +102,7 @@ function filterByCategory(category: string): void {
             : allProducts.filter((product) => product.category === category);
 
     renderProducts(filteredProducts);
-}
+};
 
 function sortProducts(criteria: string): void {
     const sortedProducts = [...allProducts];
