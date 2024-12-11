@@ -38,12 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.addProduct = void 0;
 var productModel_1 = require("../../models/productModel");
-var multer_1 = require("multer");
-var storage = multer_1["default"].diskStorage({
-    destination: function (req, file, cb) { return cb(null, 'uploads/'); },
-    filename: function (req, file, cb) { return cb(null, Date.now() + "-" + file.originalname); }
-});
-var upload = multer_1["default"]({ storage: storage });
+// import multer from 'multer';
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, 'uploads/'),
+//   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+// });
+// const upload = multer({ storage });
 function addProduct(req, res) {
     var _a;
     return __awaiter(this, void 0, void 0, function () {
@@ -55,8 +55,8 @@ function addProduct(req, res) {
                     _c.label = 1;
                 case 1:
                     _c.trys.push([1, 3, , 4]);
-                    upload.single('image');
                     _b = req.body, name = _b.name, description = _b.description, category = _b.category, price = _b.price, quantity = _b.quantity, inSale = _b.inSale;
+                    console.log("products", req.body);
                     newProduct = new productModel_1.ProductModel({
                         name: name,
                         description: description,

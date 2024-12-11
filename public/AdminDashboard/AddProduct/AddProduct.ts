@@ -9,13 +9,14 @@ async function handleAddProduct(ev: Event): Promise<void> {
       price: parseFloat(formData.get("price") as string),
       quantity: parseInt(formData.get("quantity") as string, 10),
       inSale: formData.get("inSale") === "no",
+      image: formData.get("image") as File,
   };
 
-  console.log(productData);
+  console.log("djjd", formData);
   try {
       const response = await fetch("http://localhost:3000/api/products/add-product", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+        //   headers: { "Content-Type": "application/json" },
           body: formData,
       });
 
@@ -24,7 +25,6 @@ async function handleAddProduct(ev: Event): Promise<void> {
       if (response.ok) {
           console.log("Product added successfully");
           (ev.target as HTMLFormElement).reset();
-        //   await fetchAllProducts();
       } else {
           throw new Error("Failed to add product");
       }

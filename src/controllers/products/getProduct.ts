@@ -11,3 +11,19 @@ export const getProducts = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error fetching products', error });
   }
 };
+
+export const deleteProducts = async (req: Request, res: Response) => {
+  try {
+   
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching products', error });
+  }
+};
+
+export const editProducts = async (req: Request, res: Response) => {
+  try {
+   
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching products', error });
+  }
+};

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getProducts = void 0;
+exports.editProducts = exports.deleteProducts = exports.getProducts = void 0;
 var productModel_1 = require("../../models/productModel");
 exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var products, error_1;
@@ -57,5 +57,25 @@ exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, voi
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
+    });
+}); };
+exports.deleteProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        try {
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Error fetching products', error: error });
+        }
+        return [2 /*return*/];
+    });
+}); };
+exports.editProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        try {
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Error fetching products', error: error });
+        }
+        return [2 /*return*/];
     });
 }); };

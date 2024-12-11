@@ -17,6 +17,8 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
+
 
 
 app.listen(port, () => {

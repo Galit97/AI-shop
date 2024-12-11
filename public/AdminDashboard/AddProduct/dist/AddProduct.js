@@ -48,15 +48,16 @@ function handleAddProduct(ev) {
                         category: formData.get("category"),
                         price: parseFloat(formData.get("price")),
                         quantity: parseInt(formData.get("quantity"), 10),
-                        inSale: formData.get("inSale") === "no"
+                        inSale: formData.get("inSale") === "no",
+                        image: formData.get("image")
                     };
-                    console.log(productData);
+                    console.log("djjd", formData);
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/products/add-product", {
                             method: "POST",
-                            headers: { "Content-Type": "application/json" },
+                            //   headers: { "Content-Type": "application/json" },
                             body: formData
                         })];
                 case 2:
@@ -65,7 +66,6 @@ function handleAddProduct(ev) {
                     if (response.ok) {
                         console.log("Product added successfully");
                         ev.target.reset();
-                        //   await fetchAllProducts();
                     }
                     else {
                         throw new Error("Failed to add product");
