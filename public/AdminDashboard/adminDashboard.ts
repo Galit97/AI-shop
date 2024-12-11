@@ -1,12 +1,20 @@
 function renderDashboard(): string {
     return `
-       <div class="sidebar" id="dashboardContainer">
+         <div class="sidebar" id="dashboardContainer">
         <ul class="sidebar-menu">
-            <li class="sidebar-item active">
-                <a href="#" data-section="products">
+            <li class="sidebar-item">
+                <a href="?productsParam=products" data-section="products">
                     <i class="icon">&#128722;</i> <!-- Shopping cart icon -->
                     <span>Products</span>
                 </a>
+                <ul class="submenu hidden" id="productsSubmenu">
+                    <li class="submenu-item">
+                        <a href="#" data-section="all-products">All Products</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="#" data-section="add-product">Add Product</a>
+                    </li>
+                </ul>
             </li>
             <li class="sidebar-item">
                 <a href="#" data-section="categories">
@@ -23,6 +31,42 @@ function renderDashboard(): string {
         </ul>
        </div>
     `;
+};
+
+
+function handleMenuClick(ev: Event): void {
+    ev.preventDefault();
+
+    const target = ev.target as HTMLElement;
+    const sectionId = target.closest("a")?.getAttribute("data-section");
+    if (!sectionId) return;
+
+    if (sectionId === "products") {
+        const submenu = document.getElementById("productsSubmenu");
+        if (submenu) {
+            submenu.classList.toggle("hidden");
+        }
+        return;
+    }
+
+    const sections = document.querySelectorAll(".page-section");
+    sections.forEach((section) => section.classList.add("hidden"));
+
+    const sectionToShow = document.getElementById(sectionId);
+    if (sectionToShow) {
+        sectionToShow.classList.remove("hidden");
+    }
+
+
+    if (sectionId === "all-products") {
+        renderAllProducts();
+    } else if (sectionId === "add-product") {
+        renderProductPage(); 
+    } else if (sectionId === "categories") {
+        renderCategoryPage();
+    } else if (sectionId === "clients") {
+        renderClientPage(); 
+    }
 }
 
 function renderCategoryPage(): void {
@@ -40,12 +84,12 @@ function renderCategoryPage(): void {
 }
 
 function renderProductPage(): void {
-    const productsSection = document.getElementById("products");
+    const productsSection = document.getElementById("add-product");
     if (!productsSection) return;
 
     productsSection.innerHTML = `
         <div id="product-form-container"></div>
-        <div id="product-list"></div>
+
     `;
 
     renderProductForm();  
@@ -60,35 +104,24 @@ function renderClientPage(): void {
         <div id="client-form-container"></div>
         <div id="client-list"></div>
     `;
-
+    
     renderClientForm();  
     fetchAllClients();
+};
+
+function renderAllProducts () {
+    const productsSection = document.getElementById("all-products");
+    if (!productsSection) throw new Error('No products list found');
+
+    productsSection.innerHTML = `
+        <div id="products-table"></div>
+    `;
+    fetchAllProducts();
+    // renderProductsTable();
+    
 }
 
-function handleMenuClick(ev: Event): void {
-    ev.preventDefault();
 
-    const target = ev.target as HTMLElement;
-    const sectionId = target.closest("a")?.getAttribute("data-section");
-    if (!sectionId) return;
-
-    const sections = document.querySelectorAll(".page-section");
-    sections.forEach((section) => section.classList.add("hidden"));
-
-    const sectionToShow = document.getElementById(sectionId);
-    if (sectionToShow) {
-        sectionToShow.classList.remove("hidden");
-    }
-
-    if (sectionId === "categories") {
-        renderCategoryPage();
-    } else if (sectionId === "products") {
-        renderProductPage(); 
-    }
-   else if (sectionId === "clients") {
-    renderClientPage(); 
-    }
-}
 
 function initializeDashboard(): void {
     render();

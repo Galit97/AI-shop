@@ -34,59 +34,46 @@ async function handleAddProduct(ev: Event): Promise<void> {
 };
 
 
+// function renderProducts(products: any[]): void {
+//   const container = document.getElementById("product-list");
+//   if (!container) return;
 
-async function fetchAllProducts(): Promise<void> {
-  try {
-      const response = await fetch("http://localhost:3000/api/products/get-all-products");
-      if (!response.ok) throw new Error("Failed to fetch products");
-
-      const products = await response.json();
-      renderProducts(products);
-  } catch (error) {
-      console.error("Error fetching products:", error);
-  }
-}
-
-function renderProducts(products: any[]): void {
-  const container = document.getElementById("product-list");
-  if (!container) return;
-
-  container.innerHTML = `
-      <table>
-          <thead>
-              <tr>
-                  <th>Product Name</th>
-                  <th>Description</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>In Stock</th>
-                  <th>Actions</th>
-              </tr>
-          </thead>
-          <tbody>
-              ${products
-                  .map(
-                      (product) => `
-                      <tr id="product-${product._id}">
-                          <td>${product.name}</td>
-                          <td>${product.description}</td>
-                          <td>${product.category?.name || "Uncategorized"}</td>
-                          <td>${product.price}</td>
-                          <td>${product.quantity}</td>
-                          <td>${product.inStock ? "Yes" : "No"}</td>
-                          <td>
-                              <button onclick="handleEditProduct('${product._id}')">Edit</button>
-                              <button onclick="handleDeleteProduct('${product._id}')">Delete</button>
-                          </td>
-                      </tr>
-                  `
-                  )
-                  .join("")}
-          </tbody>
-      </table>
-  `;
-}
+//   container.innerHTML = `
+//       <table>
+//           <thead>
+//               <tr>
+//                   <th>Product Name</th>
+//                   <th>Description</th>
+//                   <th>Category</th>
+//                   <th>Price</th>
+//                   <th>Quantity</th>
+//                   <th>In Stock</th>
+//                   <th>Actions</th>
+//               </tr>
+//           </thead>
+//           <tbody>
+//               ${products
+//                   .map(
+//                       (product) => `
+//                       <tr id="product-${product._id}">
+//                           <td>${product.name}</td>
+//                           <td>${product.description}</td>
+//                           <td>${product.category?.name || "Uncategorized"}</td>
+//                           <td>${product.price}</td>
+//                           <td>${product.quantity}</td>
+//                           <td>${product.inStock ? "Yes" : "No"}</td>
+//                           <td>
+//                               <button onclick="handleEditProduct('${product._id}')">Edit</button>
+//                               <button onclick="handleDeleteProduct('${product._id}')">Delete</button>
+//                           </td>
+//                       </tr>
+//                   `
+//                   )
+//                   .join("")}
+//           </tbody>
+//       </table>
+//   `;
+// }
 
 async function handleDeleteProduct(id: string): Promise<void> {
   try {

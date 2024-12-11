@@ -1,5 +1,39 @@
 function renderDashboard() {
-    return "\n       <div class=\"sidebar\" id=\"dashboardContainer\">\n        <ul class=\"sidebar-menu\">\n            <li class=\"sidebar-item active\">\n                <a href=\"#\" data-section=\"products\">\n                    <i class=\"icon\">&#128722;</i> <!-- Shopping cart icon -->\n                    <span>Products</span>\n                </a>\n            </li>\n            <li class=\"sidebar-item\">\n                <a href=\"#\" data-section=\"categories\">\n                    <i class=\"icon\">&#128195;</i> <!-- Folder icon -->\n                    <span>Categories</span>\n                </a>\n            </li>\n            <li class=\"sidebar-item\">\n                <a href=\"#\" data-section=\"clients\">\n                    <i class=\"icon\">&#128100;</i> <!-- User icon -->\n                    <span>Clients</span>\n                </a>\n            </li>\n        </ul>\n       </div>\n    ";
+    return "\n         <div class=\"sidebar\" id=\"dashboardContainer\">\n        <ul class=\"sidebar-menu\">\n            <li class=\"sidebar-item\">\n                <a href=\"?productsParam=products\" data-section=\"products\">\n                    <i class=\"icon\">&#128722;</i> <!-- Shopping cart icon -->\n                    <span>Products</span>\n                </a>\n                <ul class=\"submenu hidden\" id=\"productsSubmenu\">\n                    <li class=\"submenu-item\">\n                        <a href=\"#\" data-section=\"all-products\">All Products</a>\n                    </li>\n                    <li class=\"submenu-item\">\n                        <a href=\"#\" data-section=\"add-product\">Add Product</a>\n                    </li>\n                </ul>\n            </li>\n            <li class=\"sidebar-item\">\n                <a href=\"#\" data-section=\"categories\">\n                    <i class=\"icon\">&#128195;</i> <!-- Folder icon -->\n                    <span>Categories</span>\n                </a>\n            </li>\n            <li class=\"sidebar-item\">\n                <a href=\"#\" data-section=\"clients\">\n                    <i class=\"icon\">&#128100;</i> <!-- User icon -->\n                    <span>Clients</span>\n                </a>\n            </li>\n        </ul>\n       </div>\n    ";
+}
+;
+function handleMenuClick(ev) {
+    var _a;
+    ev.preventDefault();
+    var target = ev.target;
+    var sectionId = (_a = target.closest("a")) === null || _a === void 0 ? void 0 : _a.getAttribute("data-section");
+    if (!sectionId)
+        return;
+    if (sectionId === "products") {
+        var submenu = document.getElementById("productsSubmenu");
+        if (submenu) {
+            submenu.classList.toggle("hidden");
+        }
+        return;
+    }
+    var sections = document.querySelectorAll(".page-section");
+    sections.forEach(function (section) { return section.classList.add("hidden"); });
+    var sectionToShow = document.getElementById(sectionId);
+    if (sectionToShow) {
+        sectionToShow.classList.remove("hidden");
+    }
+    if (sectionId === "all-products") {
+        renderAllProducts();
+    }
+    else if (sectionId === "add-product") {
+        renderProductPage();
+    }
+    else if (sectionId === "categories") {
+        renderCategoryPage();
+    }
+    else if (sectionId === "clients") {
+        renderClientPage();
+    }
 }
 function renderCategoryPage() {
     var categoriesSection = document.getElementById("categories");
@@ -10,10 +44,10 @@ function renderCategoryPage() {
     fetchAllCategories();
 }
 function renderProductPage() {
-    var productsSection = document.getElementById("products");
+    var productsSection = document.getElementById("add-product");
     if (!productsSection)
         return;
-    productsSection.innerHTML = "\n        <div id=\"product-form-container\"></div>\n        <div id=\"product-list\"></div>\n    ";
+    productsSection.innerHTML = "\n        <div id=\"product-form-container\"></div>\n\n    ";
     renderProductForm();
     fetchCategories();
 }
@@ -25,28 +59,14 @@ function renderClientPage() {
     renderClientForm();
     fetchAllClients();
 }
-function handleMenuClick(ev) {
-    var _a;
-    ev.preventDefault();
-    var target = ev.target;
-    var sectionId = (_a = target.closest("a")) === null || _a === void 0 ? void 0 : _a.getAttribute("data-section");
-    if (!sectionId)
-        return;
-    var sections = document.querySelectorAll(".page-section");
-    sections.forEach(function (section) { return section.classList.add("hidden"); });
-    var sectionToShow = document.getElementById(sectionId);
-    if (sectionToShow) {
-        sectionToShow.classList.remove("hidden");
-    }
-    if (sectionId === "categories") {
-        renderCategoryPage();
-    }
-    else if (sectionId === "products") {
-        renderProductPage();
-    }
-    else if (sectionId === "clients") {
-        renderClientPage();
-    }
+;
+function renderAllProducts() {
+    var productsSection = document.getElementById("all-products");
+    if (!productsSection)
+        throw new Error('No products list found');
+    productsSection.innerHTML = "\n        <div id=\"products-table\"></div>\n    ";
+    fetchAllProducts();
+    // renderProductsTable();
 }
 function initializeDashboard() {
     render();
