@@ -44,7 +44,6 @@ function getClient(req, res) {
         return __generator(this, function (_a) {
             try {
                 id = req.cookie.id;
-                // const client = await ClientModel.findOne(id: id);
             }
             catch (error) {
                 console.error(error);
