@@ -44,11 +44,10 @@ exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, voi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, productModel_1.ProductModel.find()
-                    // .populate('category');
-                ];
+                return [4 /*yield*/, productModel_1.ProductModel.find()];
             case 1:
                 products = _a.sent();
+                console.log("products", products);
                 // .populate('category');
                 res.status(200).json(products);
                 return [3 /*break*/, 3];
