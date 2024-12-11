@@ -54,12 +54,11 @@ function renderProducts(products: any[]): void {
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
                         <div class="description-container"><p class="product-description">${product.description}</p></div>
-                        <div class="bottom-section">
-                            <p class="product-price">$${product.price}</p>
-                            <button class="button-more">More</button>
-                            <i class="icon fa-solid fa-cart-plus"></i>
-                            ${product.inSale ? `<i class="icon-sale fa-solid fa-tag sale-icon"></i>` : ''}
+                        <div class="bottom-section">  
+                           <i class="icon fa-solid fa-circle-chevron-down"></i>
+                           <p class="product-price">$${product.price}</p>
                         </div>
+                         <button class="button-more"><i class="icon fa-solid fa-cart-shopping"></i> Add to cart</button>
                     </div>
                 `
                 )
