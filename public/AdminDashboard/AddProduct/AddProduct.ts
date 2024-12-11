@@ -9,6 +9,8 @@ async function handleAddProduct(ev: Event): Promise<void> {
       price: parseFloat(formData.get("price") as string),
       quantity: parseInt(formData.get("quantity") as string, 10),
       inSale: formData.get("inSale") === "no",
+      image: parseFloat(formData.get("image") as string),
+
   };
 
   console.log(productData);
@@ -137,7 +139,7 @@ function renderProductForm(): void {
 
           <label for="category">Category:</label>
           <select id="category" name="category" required>
-              <option value="">--Select category--</option>
+              <option value="">-Select category-</option>
           </select>
 
           <label for="price">Price:</label>

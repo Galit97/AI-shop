@@ -48,7 +48,8 @@ function handleAddProduct(ev) {
                         category: formData.get("category"),
                         price: parseFloat(formData.get("price")),
                         quantity: parseInt(formData.get("quantity"), 10),
-                        inSale: formData.get("inSale") === "no"
+                        inSale: formData.get("inSale") === "no",
+                        image: parseFloat(formData.get("image"))
                     };
                     console.log(productData);
                     _a.label = 1;
@@ -198,7 +199,7 @@ function renderProductForm() {
     var container = document.getElementById("product-form-container");
     if (!container)
         return;
-    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">--Select category--</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
+    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">-Select category-</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
     var form = document.getElementById("product-form");
     if (form)
         form.addEventListener("submit", handleAddProduct);
