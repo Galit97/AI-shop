@@ -74,11 +74,50 @@ async function fetchAllProducts(): Promise<void> {
   };
 
 
-async function handleEditProducts(): Promise<void> {
-
-}
-
-
-async function handleDeleteProducts(): Promise<void> {
-    
-}
+  async function handleDeleteProduct(id: string): Promise<void> {
+    try {
+        const response = await fetch("/api/products/delete-product", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+        });
+  
+        if (response.ok) {
+            document.getElementById(`product-${id}`)?.remove();
+            console.log("Product deleted successfully");
+        } else {
+            throw new Error("Failed to delete product");
+        }
+    } catch (error) {
+        console.error("Error deleting product:", error);
+    }
+  }
+  
+  async function handleEditProduct(id: string): Promise<void> {
+    const name = prompt("Enter new product name:");
+    if (!name) return;
+  
+    const description = prompt("Enter new product description:");
+    if (!description) return;
+  
+    const price = parseFloat(prompt("Enter new product price:") || "0");
+    const quantity = parseInt(prompt("Enter new product quantity:") || "0", 10);
+    const inStock = confirm("Is the product in stock?");
+  
+    try {
+        const response = await fetch("/api/products/edit-product", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id, name, category, Image, description, price, quantity, inStock }),
+        });
+  
+        if (response.ok) {
+            console.log("Product edited successfully"); 
+            await fetchAllProducts();
+        } else {
+            throw new Error("Failed to edit product");
+        }
+    } catch (error) {
+        console.error("Error editing product:", error);
+    }
+  }

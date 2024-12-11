@@ -120,80 +120,6 @@ function handleAddProduct(ev) {
 //       </table>
 //   `;
 // }
-function handleDeleteProduct(id) {
-    var _a;
-    return __awaiter(this, void 0, Promise, function () {
-        var response, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fetch("/api/products/delete-product", {
-                            method: "DELETE",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ id: id })
-                        })];
-                case 1:
-                    response = _b.sent();
-                    if (response.ok) {
-                        (_a = document.getElementById("product-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
-                        console.log("Product deleted successfully");
-                    }
-                    else {
-                        throw new Error("Failed to delete product");
-                    }
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _b.sent();
-                    console.error("Error deleting product:", error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-function handleEditProduct(id) {
-    return __awaiter(this, void 0, Promise, function () {
-        var name, description, price, quantity, inStock, response, error_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    name = prompt("Enter new product name:");
-                    if (!name)
-                        return [2 /*return*/];
-                    description = prompt("Enter new product description:");
-                    if (!description)
-                        return [2 /*return*/];
-                    price = parseFloat(prompt("Enter new product price:") || "0");
-                    quantity = parseInt(prompt("Enter new product quantity:") || "0", 10);
-                    inStock = confirm("Is the product in stock?");
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 6, , 7]);
-                    return [4 /*yield*/, fetch("/api/products/edit-product", {
-                            method: "PATCH",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ id: id, name: name, category: category, Image: Image, description: description, price: price, quantity: quantity, inStock: inStock })
-                        })];
-                case 2:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
-                    console.log("Product edited successfully");
-                    return [4 /*yield*/, fetchAllProducts()];
-                case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4: throw new Error("Failed to edit product");
-                case 5: return [3 /*break*/, 7];
-                case 6:
-                    error_2 = _a.sent();
-                    console.error("Error editing product:", error_2);
-                    return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
-            }
-        });
-    });
-}
 function renderProductForm() {
     var container = document.getElementById("product-form-container");
     if (!container)
@@ -207,7 +133,7 @@ function renderProductForm() {
 ;
 function fetchCategories() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, categories, categorySelect_1, error_3;
+        var response, categories, categorySelect_1, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -231,8 +157,8 @@ function fetchCategories() {
                     });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_3 = _a.sent();
-                    console.error("Error fetching categories:", error_3);
+                    error_1 = _a.sent();
+                    console.error("Error fetching categories:", error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

@@ -27,7 +27,7 @@ function renderPage(): void {
         <div id="filter-sort-controls">
             <select id="category" name="category">
               <option value="">-Select category-</option>
-          </select>
+            </select>
             <select id="sort-filter">
                 <option value="default">Sort By</option>
                 <option value="price-asc">Price: Low to High</option>
