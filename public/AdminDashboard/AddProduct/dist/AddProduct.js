@@ -81,47 +81,49 @@ function handleAddProduct(ev) {
     });
 }
 ;
-function fetchAllProducts() {
-    return __awaiter(this, void 0, Promise, function () {
-        var response, products, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/products/get-all-products")];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok)
-                        throw new Error("Failed to fetch products");
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    products = _a.sent();
-                    renderProducts(products);
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error("Error fetching products:", error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-function renderProducts(products) {
-    var container = document.getElementById("product-list");
-    if (!container)
-        return;
-    container.innerHTML = "\n      <table>\n          <thead>\n              <tr>\n                  <th>Product Name</th>\n                  <th>Description</th>\n                  <th>Category</th>\n                  <th>Price</th>\n                  <th>Quantity</th>\n                  <th>In Stock</th>\n                  <th>Actions</th>\n              </tr>\n          </thead>\n          <tbody>\n              " + products
-        .map(function (product) {
-        var _a;
-        return "\n                      <tr id=\"product-" + product._id + "\">\n                          <td>" + product.name + "</td>\n                          <td>" + product.description + "</td>\n                          <td>" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</td>\n                          <td>" + product.price + "</td>\n                          <td>" + product.quantity + "</td>\n                          <td>" + (product.inStock ? "Yes" : "No") + "</td>\n                          <td>\n                              <button onclick=\"handleEditProduct('" + product._id + "')\">Edit</button>\n                              <button onclick=\"handleDeleteProduct('" + product._id + "')\">Delete</button>\n                          </td>\n                      </tr>\n                  ";
-    })
-        .join("") + "\n          </tbody>\n      </table>\n  ";
-}
+// function renderProducts(products: any[]): void {
+//   const container = document.getElementById("product-list");
+//   if (!container) return;
+//   container.innerHTML = `
+//       <table>
+//           <thead>
+//               <tr>
+//                   <th>Product Name</th>
+//                   <th>Description</th>
+//                   <th>Category</th>
+//                   <th>Price</th>
+//                   <th>Quantity</th>
+//                   <th>In Stock</th>
+//                   <th>Actions</th>
+//               </tr>
+//           </thead>
+//           <tbody>
+//               ${products
+//                   .map(
+//                       (product) => `
+//                       <tr id="product-${product._id}">
+//                           <td>${product.name}</td>
+//                           <td>${product.description}</td>
+//                           <td>${product.category?.name || "Uncategorized"}</td>
+//                           <td>${product.price}</td>
+//                           <td>${product.quantity}</td>
+//                           <td>${product.inStock ? "Yes" : "No"}</td>
+//                           <td>
+//                               <button onclick="handleEditProduct('${product._id}')">Edit</button>
+//                               <button onclick="handleDeleteProduct('${product._id}')">Delete</button>
+//                           </td>
+//                       </tr>
+//                   `
+//                   )
+//                   .join("")}
+//           </tbody>
+//       </table>
+//   `;
+// }
 function handleDeleteProduct(id) {
     var _a;
     return __awaiter(this, void 0, Promise, function () {
-        var response, error_2;
+        var response, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -142,8 +144,8 @@ function handleDeleteProduct(id) {
                     }
                     return [3 /*break*/, 3];
                 case 2:
-                    error_2 = _b.sent();
-                    console.error("Error deleting product:", error_2);
+                    error_1 = _b.sent();
+                    console.error("Error deleting product:", error_1);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -152,7 +154,7 @@ function handleDeleteProduct(id) {
 }
 function handleEditProduct(id) {
     return __awaiter(this, void 0, Promise, function () {
-        var name, description, price, quantity, inStock, response, error_3;
+        var name, description, price, quantity, inStock, response, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -184,8 +186,8 @@ function handleEditProduct(id) {
                 case 4: throw new Error("Failed to edit product");
                 case 5: return [3 /*break*/, 7];
                 case 6:
-                    error_3 = _a.sent();
-                    console.error("Error editing product:", error_3);
+                    error_2 = _a.sent();
+                    console.error("Error editing product:", error_2);
                     return [3 /*break*/, 7];
                 case 7: return [2 /*return*/];
             }
@@ -205,7 +207,7 @@ function renderProductForm() {
 ;
 function fetchCategories() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, categories, categorySelect_1, error_4;
+        var response, categories, categorySelect_1, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -223,14 +225,14 @@ function fetchCategories() {
                     categorySelect_1.innerHTML = '<option value="">--Select category--</option>';
                     categories.forEach(function (category) {
                         var option = document.createElement('option');
-                        option.value = category.name.toLowerCase();
+                        option.value = category._id;
                         option.textContent = category.name;
                         categorySelect_1.appendChild(option);
                     });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_4 = _a.sent();
-                    console.error("Error fetching categories:", error_4);
+                    error_3 = _a.sent();
+                    console.error("Error fetching categories:", error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
