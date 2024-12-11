@@ -48,8 +48,7 @@ function handleAddProduct(ev) {
                         category: formData.get("category"),
                         price: parseFloat(formData.get("price")),
                         quantity: parseInt(formData.get("quantity"), 10),
-                        inSale: formData.get("inSale") === "no",
-                        image: parseFloat(formData.get("image"))
+                        inSale: formData.get("inSale") === "no"
                     };
                     console.log(productData);
                     _a.label = 1;
@@ -58,7 +57,7 @@ function handleAddProduct(ev) {
                     return [4 /*yield*/, fetch("http://localhost:3000/api/products/add-product", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(productData)
+                            body: formData
                         })];
                 case 2:
                     response = _a.sent();

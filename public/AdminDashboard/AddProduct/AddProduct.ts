@@ -9,7 +9,7 @@ async function handleAddProduct(ev: Event): Promise<void> {
       price: parseFloat(formData.get("price") as string),
       quantity: parseInt(formData.get("quantity") as string, 10),
       inSale: formData.get("inSale") === "no",
-      image: parseFloat(formData.get("image") as string),
+    //   image: parseFloat(formData.get("image") as string),
 
   };
 
@@ -18,7 +18,7 @@ async function handleAddProduct(ev: Event): Promise<void> {
       const response = await fetch("http://localhost:3000/api/products/add-product", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(productData),
+          body: formData,
       });
 
       console.log(response);
