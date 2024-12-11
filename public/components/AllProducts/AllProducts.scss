@@ -4,8 +4,8 @@
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
 }
 
 .product-card {
@@ -16,10 +16,7 @@
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+
 
     .product-image {
         width: 100%;
@@ -51,8 +48,9 @@
 
 #filter-sort-controls {
     display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-left: 3rem;
 
     select {
         padding: 10px;
@@ -61,5 +59,6 @@
         border-radius: 5px;
         background-color: #fff;
         cursor: pointer;
+
     }
 }
