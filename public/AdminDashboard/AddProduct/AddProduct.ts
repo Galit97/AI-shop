@@ -9,8 +9,6 @@ async function handleAddProduct(ev: Event): Promise<void> {
       price: parseFloat(formData.get("price") as string),
       quantity: parseInt(formData.get("quantity") as string, 10),
       inSale: formData.get("inSale") === "no",
-    //   image: parseFloat(formData.get("image") as string),
-
   };
 
   console.log(productData);
@@ -111,7 +109,7 @@ async function handleEditProduct(id: string): Promise<void> {
       const response = await fetch("/api/products/edit-product", {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, name, category, description, price, quantity, inStock }),
+          body: JSON.stringify({ id, name, category, Image, description, price, quantity, inStock }),
       });
 
       if (response.ok) {

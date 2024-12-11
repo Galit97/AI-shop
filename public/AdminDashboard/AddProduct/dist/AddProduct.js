@@ -173,7 +173,7 @@ function handleEditProduct(id) {
                     return [4 /*yield*/, fetch("/api/products/edit-product", {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ id: id, name: name, category: category, description: description, price: price, quantity: quantity, inStock: inStock })
+                            body: JSON.stringify({ id: id, name: name, category: category, Image: Image, description: description, price: price, quantity: quantity, inStock: inStock })
                         })];
                 case 2:
                     response = _a.sent();
