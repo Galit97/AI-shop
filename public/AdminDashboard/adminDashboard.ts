@@ -1,10 +1,13 @@
 function renderDashboard(): string {
     return `
          <div class="sidebar" id="dashboardContainer">
+          <div class="logo-container">
+            <img src="../images/Ai-shop-logo.png" alt="AI Shop Logo">
+        </div>
         <ul class="sidebar-menu">
             <li class="sidebar-item">
                 <a href="?productsParam=products" data-section="products">
-                    <i class="icon">&#128722;</i> <!-- Shopping cart icon -->
+                    <i class="icon fa-solid fa-list"></i>
                     <span>Products</span>
                 </a>
                 <ul class="submenu hidden" id="productsSubmenu">
@@ -18,13 +21,13 @@ function renderDashboard(): string {
             </li>
             <li class="sidebar-item">
                 <a href="#" data-section="categories">
-                    <i class="icon">&#128195;</i> <!-- Folder icon -->
+                    <i class="icon fa-solid fa-table-cells-large"></i>
                     <span>Categories</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a href="#" data-section="clients">
-                    <i class="icon">&#128100;</i> <!-- User icon -->
+                   <i class="icon fa-solid fa-user"></i>
                     <span>Clients</span>
                 </a>
             </li>

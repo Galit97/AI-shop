@@ -1,11 +1,9 @@
 .admin-table-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
+    float: right; 
+    width: 72%; 
+    margin-right: 20px;
+    margin-right: 3rem;
+    margin-top: 2rem;
 
     .admin-table {
         width: 100%;
@@ -50,7 +48,20 @@
 
         th,
         td {
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap; 
+
+            button {
+                all: unset;
+                cursor: pointer;
+                display: inline-flex; 
+                align-items: center; 
+                justify-content: center; 
+                padding: 5px; 
+            }
+            
+            button:hover {
+                color: #ff4500;
+            }
         }
     }
 }
