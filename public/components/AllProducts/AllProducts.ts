@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
     await fetchAllProducts();
+    await fetchCategories();
     setupEventListeners();
 });
 
-let allProducts: any[] = [];
+const allProducts: any[] = [];
 
 async function fetchAllProducts(): Promise<void> {
     try {
@@ -24,8 +25,8 @@ function renderPage(): void {
 
     appContainer.innerHTML = `
         <div id="filter-sort-controls">
-            <select id="category" name="category" required>
-              <option value="">--Select category--</option>
+            <select id="category" name="category">
+              <option value="">-Select category-</option>
           </select>
             <select id="sort-filter">
                 <option value="default">Sort By</option>
@@ -61,6 +62,12 @@ function renderProducts(products: any[]): void {
         </div>
     `;
 }
+
+interface Category {
+    name: string;
+    _id: string;
+};
+
 async function fetchCategories(): Promise<void> {
     try {
         console.log("Fetching categories");
@@ -70,7 +77,7 @@ async function fetchCategories(): Promise<void> {
         const categories = await response.json();
 
         const categorySelect = document.getElementById('category') as HTMLSelectElement;
-        categorySelect.innerHTML = '<option value="">--Select category--</option>';
+        categorySelect.innerHTML = '<option value="">-Select category-</option>';
 
         categories.forEach((category: Category) => {
             const option = document.createElement('option');
@@ -116,7 +123,7 @@ function sortProducts(criteria: string): void {
 }
 
 function setupEventListeners(): void {
-    const categoryFilter = document.getElementById("category-filter") as HTMLSelectElement;
+    const categoryFilter = document.getElementById("category") as HTMLSelectElement; 
     const sortFilter = document.getElementById("sort-filter") as HTMLSelectElement;
 
     if (categoryFilter) {

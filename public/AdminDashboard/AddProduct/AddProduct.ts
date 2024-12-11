@@ -16,7 +16,7 @@ async function handleAddProduct(ev: Event): Promise<void> {
       const response = await fetch("http://localhost:3000/api/products/add-product", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(productData),
+          body: formData,
       });
 
       console.log(response);
@@ -109,7 +109,7 @@ async function handleEditProduct(id: string): Promise<void> {
       const response = await fetch("/api/products/edit-product", {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, name, category, description, price, quantity, inStock }),
+          body: JSON.stringify({ id, name, category, Image, description, price, quantity, inStock }),
       });
 
       if (response.ok) {
@@ -137,7 +137,7 @@ function renderProductForm(): void {
 
           <label for="category">Category:</label>
           <select id="category" name="category" required>
-              <option value="">--Select category--</option>
+              <option value="">-Select category-</option>
           </select>
 
           <label for="price">Price:</label>

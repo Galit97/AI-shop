@@ -57,7 +57,7 @@ function handleAddProduct(ev) {
                     return [4 /*yield*/, fetch("http://localhost:3000/api/products/add-product", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(productData)
+                            body: formData
                         })];
                 case 2:
                     response = _a.sent();
@@ -173,7 +173,7 @@ function handleEditProduct(id) {
                     return [4 /*yield*/, fetch("/api/products/edit-product", {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ id: id, name: name, category: category, description: description, price: price, quantity: quantity, inStock: inStock })
+                            body: JSON.stringify({ id: id, name: name, category: category, Image: Image, description: description, price: price, quantity: quantity, inStock: inStock })
                         })];
                 case 2:
                     response = _a.sent();
@@ -198,7 +198,7 @@ function renderProductForm() {
     var container = document.getElementById("product-form-container");
     if (!container)
         return;
-    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">--Select category--</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
+    container.innerHTML = "\n      <form id=\"product-form\">\n          <label for=\"name\">Product Name:</label>\n          <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter product name\" required />\n\n          <label for=\"description\">Description:</label>\n          <textarea id=\"description\" name=\"description\" placeholder=\"Enter description\" required></textarea>\n\n          <label for=\"category\">Category:</label>\n          <select id=\"category\" name=\"category\" required>\n              <option value=\"\">-Select category-</option>\n          </select>\n\n          <label for=\"price\">Price:</label>\n          <input type=\"number\" id=\"price\" name=\"price\" placeholder=\"Enter price\" required />\n\n          <label for=\"quantity\">Quantity:</label>\n          <input type=\"number\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter quantity\" required />\n\n          <label for=\"inSale\">In Sale:</label>\n          <select id=\"inSale\" name=\"inSale\">\n              <option value=\"yes\">Yes</option>\n              <option value=\"no\">No</option>\n          </select>\n\n          <label for=\"image\">Product Image:</label>\n          <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*\" />\n\n          <button type=\"submit\">Add Product</button>\n      </form>\n  ";
     var form = document.getElementById("product-form");
     if (form)
         form.addEventListener("submit", handleAddProduct);
