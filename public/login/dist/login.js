@@ -94,7 +94,7 @@ function handleFormLogin() {
 ;
 function loginClient(email, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, loginPopup, error_1;
+        var response, data, loginPopup, welcomeName, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -113,8 +113,13 @@ function loginClient(email, password) {
                     loginPopup = document.getElementById('loginPopup');
                     if (response.ok) {
                         console.log('success login');
-                        // loginPopup!.style.display = 'none';
-                        // window.location.href = "/";
+                        welcomeName = document.getElementById('loggedInUser');
+                        if (!welcomeName)
+                            throw new Error('error loginPopup');
+                        welcomeName.innerHTML = data.clientName;
+                        console.log("the user " + data.clientName + " is connected");
+                        alert("You have logged in successfully");
+                        loginPopup.style.display = 'none';
                     }
                     else {
                         alert(data.message);
