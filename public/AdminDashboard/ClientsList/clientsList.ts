@@ -52,10 +52,11 @@ async function fetchAllClients(): Promise<void> {
 }
 
 function renderClients(clients: Client[]): void {
-    const container = document.getElementById("client-list");
-    if (!container) return;
+    try {
+        const container = document.getElementById("client-list");
+        if (!container) throw new Error("Client list container not found");
 
-    container.innerHTML = `
+        container.innerHTML = `
         <table>
             <thead>
                 <tr>
@@ -69,8 +70,8 @@ function renderClients(clients: Client[]): void {
             </thead>
             <tbody>
                 ${clients
-                    .map(
-                        (client) => `
+                .map(
+                    (client) => `
                         <tr id="client-${client._id}">
                             <td>${client.firstName}</td>
                             <td>${client.lastName}</td>
@@ -83,12 +84,15 @@ function renderClients(clients: Client[]): void {
                             </td>
                         </tr>
                     `
-                    )
-                    .join("")}
+                )
+                .join("")}
             </tbody>
         </table>
     `;
-    // <td>${client.address}</td> todo: add up
+        // <td>${client.address}</td> todo: add up
+    } catch (error) {
+        console.error("Error rendering clients:", error);
+    }
 }
 
 async function setClients(action: "update" | "delete", id: string): Promise<void> {

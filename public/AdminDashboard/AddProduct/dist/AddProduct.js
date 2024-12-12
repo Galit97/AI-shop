@@ -223,7 +223,7 @@ function fetchCategories() {
                     categorySelect_1.innerHTML = '<option value="">--Select category--</option>';
                     categories.forEach(function (category) {
                         var option = document.createElement('option');
-                        option.value = category.name.toLowerCase();
+                        option.value = category._id;
                         option.textContent = category.name;
                         categorySelect_1.appendChild(option);
                     });
