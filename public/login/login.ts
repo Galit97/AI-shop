@@ -106,8 +106,14 @@ function handleFormLogin(): void {
             
             if (response.ok) {
                 console.log('success login');
-                // loginPopup!.style.display = 'none';
-                // window.location.href = "/";
+                const welcomeName=document.getElementById('loggedInUser');
+                if (!welcomeName)
+                  throw new Error('error loginPopup');
+                welcomeName.innerHTML = data.clientName;
+                console.log(`the user ` + data.clientName  + ` is connected`);
+                alert("You have logged in successfully");
+                loginPopup!.style.display = 'none';
+              
             } else {
                 alert(data.message);
             }
