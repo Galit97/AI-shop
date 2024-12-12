@@ -21,41 +21,45 @@ function renderProductsTable(products: Product[]): void {
 
   container.innerHTML = `
        <div class="admin-table-container" id="admin-table-container">
-            <table class="admin-table" id="admin-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>In Sale</th>
-                    </tr>
-                </thead>
-                <tbody id="productTableBody">
-                      ${products.map((product) => `
-                      <tr id="product-${product._id}">
-                          <td>${product.name}</td>
-                          <td>${product.category?.name || "Uncategorized"}</td>
-                          <td>${product.description}</td>
-                          <td>$ ${product.price}</td>
-                          <td>${product.quantity}</td>
-                          <td>${product.inSale ? "in sale" : "-"}</td>
-                          <td>
-                            <button onclick="handleEditProduct('${product._id}')">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button onclick="handleDeleteProduct('${product._id}')">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                          </td>
-                      </tr>
-                  `
-                  )
-                  .join("")}
-                </tbody>
+    <table class="admin-table" id="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>In Sale</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="productTableBody">
+            ${products.map((product) => `
+            <tr id="product-${product._id}">
+                <td>${product.name}</td>
+                <td>${product.category?.name || "Uncategorized"}</td>
+                <td>
+                    <span class="description-preview">${product.description.length > 120 ? product.description.slice(0, 120) + '...' : product.description}</span>
+                    ${product.description.length > 100 ? '<a href="#" class="read-more">...</a>' : ''}
+                    <span class="full-description" style="display:none;">${product.description}</span>
+                </td>
+                <td>$ ${product.price}</td>
+                <td>${product.quantity}</td>
+                <td>${product.inSale ? "in sale" : "-"}</td>
+                <td>
+                    <button onclick="handleEditProduct('${product._id}')">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button onclick="handleDeleteProduct('${product._id}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            `).join("")}
+        </tbody>
     </table>
 </div>
+
     `
 };
 
@@ -112,31 +116,48 @@ async function fetchAllProducts(): Promise<void> {
 //     `
 //   };
   
-  async function handleEditProduct(id: string): Promise<void> {
-    const name = prompt("Enter new product name:");
-    if (!name) return;
-  
-    const description = prompt("Enter new product description:");
-    if (!description) return;
-  
-    const price = parseFloat(prompt("Enter new product price:") || "0");
-    const quantity = parseInt(prompt("Enter new product quantity:") || "0", 10);
-    const inStock = confirm("Is the product in stock?");
-  
+function handleEditProductField(id: string, fieldName: string) {
+    const element = document.getElementById(`${fieldName}-${id}`);
+    if (!element) return;
+
+    element.contentEditable = "true";
+    element.focus();
+
+    element.addEventListener(
+        "blur",
+        async () => {
+            const value =
+                fieldName === "price" || fieldName === "quantity"
+                    ? parseFloat(element.innerText)
+                    : fieldName === "inStock"
+                    ? element.innerText.trim().toLowerCase() === "true"
+                    : element.innerText.trim();
+            element.contentEditable = "false";
+
+            await updateProduct(id, { [fieldName]: value });
+        },
+        { once: true }
+    );
+}
+
+async function updateProduct(id: string, updatedFields: Partial<any>) {
     try {
-        const response = await fetch("/api/products/edit-product", {
+        const response = await fetch(`/api/products/edit-product`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, name, category, Image, description, price, quantity, inStock }),
+            body: JSON.stringify({ id, ...updatedFields }),
         });
-  
-        if (response.ok) {
-            console.log("Product edited successfully"); 
-            await fetchAllProducts();
-        } else {
-            throw new Error("Failed to edit product");
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error("Failed to update product. Server response:", errorMessage);
+            throw new Error("Failed to update product");
         }
+
+        await fetchAllProducts();
     } catch (error) {
-        console.error("Error editing product:", error);
+        console.error("Error updating product:", error);
     }
-  }
+}
+
+

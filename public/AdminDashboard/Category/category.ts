@@ -54,8 +54,10 @@ function renderCategories(categories: any[]): void {
                         <tr id="category-${category._id}">
                             <td>${category.name}</td>
                             <td>
-                                <button onclick="handleEditCategory('${category._id}')">Edit</button>
-                                <button onclick="handleDeleteCategory('${category._id}')">Delete</button>
+                                <button class="edit-btn" onclick="handleEditCategory('${category._id}')">
+                                 <i class="fa-regular fa-pen-to-square"></i></button>
+                                <button onclick="handleDeleteCategory('${category._id}')">
+                                <i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     `
@@ -111,7 +113,7 @@ function renderCategoryForm(): void {
 
     container.innerHTML = `
         <form id="category-form">
-            <label for="name">Category Name:</label>
+            <label for="name">Add Category:</label>
             <input type="text" id="name" name="name" placeholder="Enter category name" required />
             <button type="submit">Add Category</button>
         </form>

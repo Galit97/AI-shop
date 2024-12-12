@@ -40,7 +40,11 @@
                     background-color: #f0742c; 
                     color: #ecf0f1;
                 }
-  
+                &:focus,
+                &:active  {
+                    background-color: #f0742c; 
+                    color: #ecf0f1;
+                }
                 .icon {
                     color: #bdc3c7;
                     font-size: 1rem;

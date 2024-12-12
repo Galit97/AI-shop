@@ -7,6 +7,6 @@ var uploadMiddleware_1 = require("../controllers/products/uploadMiddleware");
 var productRouter = express_1["default"].Router();
 productRouter.post('/add-product', uploadMiddleware_1["default"].single('image'), setProduct_1.addProduct);
 productRouter.get('/get-products', getProduct_1.getProducts);
-productRouter.patch('/edit-products', getProduct_1.editProducts);
-productRouter["delete"]('/delete-products', getProduct_1.deleteProducts);
+productRouter.patch('/edit-product', getProduct_1.editProducts);
+productRouter["delete"]('/delete-product', getProduct_1.deleteProducts);
 exports["default"] = productRouter;

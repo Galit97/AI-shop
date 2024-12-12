@@ -1,138 +1,153 @@
-/* General Styling */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-    color: #333;
-}
-
-/* Form Container */
 #category-form-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;  /* Center the form vertically */
     margin: 2rem auto;
-    max-width: 800px;
-
+    max-width: 90rem;
+  
     form {
-        background: #fff;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
-        width: 100%;
-        max-width: 500px;
-        text-align: center;
-
-        label {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #222;
+      background: #fff;
+      border-radius: 0.2rem;
+      padding: 2rem;
+      width: 45rem;
+      display: flex;        /* Change to flex */
+      flex-direction: column; /* Stack items in a column */
+      align-items: flex-start; /* Align items to the start */
+    
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        text-align: center; /* Center the title */
+      }
+  
+      label {
+        display: block;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #222;
+        margin-bottom: 0.5rem;
+      }
+  
+      input {
+        width: 100%; /* Full width for input */
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #333;  /* Make text readable */
+  
+        &:focus {
+          outline: none;
+          border-color: #f0742c;
         }
-
-        input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 1rem 0;
-            font-size: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-
-            &:focus {
-                outline: none;
-                border-color: #ff6a00;
-                box-shadow: 0 0 4px rgba(255, 106, 0, 0.5);
-            }
+      }
+  
+      button {
+        background: #f0742c;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 1.5rem;
+        width: 100%;  /* Make button full width */
+    
+        &:hover {
+          background: #e6e6e6;
         }
-
-        button {
-            display: inline-block;
-            background: #ff6a00;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-
-            &:hover {
-                background: #e55a00;
-            }
-        }
+      }
     }
-}
+  }
+  
 
-/* Category List */
+
 #category-list {
     margin: 2rem auto;
     max-width: 800px;
     background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-
+    border-radius: 2px;
+  
     table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-
-        thead {
-            background: #ff6a00;
-            color: #fff;
-
-            th {
-                padding: 1rem;
-                font-size: 1rem;
-                font-weight: bold;
-            }
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+  
+      thead {
+        background: #f0742c;
+        color: #fff;
+        height: 1.5rem;
+  
+        th {
+          padding: 1rem;
+          font-size: 1rem;
+          font-weight: bold;
         }
-
-        tbody {
-            tr {
-                &:nth-child(even) {
-                    background: #f9f9f9;
+      }
+  
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background: #f9f9f9;
+          }
+  
+          td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+  
+            button {
+              color: #fff;
+              background-color: #f0742c;
+              all: unset;
+              font-size: 0.9rem;
+              font-weight: bold;
+              padding: 0.5rem 1rem;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background 0.3s;
+              margin-right: 0.5rem;
+  
+              i {
+                margin-right: 0.5rem;
+              }
+  
+              &:hover {
+                background: #e6e6e6;
+                color: #f0742c;
+              }
+  
+              &.edit {
+                background-color: #4CAF50;
+                color: white;
+  
+                &:hover {
+                  background-color: #45a049;
                 }
-
-                td {
-                    padding: 1rem;
-                    border-bottom: 1px solid #ddd;
-
-                    button {
-                        background: #ff6a00;
-                        color: #fff;
-                        font-size: 0.9rem;
-                        font-weight: bold;
-                        padding: 0.5rem 1rem;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        transition: background 0.3s;
-
-                        &:hover {
-                            background: #e55a00;
-                        }
-
-                        &.edit {
-                            margin-right: 0.5rem;
-                        }
-
-                        &.delete {
-                            background: #ff3333;
-
-                            &:hover {
-                                background: #d60000;
-                            }
-                        }
-                    }
+              }
+  
+              &.delete {
+                background-color: #f44336;
+                color: white;
+  
+                &:hover {
+                  background-color: #e53935;
                 }
+              }
             }
-
-            tr:last-child td {
-                border-bottom: none;
-            }
+          }
+  
+          tr:last-child td {
+            border-bottom: none;
+          }
         }
+      }
     }
-}
+  }
+  
+  button i {
+    font-size: 1rem;
+  }
+  

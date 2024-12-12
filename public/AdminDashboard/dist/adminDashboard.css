@@ -38,6 +38,10 @@
   background-color: #f0742c;
   color: #ecf0f1;
 }
+.sidebar .sidebar-menu .sidebar-item a:focus, .sidebar .sidebar-menu .sidebar-item a:active {
+  background-color: #f0742c;
+  color: #ecf0f1;
+}
 .sidebar .sidebar-menu .sidebar-item a .icon {
   color: #bdc3c7;
   font-size: 1rem;

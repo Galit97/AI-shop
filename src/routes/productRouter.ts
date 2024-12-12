@@ -7,7 +7,7 @@ const productRouter = express.Router();
 
 productRouter.post('/add-product', upload.single('image'), addProduct);
 productRouter.get('/get-products', getProducts);
-productRouter.patch('/edit-products', editProducts);
-productRouter.delete('/delete-products', deleteProducts);
+productRouter.patch('/edit-product', editProducts);
+productRouter.delete('/delete-product', deleteProducts);
 
 export default productRouter;

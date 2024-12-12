@@ -103,7 +103,7 @@ function renderCategories(categories) {
     if (!container)
         return;
     container.innerHTML = "\n        <table>\n            <thead>\n                <tr>\n                    <th>Category Name</th>\n                    <th>Actions</th>\n                </tr>\n            </thead>\n            <tbody>\n                " + categories
-        .map(function (category) { return "\n                        <tr id=\"category-" + category._id + "\">\n                            <td>" + category.name + "</td>\n                            <td>\n                                <button onclick=\"handleEditCategory('" + category._id + "')\">Edit</button>\n                                <button onclick=\"handleDeleteCategory('" + category._id + "')\">Delete</button>\n                            </td>\n                        </tr>\n                    "; })
+        .map(function (category) { return "\n                        <tr id=\"category-" + category._id + "\">\n                            <td>" + category.name + "</td>\n                            <td>\n                                <button class=\"edit-btn\" onclick=\"handleEditCategory('" + category._id + "')\">\n                                 <i class=\"fa-regular fa-pen-to-square\"></i></button>\n                                <button onclick=\"handleDeleteCategory('" + category._id + "')\">\n                                <i class=\"fa-solid fa-trash\"></i></button>\n                            </td>\n                        </tr>\n                    "; })
         .join("") + "\n            </tbody>\n        </table>\n    ";
 }
 function handleDeleteCategory(id) {
@@ -176,7 +176,7 @@ function renderCategoryForm() {
     var container = document.getElementById("category-form-container");
     if (!container)
         return;
-    container.innerHTML = "\n        <form id=\"category-form\">\n            <label for=\"name\">Category Name:</label>\n            <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter category name\" required />\n            <button type=\"submit\">Add Category</button>\n        </form>\n    ";
+    container.innerHTML = "\n        <form id=\"category-form\">\n            <label for=\"name\">Add Category:</label>\n            <input type=\"text\" id=\"name\" name=\"name\" placeholder=\"Enter category name\" required />\n            <button type=\"submit\">Add Category</button>\n        </form>\n    ";
     var form = document.getElementById("category-form");
     if (form)
         form.addEventListener("submit", handleAddCategory);

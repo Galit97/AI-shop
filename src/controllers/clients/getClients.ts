@@ -21,3 +21,4 @@ export async function getAllClients(req: any, res: any) {
         return res.status(500).send({ error: error.message });
     }
 };
+

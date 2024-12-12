@@ -82,35 +82,39 @@ function renderProductForm(): void {
   if (!container) return;
 
   container.innerHTML = `
-      <form id="product-form">
-          <label for="name">Product Name:</label>
-          <input type="text" id="name" name="name" placeholder="Enter product name" required />
+     <div id="product-form-container">
+  <form id="product-form">
+    <h1>Add Product</h1>
+    <label for="name">Product Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter product name" required />
 
-          <label for="description">Description:</label>
-          <textarea id="description" name="description" placeholder="Enter description" required></textarea>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" placeholder="Enter description" required></textarea>
 
-          <label for="category">Category:</label>
-          <select id="category" name="category" required>
-              <option value="">-Select category-</option>
-          </select>
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+        <option value="">-Select category-</option>
+    </select>
 
-          <label for="price">Price:</label>
-          <input type="number" id="price" name="price" placeholder="Enter price" required />
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" placeholder="Enter price" required />
 
-          <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required />
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required />
 
-          <label for="inSale">In Sale:</label>
-          <select id="inSale" name="inSale">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-          </select>
+    <label for="inSale">In Sale:</label>
+    <select id="inSale" name="inSale">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
 
-          <label for="image">Product Image:</label>
-          <input type="file" id="image" name="image" accept="image/*" />
+    <label for="image">Product Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" />
 
-          <button type="submit">Add Product</button>
-      </form>
+    <button type="submit">Add Product</button>
+  </form>
+</div>
+
   `;
 
   const form = document.getElementById("product-form") as HTMLFormElement;
@@ -143,3 +147,4 @@ async function fetchCategories(): Promise<void> {
         console.error("Error fetching categories:", error);
     }
 }
+
