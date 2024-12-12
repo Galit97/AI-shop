@@ -37,6 +37,12 @@ function renderDashboard(): string {
                     <span>Home Page</span>
                 </a>
             </li>
+             <li class="sidebar-item">
+                <a href="#" data-section="settings">
+                   <i class="icon fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
         </ul>
        </div>
     `;

@@ -50,7 +50,7 @@ function renderProducts(products: any[]): void {
             ${products
                 .map(
                     (product) => `
-                    <div class="product-card" id="product-${product._id}">
+                     <a href="/product-view.html?id=${product._id}" class="product-card" id="product-${product._id}">
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
                         <div class="description-container"><p class="product-description">${product.description}</p></div>
@@ -59,7 +59,7 @@ function renderProducts(products: any[]): void {
                            <p class="product-price">$${product.price}</p>
                         </div>
                          <button class="button-more"><i class="icon fa-solid fa-cart-shopping"></i> Add to cart</button>
-                    </div>
+                    </a>
                 `
                 )
                 .join("")}
