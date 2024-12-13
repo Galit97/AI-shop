@@ -55,10 +55,10 @@ export async function login(req: any, res: any) {
         };
 
         // Check if the password is correct
-        // const passwordValid = await bcrypt.compare(password, client.password);
-        // if(!passwordValid) {
-        //     return res.status(400).send({ message: "The password you provided is incorrect" });
-        // };
+        const passwordValid = await bcrypt.compare(password, client.password);
+        if(!passwordValid) {
+            return res.status(400).send({ message: "The password you provided is incorrect" });
+        };
 
         //send client's id to the cookie
         res.cookie('client', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });

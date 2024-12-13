@@ -50,7 +50,7 @@ function renderProducts(products: any[]): void {
             ${products
                 .map(
                     (product) => `
-                     <a href="/product-view.html?id=${product._id}" class="product-card" id="product-${product._id}">
+                     <a href="?viewProductParam=${product._id}" class="product-card" id="product-${product._id}">
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
                         <div class="description-container"><p class="product-description">${product.description}</p></div>
@@ -74,7 +74,6 @@ interface Category {
 
 async function fetchCategories(): Promise<void> {
     try {
-        console.log("Fetching categories");
         const response = await fetch("/api/categories/get-all-categories");
         if (!response.ok) throw new Error("Failed to fetch categories");
         

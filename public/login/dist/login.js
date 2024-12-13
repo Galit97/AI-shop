@@ -113,8 +113,8 @@ function loginClient(email, password) {
                     loginPopup = document.getElementById('loginPopup');
                     if (response.ok) {
                         console.log('success login');
-                        // loginPopup!.style.display = 'none';
-                        // window.location.href = "/";
+                        loginPopup.style.display = 'none';
+                        window.location.href = "/";
                     }
                     else {
                         alert(data.message);

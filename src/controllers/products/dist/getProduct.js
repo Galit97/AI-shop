@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.editProducts = exports.deleteProducts = exports.getProducts = void 0;
+exports.editProducts = exports.deleteProducts = exports.getProduct = exports.getProducts = void 0;
 var productModel_1 = require("../../models/productModel");
 exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var products, error_1;
@@ -47,8 +47,6 @@ exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, voi
                 return [4 /*yield*/, productModel_1.ProductModel.find().populate('category', 'name')];
             case 1:
                 products = _a.sent();
-                console.log("products", products);
-                // .populate('category');
                 res.status(200).json(products);
                 return [3 /*break*/, 3];
             case 2:
@@ -59,6 +57,34 @@ exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
+function getProduct(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, product, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    id = req.body.id;
+                    console.log("ff: ", id);
+                    return [4 /*yield*/, productModel_1.ProductModel.findOne({ _id: id })];
+                case 1:
+                    product = _a.sent();
+                    if (!product) {
+                        return [2 /*return*/, res.status(400).send({ message: "No product found!!!" })];
+                    }
+                    ;
+                    console.log("product", product);
+                    return [2 /*return*/, res.status(200).send({ message: "Got product", product: product })];
+                case 2:
+                    error_2 = _a.sent();
+                    return [2 /*return*/, res.status(500).send({ error: error_2.message })];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getProduct = getProduct;
+;
 exports.deleteProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         try {

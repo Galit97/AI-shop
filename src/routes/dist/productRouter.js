@@ -9,4 +9,5 @@ productRouter.post('/add-product', uploadMiddleware_1["default"].single('image')
 productRouter.get('/get-products', getProduct_1.getProducts);
 productRouter.patch('/edit-product', getProduct_1.editProducts);
 productRouter["delete"]('/delete-product', getProduct_1.deleteProducts);
+productRouter.post('/get-product', getProduct_1.getProduct);
 exports["default"] = productRouter;
