@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getAllClients = exports.getClient = void 0;
+exports.getNameFromCookies = exports.getAllClients = exports.getClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
 function getClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -76,4 +76,24 @@ function getAllClients(req, res) {
     });
 }
 exports.getAllClients = getAllClients;
+;
+function getNameFromCookies(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            try {
+                user = req.cookies.user;
+                if (!user)
+                    return [2 /*return*/, res.status(404).send({ message: "No cookies" })];
+                res.json({ user: user });
+            }
+            catch (error) {
+                console.error(error);
+                return [2 /*return*/, res.status(500).send({ error: error.message })];
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+exports.getNameFromCookies = getNameFromCookies;
 ;

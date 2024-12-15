@@ -106,11 +106,11 @@ function login(req, res) {
                     //     return res.status(400).send({ message: "The password you provided is incorrect" });
                     // };
                     //send client's id to the cookie
-                    res.cookie('clientID', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+                    res.cookie('client', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+                    res.cookie('user', client.firstName, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
                     console.log("You have successfully registered");
                     return [2 /*return*/, res.status(200).send({
-                            message: "Login successful",
-                            clientName: client.firstName
+                            message: "Login successful"
                         })];
                 case 2:
                     error_2 = _b.sent();

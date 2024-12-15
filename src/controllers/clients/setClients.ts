@@ -62,12 +62,12 @@ export async function login(req: any, res: any) {
 
         //send client's id to the cookie
         res.cookie('client', client._id, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+        res.cookie('user', client.firstName, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
 
         console.log("You have successfully registered");
 
         return res.status(200).send({ 
-            message: "Login successful",
-            clientName: client.firstName, 
+            message: "Login successful" 
         });
 
     } catch (error: any) {

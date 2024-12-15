@@ -94,7 +94,7 @@ function handleFormLogin() {
 ;
 function loginClient(email, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, loginPopup, welcomeName, error_1;
+        var response, data, loginPopup, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -113,13 +113,8 @@ function loginClient(email, password) {
                     loginPopup = document.getElementById('loginPopup');
                     if (response.ok) {
                         console.log('success login');
-                        welcomeName = document.getElementById('loggedInUser');
-                        if (!welcomeName)
-                            throw new Error('error loginPopup');
-                        welcomeName.innerHTML = data.clientName;
-                        console.log("the user " + data.clientName + " is connected");
-                        alert("You have logged in successfully");
                         loginPopup.style.display = 'none';
+                        showWelcomeName();
                     }
                     else {
                         alert(data.message);
@@ -128,6 +123,39 @@ function loginClient(email, password) {
                 case 3:
                     error_1 = _a.sent();
                     console.error('Error sending post:', error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function showWelcomeName() {
+    return __awaiter(this, void 0, void 0, function () {
+        var welcomeName, userName, user, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    welcomeName = document.getElementById('loggedInUser');
+                    if (!welcomeName)
+                        throw new Error('error loginPopup');
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/clients/get-client-name', {
+                            credentials: 'include'
+                        })];
+                case 1:
+                    userName = _a.sent();
+                    if (!userName)
+                        throw new Error('error fetching userName');
+                    return [4 /*yield*/, userName.json()];
+                case 2:
+                    user = _a.sent();
+                    welcomeName.innerHTML = user.user;
+                    console.log("the user " + user.user + " is connected");
+                    alert("You have logged in successfully");
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error('Error:', error_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

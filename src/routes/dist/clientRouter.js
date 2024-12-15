@@ -10,4 +10,5 @@ clientRouter.get("/get-all-clients", getClients_1.getAllClients);
 clientRouter.post("/get-client", getClients_1.getClient);
 clientRouter["delete"]("/delete-client", setClients_1.deleteClient);
 clientRouter.put("/update-client", setClients_1.updateClient);
+clientRouter.get("/get-client-name", getClients_1.getNameFromCookies);
 exports["default"] = clientRouter;
