@@ -10,6 +10,7 @@ import adminRouter from './routes/adminRouter';
 import chatBotRouter from './routes/chatBotRouter';
 
 import categoryRouter from './routes/categoriesRouter';
+import cartRouter from './routes/cartRouter';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use("/api/comments", commentsRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/chatBot", chatBotRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/cart", cartRouter);
 
 
 //DB

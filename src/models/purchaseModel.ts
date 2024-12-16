@@ -6,8 +6,10 @@ export interface Purchase extends Document {
   id: string;
   client: Client;
   product: Product;
-  orderPrice: number;
-}
+  totalPrice: number;
+  status: 'pending' | 'completed' | 'cancelled';
+  createdDate: Date;
+};
 
 export const PurchaseSchema = new Schema<Purchase>({
     client: {
@@ -20,8 +22,16 @@ export const PurchaseSchema = new Schema<Purchase>({
         ref: 'Product',
         required: true,
     },
-    orderPrice: {
+    totalPrice: {
         type: Number,
+        required: true,
+    },
+    status: {
+        type: String,
+        required: true,
+    },
+    createdDate: {
+        type: Date,
         required: true,
     }
 });
