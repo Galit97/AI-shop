@@ -40,10 +40,16 @@ exports.getAllClients = exports.getClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
 function getClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var id;
+        var clientId;
         return __generator(this, function (_a) {
             try {
-                id = req.cookie.id;
+                clientId = req.cookies.client;
+                console.log(clientId);
+                if (!clientId) {
+                    return [2 /*return*/, res.status(401).json({ message: 'Unauthorized: No clientId provided' })];
+                }
+                ;
+                return [2 /*return*/, res.status(200).send({ message: "client", clientId: clientId })];
             }
             catch (error) {
                 console.error(error);
