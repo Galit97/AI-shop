@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.editProducts = exports.deleteProducts = exports.getProduct = exports.getProducts = void 0;
+exports.editProducts = exports.deleteProduct = exports.getProduct = exports.getProducts = void 0;
 var productModel_1 = require("../../models/productModel");
 exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var products, error_1;
@@ -65,7 +65,6 @@ function getProduct(req, res) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     id = req.body.id;
-                    console.log("ff: ", id);
                     return [4 /*yield*/, productModel_1.ProductModel.findOne({ _id: id })];
                 case 1:
                     product = _a.sent();
@@ -85,23 +84,45 @@ function getProduct(req, res) {
 }
 exports.getProduct = getProduct;
 ;
-exports.deleteProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+exports.deleteProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, error_3;
     return __generator(this, function (_a) {
-        try {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = req.body.id;
+                if (!id)
+                    throw new Error("Product ID is required");
+                return [4 /*yield*/, productModel_1.ProductModel.findByIdAndDelete(id)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, res.status(200).send({ message: "Product deleted successfully" })];
+            case 2:
+                error_3 = _a.sent();
+                console.error(error_3);
+                return [2 /*return*/, res.status(500).send({ error: error_3.message })];
+            case 3: return [2 /*return*/];
         }
-        catch (error) {
-            res.status(500).json({ message: 'Error fetching products', error: error });
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.editProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
+    var _a, id, updates, error_4;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.body, id = _a.id, updates = _a.updates;
+                if (!id || !updates)
+                    throw new Error("Product ID and updates are required");
+                return [4 /*yield*/, productModel_1.ProductModel.findByIdAndUpdate(id, updates, { "new": true })];
+            case 1:
+                _b.sent();
+                return [2 /*return*/, res.status(200).send({ message: "Product updated successfully" })];
+            case 2:
+                error_4 = _b.sent();
+                console.error(error_4);
+                return [2 /*return*/, res.status(500).send({ error: error_4.message })];
+            case 3: return [2 /*return*/];
         }
-        catch (error) {
-            res.status(500).json({ message: 'Error fetching products', error: error });
-        }
-        return [2 /*return*/];
     });
 }); };
