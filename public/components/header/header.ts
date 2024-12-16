@@ -8,9 +8,12 @@ interface Window {
 function renderHeader() {
   return `
      <header id="header">
-        <div class="logo-container">
-            <img src="./images/Ai-shop-logo.png" alt="AI Shop Logo">
-        </div>
+    <div class="logo-container">
+    <a href="../index.html">
+        <img src="./images/Ai-shop-logo.png" alt="AI Shop Logo">
+    </a>
+</div>
+
         
         <div class="search-container">
             <input 
