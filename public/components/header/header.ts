@@ -45,7 +45,6 @@ function renderHeader() {
           </div>
         <div class="cart">
             <img src="./images/cart-image.png" alt="Cart Icon">
-            <h3>Cart</h3>
             <span class="cart-items-count">3</span>
         </div>
     </header>`
