@@ -1,0 +1,126 @@
+#category-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the form vertically */
+  margin: 2rem auto;
+  max-width: 90rem;
+}
+#category-form-container form {
+  background: #fff;
+  border-radius: 0.2rem;
+  padding: 2rem;
+  width: 45rem;
+  display: flex; /* Change to flex */
+  flex-direction: column; /* Stack items in a column */
+  align-items: flex-start; /* Align items to the start */
+}
+#category-form-container form h1 {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-align: center; /* Center the title */
+}
+#category-form-container form label {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+#category-form-container form input {
+  width: 100%; /* Full width for input */
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333; /* Make text readable */
+}
+#category-form-container form input:focus {
+  outline: none;
+  border-color: #f0742c;
+}
+#category-form-container form button {
+  background: #f0742c;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 1.5rem;
+  width: 100%; /* Make button full width */
+}
+#category-form-container form button:hover {
+  background: #e6e6e6;
+}
+
+#category-list {
+  margin: 2rem auto;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 2px;
+}
+#category-list table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+#category-list table thead {
+  background: #f0742c;
+  color: #fff;
+  height: 1.5rem;
+}
+#category-list table thead th {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+#category-list table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+#category-list table tbody tr td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+#category-list table tbody tr td button {
+  color: #fff;
+  background-color: #f0742c;
+  all: unset;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-right: 0.5rem;
+}
+#category-list table tbody tr td button i {
+  margin-right: 0.5rem;
+}
+#category-list table tbody tr td button:hover {
+  background: #e6e6e6;
+  color: #f0742c;
+}
+#category-list table tbody tr td button.edit {
+  background-color: #4CAF50;
+  color: white;
+}
+#category-list table tbody tr td button.edit:hover {
+  background-color: #45a049;
+}
+#category-list table tbody tr td button.delete {
+  background-color: #f44336;
+  color: white;
+}
+#category-list table tbody tr td button.delete:hover {
+  background-color: #e53935;
+}
+#category-list table tbody tr tr:last-child td {
+  border-bottom: none;
+}
+
+button i {
+  font-size: 1rem;
+}/*# sourceMappingURL=category.css.map */
