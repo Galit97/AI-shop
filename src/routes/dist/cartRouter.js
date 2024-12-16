@@ -1,0 +1,10 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var setCart_1 = require("../controllers/cart/setCart");
+var getCart_1 = require("../controllers/cart/getCart");
+var cartRouter = express_1["default"].Router();
+cartRouter.post("/add-to-cart", setCart_1.addToCart);
+cartRouter.post("/get-cart", getCart_1.getCart);
+cartRouter["delete"]("/remove-item", setCart_1.removeItem);
+exports["default"] = cartRouter;
