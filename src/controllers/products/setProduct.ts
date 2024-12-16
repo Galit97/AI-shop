@@ -1,12 +1,5 @@
 import { Request, Response } from 'express';
 import { ProductModel } from '../../models/productModel';
-// import multer from 'multer';
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => cb(null, 'uploads/'),
-//   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
-// });
-// const upload = multer({ storage });
 
 export async function addProduct(req: Request, res: Response) {
   console.log("inserting product");

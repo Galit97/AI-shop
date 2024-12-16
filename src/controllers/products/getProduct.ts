@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
 import { ProductModel } from '../../models/productModel';
 
-export const getProducts = async (req: Request, res: Response) => {
+export const getProducts = async (req: any, res: any) => {
   try {
     const products = await ProductModel.find().populate('category', 'name');
 
@@ -11,11 +10,10 @@ export const getProducts = async (req: Request, res: Response) => {
   }
 };
 
-
 export async function getProduct (req:any, res:any){
   try {
     const { id } = req.body;
-    console.log("ff: ", id);
+
     const product = await ProductModel.findOne({_id: id});
     if (!product) {
       return res.status(400).send({ message: "No product found!!!" });
@@ -28,18 +26,28 @@ export async function getProduct (req:any, res:any){
   }
 };
 
-export const deleteProducts = async (req: Request, res: Response) => {
-  try {
-   
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching products', error });
-  }
+export const deleteProduct = async (req: any, res: any) => {
+   try {
+         const { id } = req.body;
+         if (!id) throw new Error("Product ID is required");
+ 
+         await ProductModel.findByIdAndDelete(id);
+         return res.status(200).send({ message: "Product deleted successfully" });
+     } catch (error: any) {
+         console.error(error);
+         return res.status(500).send({ error: error.message });
+     }
 };
 
-export const editProducts = async (req: Request, res: Response) => {
-  try {
-   
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching products', error });
-  }
+export const editProducts = async (req: any, res: any) => {
+    try {
+        const { id, updates } = req.body;
+        if (!id || !updates) throw new Error("Product ID and updates are required");
+
+        await ProductModel.findByIdAndUpdate(id, updates, { new: true });
+        return res.status(200).send({ message: "Product updated successfully" });
+    } catch (error: any) {
+        console.error(error);
+        return res.status(500).send({ error: error.message });
+    }
 };

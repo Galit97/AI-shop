@@ -91,7 +91,7 @@ export async function updateClient(req: any, res: any) {
     try {
         const { id, updates } = req.body;
         if (!id || !updates) throw new Error("Client ID and updates are required");
-
+        console.log(updates);
         await ClientModel.findByIdAndUpdate(id, updates, { new: true });
         return res.status(200).send({ message: "Client updated successfully" });
     } catch (error: any) {

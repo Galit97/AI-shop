@@ -1,7 +1,7 @@
 #product-form-container {
   display: flex;
   justify-content: center;
-  align-items: center;  /* Center the form vertically */
+  align-items: center; 
   margin: 2rem auto;
   max-width: 90rem;
 
@@ -10,14 +10,14 @@
     border-radius: 0.2rem;
     padding: 2rem;
     width: 45rem;
-    display: flex;        /* Change to flex */
-    flex-direction: column; /* Stack items in a column */
-    align-items: flex-start; /* Align items to the start */
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
   
     h1 {
       font-size: 1.2rem;
       margin-bottom: 2rem;
-      text-align: center; /* Center the title */
+      text-align: center;
     }
 
     label {
@@ -31,13 +31,13 @@
     input,
     select,
     textarea {
-      width: 100%; /* Full width for input, select, and textarea */
+      width: 100%; 
       padding: 0.8rem;
       font-size: 1rem;
       border: 1px solid #ddd;
       border-radius: 4px;
-      color: #333;  /* Make text readable */
-      margin-bottom: 1rem; /* Add some space between form elements */
+      color: #333; 
+      margin-bottom: 1rem;
 
       &:focus {
         outline: none;
@@ -46,8 +46,8 @@
     }
 
     textarea {
-      min-height: 8rem; /* Set a minimum height for the textarea */
-      resize: vertical; /* Allow the textarea to be resized vertically */
+      min-height: 8rem; 
+      resize: vertical;
     }
 
     button {

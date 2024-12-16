@@ -5,7 +5,7 @@ interface Client {
     email: string;
     phoneNumber: string;
     address: string | null;
-}
+};
 
 async function handleAddClient(ev: Event): Promise<void> {
     ev.preventDefault();

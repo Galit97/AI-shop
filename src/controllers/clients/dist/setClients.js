@@ -161,6 +161,7 @@ function updateClient(req, res) {
                     _a = req.body, id = _a.id, updates = _a.updates;
                     if (!id || !updates)
                         throw new Error("Client ID and updates are required");
+                    console.log(updates);
                     return [4 /*yield*/, clientModel_1.ClientModel.findByIdAndUpdate(id, updates, { "new": true })];
                 case 1:
                     _b.sent();

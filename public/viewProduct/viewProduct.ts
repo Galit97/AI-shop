@@ -81,5 +81,9 @@ async function fetchProduct(productId: string) {
     }
 };
 
+function addToCart() {
+  
+}
+
 
 navigateToViewProduct();

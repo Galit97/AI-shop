@@ -12,7 +12,6 @@ async function handleAddProduct(ev: Event): Promise<void> {
       image: formData.get("image") as File,
   };
 
-  console.log("djjd", formData);
   try {
       const response = await fetch("http://localhost:3000/api/products/add-product", {
           method: "POST",
@@ -32,49 +31,6 @@ async function handleAddProduct(ev: Event): Promise<void> {
       console.error("Error adding product:", err);
   }
 };
-
-
-// function renderProducts(products: any[]): void {
-//   const container = document.getElementById("product-list");
-//   if (!container) return;
-
-//   container.innerHTML = `
-//       <table>
-//           <thead>
-//               <tr>
-//                   <th>Product Name</th>
-//                   <th>Description</th>
-//                   <th>Category</th>
-//                   <th>Price</th>
-//                   <th>Quantity</th>
-//                   <th>In Stock</th>
-//                   <th>Actions</th>
-//               </tr>
-//           </thead>
-//           <tbody>
-//               ${products
-//                   .map(
-//                       (product) => `
-//                       <tr id="product-${product._id}">
-//                           <td>${product.name}</td>
-//                           <td>${product.description}</td>
-//                           <td>${product.category?.name || "Uncategorized"}</td>
-//                           <td>${product.price}</td>
-//                           <td>${product.quantity}</td>
-//                           <td>${product.inStock ? "Yes" : "No"}</td>
-//                           <td>
-//                               <button onclick="handleEditProduct('${product._id}')">Edit</button>
-//                               <button onclick="handleDeleteProduct('${product._id}')">Delete</button>
-//                           </td>
-//                       </tr>
-//                   `
-//                   )
-//                   .join("")}
-//           </tbody>
-//       </table>
-//   `;
-// }
-
 
 
 function renderProductForm(): void {

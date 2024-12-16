@@ -86,7 +86,6 @@ async function fetchAllProducts(): Promise<void> {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id }),
         });
-        // deletePopup();
         if (response.ok) {
             document.getElementById(`product-${id}`)?.remove();
             console.log("Product deleted successfully");
