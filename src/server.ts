@@ -6,12 +6,10 @@ import clientRouter from './routes/clientRouter';
 import productRouter from './routes/productRouter';
 import commentsRouter from './routes/commentsRouter';
 import adminRouter from './routes/adminRouter';
-
 import chatBotRouter from './routes/chatBotRouter';
-
 import categoryRouter from './routes/categoriesRouter';
-
 import cookieParser from 'cookie-parser';
+import cookiesRouter from './routes/cookiesRouter';
 
 const app = express();
 app.use(cookieParser());
@@ -35,6 +33,7 @@ app.use("/api/comments", commentsRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/chatBot", chatBotRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/cookies", cookiesRouter);
 
 
 //DB

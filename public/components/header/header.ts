@@ -37,7 +37,7 @@ function renderHeader() {
                 <a href="/myOrders">My orders</a>
                 <a href="/connectUs">Contact us</a>
                 <a href="?AdminLoginParam=AdminLogin">Admin login</a>
-                <a href="/logOut">Log out</a>
+                <a href="#" onclick="resetCookies()">Log out</a>
               </nav>
             </div>
 
