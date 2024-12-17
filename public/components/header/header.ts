@@ -15,15 +15,14 @@ function renderHeader() {
 </div>
 
         
-        <div class="search-container">
-            <input 
-              type="text" 
-              placeholder="Search for products..." 
-              aria-label="Search">
-            <button aria-label="Search">
-              <img src="./images/Search_Icon.svg.png" alt="Search Icon">
-            </button>
-          </div>
+       <div class="search-container">
+        <input type="text" placeholder="Search for products..." 
+        aria-label="Search" 
+        id="search-input">
+       <button aria-label="Search" id="search-button">
+       <img src="./images/Search_Icon.svg.png" alt="Search Icon">
+       </button>
+       </div>
 
           <div class="login-register">
             <img src="./images/user-image.png" alt="User Icon">
@@ -61,6 +60,7 @@ function render() {
     console.error('Target container not found!');
   };
 };
+
 
 const openMenu = document.getElementById('openMenu') as HTMLElement | null;
 const loginRegisterButton = document.querySelector('#loginRegisterButton') as HTMLElement | null;
@@ -125,13 +125,15 @@ window.registerPopup = function () {
   }
 };
 
+
+/// make the cart page open - TO DO ///
 document.addEventListener('DOMContentLoaded', () => {
   const cartIcon = document.getElementById('cart-icon');
   if (cartIcon) {
       cartIcon.addEventListener('click', () => {
           const cartContainer = document.getElementById('cartPage');
           if (cartContainer) {
-              showCart(products); 
+              showCart();
           } else {
               console.error('Cart container not found!');
           }
@@ -140,6 +142,37 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Cart icon not found!');
   }
 });
+
+//// make the search work - TO DO ////
+const searchButton = document.getElementById('search-button');
+const searchInput = document.getElementById('search-input');
+
+if (searchButton && searchInput) {
+  searchButton.addEventListener('click', function() {
+    const query = searchInput.value.toLowerCase();
+
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+      const productName = card.querySelector('.product-name')?.textContent?.toLowerCase() || '';
+      const productDescription = card.querySelector('.product-description')?.textContent?.toLowerCase() || '';
+
+      if (productName.includes(query) || productDescription.includes(query)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  searchInput.addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+      searchButton.click();
+    }
+  });
+} else {
+  console.error('Search button or input field not found in the DOM');
+}
 
 
 initHeader();

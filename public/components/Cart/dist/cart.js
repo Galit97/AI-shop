@@ -34,15 +34,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-;
 var products = [];
 function renderCart(products) {
     var totalItems = products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
     var totalPrice = products.reduce(function (acc, product) { return acc + product.price * product.quantity; }, 0).toFixed(2);
-    return "\n      <div class=\"cart-container\">\n      <div class=\"row\">\n        <div class=\"col-md-8 cart\">\n          <div class=\"title\">\n            <div class=\"row\">\n              <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n              <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n            </div>\n          </div>    \n          " + products.map(function (product) {
+    return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + products.map(function (product) {
         var _a;
-        return "\n            <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n              <div class=\"row main align-items-center\">\n                <div class=\"col-2\">\n                  <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n                </div>\n                <div class=\"col\">\n                  <div class=\"row text-muted\">" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</div>\n                  <div class=\"row\">" + product.name + "</div>\n                </div>\n                <div class=\"col\">\n                  <a href=\"#\" class=\"decrease-qty\">-</a>\n                  <span class=\"border\">" + product.quantity + "</span>\n                  <a href=\"#\" class=\"increase-qty\">+</a>\n                </div>\n                <div class=\"col\">\n                  \u20AC " + (product.price * product.quantity).toFixed(2) + " \n                  <span class=\"close\">&#10005;</span>\n                </div>\n              </div>\n            </div>\n          ";
-    }).join('') + "\n          <div class=\"back-to-shop\">\n            <a href=\"#\">&leftarrow;</a><span class=\"text-muted\">Back to shop</span>\n          </div>\n        </div>\n        <div class=\"col-md-4 summary\">\n          <div><h5><b>Summary</b></h5></div>\n          <hr>\n          <div class=\"row\">\n            <div class=\"col\">ITEMS " + totalItems + "</div>\n            <div class=\"col text-right\">\u20AC " + totalPrice + "</div>\n          </div>\n          <form>\n            <p>SHIPPING</p>\n            <select><option class=\"text-muted\">Standard-Delivery- \u20AC5.00</option></select>\n            <p>GIVE CODE</p>\n            <input id=\"code\" placeholder=\"Enter your code\">\n          </form>\n          <div class=\"row\" style=\"border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;\">\n            <div class=\"col\">TOTAL PRICE</div>\n            <div class=\"col text-right\">\u20AC " + (parseFloat(totalPrice) + 5).toFixed(2) + "</div>\n          </div>\n          <button class=\"btn\">CHECKOUT</button>\n        </div>\n      </div>\n    </div>";
+        return "\n                    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n                        <div class=\"row main align-items-center\">\n                            <div class=\"col-2\">\n                                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n                            </div>\n                            <div class=\"col\">\n                                <div class=\"row text-muted\">" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</div>\n                                <div class=\"row\">" + product.name + "</div>\n                            </div>\n                            <div class=\"col\">\n                                <a href=\"#\" class=\"decrease-qty\">-</a>\n                                <span class=\"border\">" + product.quantity + "</span>\n                                <a href=\"#\" class=\"increase-qty\">+</a>\n                            </div>\n                            <div class=\"col\">\n                                \u20AC " + (product.price * product.quantity).toFixed(2) + " \n                                <span class=\"close\">&#10005;</span>\n                            </div>\n                        </div>\n                    </div>\n                ";
+    }).join('') + "\n                <div class=\"back-to-shop\">\n                    <a href=\"#\">&leftarrow;</a><span class=\"text-muted\">Back to shop</span>\n                </div>\n            </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">\u20AC " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select><option class=\"text-muted\">Standard-Delivery- \u20AC5.00</option></select>\n                    <p>GIVE CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" style=\"border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;\">\n                    <div class=\"col\">TOTAL PRICE</div>\n                    <div class=\"col text-right\">\u20AC " + (parseFloat(totalPrice) + 5).toFixed(2) + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
 }
 function fetchCartProducts() {
     return __awaiter(this, void 0, Promise, function () {
@@ -84,10 +83,17 @@ function renderCartPage(products) {
         console.error('Cart container not found!');
     }
 }
-function showCart(products) {
-    renderCartPage(products);
+function showCart() {
+    fetchCartProducts();
 }
 document.addEventListener('DOMContentLoaded', function () {
-    fetchCartProducts();
-    CartPage();
+    var cartIcon = document.getElementById('cart-icon');
+    if (cartIcon) {
+        cartIcon.addEventListener('click', function () {
+            showCart();
+        });
+    }
+    else {
+        console.error('Cart icon not found!');
+    }
 });

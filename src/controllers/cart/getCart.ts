@@ -11,3 +11,13 @@ export async function getCart(req: any, res: any) {
     }
 };
 
+
+// export async function getCart(req: any, res: any) {
+//     try {
+//         const products = await CartModel.find();
+//         return res.status(200).send(products);
+//     } catch (error) {
+//         console.error("Error in addToCart:", error);
+//         return res.status(500).send({ error: "Internal Server Error" });
+//     }
+// }; 

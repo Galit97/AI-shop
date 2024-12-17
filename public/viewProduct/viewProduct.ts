@@ -1,8 +1,13 @@
+interface category{
+  id: string,
+  name: string,
+}
+
 interface Product{
     id: string;
     name: string;
     description: string;
-    category: string;
+    category: Category | null;
     price: number;
     quantity: number;
     inSale: boolean;

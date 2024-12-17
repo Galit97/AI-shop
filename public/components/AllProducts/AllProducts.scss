@@ -63,13 +63,13 @@
         
     
         .icon {
-            color: #c0bcbc; /* Green cart icon */
-            font-size: 1.5rem; /* Larger size for the icon */
+            color: #c0bcbc; 
+            font-size: 1.5rem; 
             cursor: pointer;
             transition: transform 0.2s ease;
     
             &:hover {
-                transform: scale(1.2); /* Slight zoom on hover */
+                transform: scale(1.2); 
             }
         }
     
@@ -82,7 +82,7 @@
     }
 
     .button-more {
-        background-color: #ff5500; /* Blue button */
+        background-color: #ff5500; 
         color: white;
         border: none;
         border-radius: 4px;
@@ -92,7 +92,7 @@
         transition: background-color 0.3s ease;
         margin-top: 0.5rem;
         &:hover {
-            background-color: #ff9b10; /* Darker blue on hover */
+            background-color: #ff9b10;
         }
     }
     

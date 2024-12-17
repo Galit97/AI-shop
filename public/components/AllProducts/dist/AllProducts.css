@@ -54,15 +54,12 @@
 }
 .product-card .bottom-section .icon {
   color: #c0bcbc;
-  /* Green cart icon */
   font-size: 1.5rem;
-  /* Larger size for the icon */
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 .product-card .bottom-section .icon:hover {
   transform: scale(1.2);
-  /* Slight zoom on hover */
 }
 .product-card .bottom-section .icon-sale {
   color: tomato;
@@ -72,7 +69,6 @@
 }
 .product-card .button-more {
   background-color: #ff5500;
-  /* Blue button */
   color: white;
   border: none;
   border-radius: 4px;
@@ -84,7 +80,6 @@
 }
 .product-card .button-more:hover {
   background-color: #ff9b10;
-  /* Darker blue on hover */
 }
 
 #filter-sort-controls {

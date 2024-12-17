@@ -13,30 +13,24 @@ export async function addToCart(req: any, res: any) {
                  return res.status(404).json({ message: 'Product not found' });
              }
      
-             // Step 4: Check if the cart exists for this clientId
              let cart = await CartModel.findOne({ clientId });
      
              if (cart) {
-                 // Step 5: Update existing cart
                  const existingProduct = cart.products.find(p => p.product.toString() === productId);
      
                  if (existingProduct) {
-                     // Increment quantity if product already in cart
                      existingProduct.quantity += quantity;
                  } else {
-                     // Add new product to cart
                      cart.products.push({ product: productId, quantity });
                  }
              } else {
-                 // Step 6: Create a new cart if none exists
                  cart = new CartModel({
                      clientId,
                      products: [{ product: productId, quantity }],
-                     total: quantity * product.price, // Optionally calculate total here
+                     total: quantity * product.price, 
                  });
              }
      
-             // Step 7: Save the cart
              await cart.save();
      
              res.status(200).json({ message: 'Cart updated successfully', cart });

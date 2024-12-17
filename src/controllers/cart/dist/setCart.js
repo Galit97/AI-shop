@@ -62,26 +62,21 @@ function addToCart(req, res) {
                     if (cart) {
                         existingProduct = cart.products.find(function (p) { return p.product.toString() === productId_1; });
                         if (existingProduct) {
-                            // Increment quantity if product already in cart
                             existingProduct.quantity += quantity;
                         }
                         else {
-                            // Add new product to cart
                             cart.products.push({ product: productId_1, quantity: quantity });
                         }
                     }
                     else {
-                        // Step 6: Create a new cart if none exists
                         cart = new cartModel_1.CartModel({
                             clientId: clientId,
                             products: [{ product: productId_1, quantity: quantity }],
                             total: quantity * product.price
                         });
                     }
-                    // Step 7: Save the cart
                     return [4 /*yield*/, cart.save()];
                 case 3:
-                    // Step 7: Save the cart
                     _b.sent();
                     res.status(200).json({ message: 'Cart updated successfully', cart: cart });
                     return [3 /*break*/, 5];
