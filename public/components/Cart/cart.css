@@ -1,35 +1,36 @@
-.cart-container {
+.cartPage-container {
   padding: 2rem;
+  border: 1px solid #ddd;
   background-color: #fff;
   border-radius: 0.5rem;
 }
-.cart-container .row {
+.cartPage-container .row {
   margin: 0;
 }
 
-.cart {
+.cart-inPage {
   padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 0.5rem;
 }
-.cart .title {
+.cart-inPage .title {
   margin-bottom: 2rem;
 }
-.cart .title h4 {
+.cart-inPage .title h4 {
   font-weight: bold;
 }
-.cart .back-to-shop {
+.cart-inPage .back-to-shop {
   margin-top: 2rem;
 }
-.cart .back-to-shop a {
+.cart-inPage .back-to-shop a {
   color: #f0742c;
   font-size: 1rem;
 }
-.cart .back-to-shop a:hover {
+.cart-inPage .back-to-shop a:hover {
   text-decoration: none;
   color: #ff9b10;
 }
-.cart .back-to-shop .text-muted {
+.cart-inPage .back-to-shop .text-muted {
   margin-left: 0.5rem;
   color: #6c757d;
 }
