@@ -7,79 +7,98 @@ interface Product {
     quantity: number;
     inSale: boolean;
     image: string;
-};
+}
 
 interface Category {
     _id: string;
     name: string;
-};
+}
+
+async function fetchCategories(): Promise<void> {
+    try {
+        console.log("Fetching categories");
+        const response = await fetch("/api/categories/get-all-categories");
+        if (!response.ok) throw new Error("Failed to fetch categories");
+
+        const categories = await response.json();
+        const categorySelect = document.getElementById('category') as HTMLSelectElement;
+        
+        if (categorySelect) {
+            categorySelect.innerHTML = '<option value="">Select category</option>';
+            categories.forEach((category: Category) => {
+                const option = document.createElement('option');
+                option.value = category._id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+        } else {
+            console.error("Category select element not found");
+        }
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+    }
+}
 
 function renderProductsTable(products: Product[]): void {
-    console.log("renderProductsTable");
+    console.log("Rendering Products Table");
     const container = document.getElementById("products-table");
-    if (!container) throw new Error("products table not found");
+    if (!container) throw new Error("Products table not found");
 
-  container.innerHTML = `
-       <div class="admin-table-container" id="admin-table-container">
-    <table class="admin-table" id="admin-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>In Sale</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="productTableBody">
-            ${products.map((product) => `
-            <tr id="product-${product._id}">
-                <td>${product.name}</td>
-                <td>${product.category?.name || "Uncategorized"}</td>
-                <td>
-                    <span class="description-preview">${product.description.length > 120 ? product.description.slice(0, 120) + '...' : product.description}</span>
-                    ${product.description.length > 100 ? '<a href="#" class="read-more">...</a>' : ''}
-                    <span class="full-description" style="display:none;">${product.description}</span>
-                </td>
-                <td>$ ${product.price}</td>
-                <td>${product.quantity}</td>
-                <td>${product.inSale ? "in sale" : "-"}</td>
-                <td>
-                    <button onclick="handleEditProduct('${product._id}')">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </button>
-                    <button onclick="handleDeleteProduct('${product._id}')">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-            `).join("")}
-        </tbody>
-    </table>
-</div>
+    container.innerHTML = `
+        <div class="admin-table-container" id="admin-table-container">
+            <table class="admin-table" id="admin-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>In Sale</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    ${products.map(product => `
+                        <tr id="product-${product._id}">
+                            <td>
+                                <span class="view">${product.name}</span>
+                                <span class="edit hidden"><input type="text" value="${product.name}"></span>
+                            </td>
+                            <td><span class="view">${product.category?.name || "Uncategorized"}</span></td>
+                            <td>
+                                <span class="view">${product.description}</span>
+                                <span class="edit hidden"><textarea>${product.description}</textarea></span>
+                            </td>
+                            <td>
+                                <span class="view">$ ${product.price}</span>
+                                <span class="edit hidden"><input type="number" value="${product.price}"></span>
+                            </td>
+                            <td>
+                                <span class="view">${product.quantity}</span>
+                                <span class="edit hidden"><input type="number" value="${product.quantity}"></span>
+                            </td>
+                            <td>${product.inSale ? "In Sale" : "-"}</td>
+                            <td>
+                               <button class="edit-btn" onclick="handleEditProduct('${product._id}')">
+                               <i class="fa-regular fa-pen-to-square"></i>
+                               </button>
+                               <button class="save-btn" onclick="saveProductChanges('${product._id}')">
+                               <i class="fa-regular fa-floppy-disk"></i>
+                               </button>
+                                <button onclick="handleDeleteProduct('${product._id}')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
 
-    `
-};
-
-
-async function fetchAllProducts(): Promise<void> {
-    console.log("Fetching all products");
-    try {
-        const response = await fetch("http://localhost:3000/api/products/get-products");
-        if (!response.ok) {throw new Error("Failed to fetch products");}
-        
-        
-        const products = await response.json();
-        renderProductsTable(products);
-    } catch (error) {
-        console.error("Error fetching products:", error);
-    }
-  };
-
-
-  async function handleDeleteProduct(id: string): Promise<void> {
+async function handleDeleteProduct(id: string): Promise<void> {
     try {
         const response = await fetch("/api/products/delete-product", {
             method: "DELETE",
@@ -95,68 +114,102 @@ async function fetchAllProducts(): Promise<void> {
     } catch (error) {
         console.error("Error deleting product:", error);
     }
-  };
-
-
-//   function deletePopup() {
-//     const container = document.getElementById("products-table");
-//     if (!container) throw new Error("products table not found");
-
-//     container.innerHTML = `
-//         <div id="deletePopup" class="popup">
-//             <div class="popup-content">
-//                  <p>Are you sure you want to delete this item?</p>
-//                 <div class="popup-actions">
-//                     <button id="confirmDelete" class="popup-btn confirm">Yes</button>
-//                     <button id="cancelDelete" class="popup-btn cancel">No</button>
-//                 </div>
-//             </div>
-//         </div>
-//     `
-//   };
-  
-function handleEditProductField(id: string, fieldName: string) {
-    const element = document.getElementById(`${fieldName}-${id}`);
-    if (!element) return;
-
-    element.contentEditable = "true";
-    element.focus();
-
-    element.addEventListener(
-        "blur",
-        async () => {
-            const value =
-                fieldName === "price" || fieldName === "quantity"
-                    ? parseFloat(element.innerText)
-                    : fieldName === "inStock"
-                    ? element.innerText.trim().toLowerCase() === "true"
-                    : element.innerText.trim();
-            element.contentEditable = "false";
-
-            await updateProduct(id, { [fieldName]: value });
-        },
-        { once: true }
-    );
 }
 
-async function updateProduct(id: string, updatedFields: Partial<any>) {
+async function handleEditProduct(productId: string): Promise<void> {
+    const row = document.getElementById(`product-${productId}`);
+    if (!row) {
+        console.error(`Row for product with ID ${productId} not found`);
+        return;
+    }
+
+    const viewElements = row.querySelectorAll(".view");
+    const editElements = row.querySelectorAll(".edit");
+    const editButton = row.querySelector(".edit-btn") as HTMLButtonElement;
+    const saveButton = row.querySelector(".save-btn") as HTMLButtonElement;
+
+    if (!editButton || !saveButton) {
+        console.error("Edit or save button not found");
+        return;
+    }
+
+    viewElements.forEach((el) => el.classList.toggle("hidden"));
+    editElements.forEach((el) => el.classList.toggle("hidden"));
+    editButton.classList.toggle("hidden");
+    saveButton.classList.toggle("hidden");
+
+    const nameField = row.querySelector("td:nth-child(1) .view") as HTMLElement;
+    const descriptionField = row.querySelector("td:nth-child(3) .view") as HTMLElement;
+    const priceField = row.querySelector("td:nth-child(4) .view") as HTMLElement;
+    const quantityField = row.querySelector("td:nth-child(5) .view") as HTMLElement;
+    const inSaleField = row.querySelector("td:nth-child(6) .view") as HTMLElement;
+
+    // No need to fetch categories, as the category will no longer be editable
+
+    if (nameField && descriptionField && priceField && quantityField) {
+        nameField.innerHTML = `<input type="text" value="${nameField.innerText.trim()}">`;
+        descriptionField.innerHTML = `<textarea>${descriptionField.innerText.trim()}</textarea>`;
+        priceField.innerHTML = `<input type="number" value="${priceField.innerText.trim()}">`;
+        quantityField.innerHTML = `<input type="number" value="${quantityField.innerText.trim()}">`;
+        inSaleField.innerHTML = `<input type="checkbox" ${inSaleField.innerText.trim() === 'In Sale' ? 'checked' : ''}>`;
+    }
+}
+
+async function saveProductChanges(productId: string): Promise<void> {
+    const row = document.getElementById(`product-${productId}`);
+    if (!row) return;
+
+    const updatedName = (row.querySelector("td:nth-child(1) .edit input") as HTMLInputElement)?.value;
+    const updatedDescription = (row.querySelector("td:nth-child(3) .edit textarea") as HTMLTextAreaElement)?.value;
+    const updatedPrice = (row.querySelector("td:nth-child(4) .edit input") as HTMLInputElement)?.value;
+    const updatedQuantity = (row.querySelector("td:nth-child(5) .edit input") as HTMLInputElement)?.value;
+    const updatedInSale = (row.querySelector("td:nth-child(6) .edit input") as HTMLInputElement)?.checked;
+
+    if (!updatedName || !updatedPrice || !updatedQuantity) {
+        console.error("Name, price, and quantity are required.");
+        return;
+    }
+
+    const updatedProduct = {
+        id: productId,
+        updates: {
+            name: updatedName,
+            description: updatedDescription,
+            price: parseFloat(updatedPrice),
+            quantity: parseInt(updatedQuantity, 10),
+            inSale: updatedInSale
+        }
+    };
+
     try {
         const response = await fetch(`/api/products/edit-product`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, ...updatedFields }),
+            body: JSON.stringify(updatedProduct),
         });
 
         if (!response.ok) {
             const errorMessage = await response.text();
-            console.error("Failed to update product. Server response:", errorMessage);
-            throw new Error("Failed to update product");
+            throw new Error(`Failed to update product: ${errorMessage}`);
         }
 
+        console.log("Product updated successfully");
         await fetchAllProducts();
     } catch (error) {
-        console.error("Error updating product:", error);
+        console.error("Error saving product changes:", error);
     }
 }
 
+async function fetchAllProducts(): Promise<void> {
+    try {
+        const response = await fetch("/api/products/get-products");
+        if (!response.ok) throw new Error("Failed to fetch products");
 
+        const products: Product[] = await response.json();
+        renderProductsTable(products);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    }
+}
+
+fetchAllProducts();

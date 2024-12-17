@@ -1,14 +1,3 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -45,49 +34,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-;
-;
-function renderProductsTable(products) {
-    console.log("renderProductsTable");
-    var container = document.getElementById("products-table");
-    if (!container)
-        throw new Error("products table not found");
-    container.innerHTML = "\n       <div class=\"admin-table-container\" id=\"admin-table-container\">\n    <table class=\"admin-table\" id=\"admin-table\">\n        <thead>\n            <tr>\n                <th>Name</th>\n                <th>Category</th>\n                <th>Description</th>\n                <th>Price</th>\n                <th>Stock</th>\n                <th>In Sale</th>\n                <th>Actions</th>\n            </tr>\n        </thead>\n        <tbody id=\"productTableBody\">\n            " + products.map(function (product) {
-        var _a;
-        return "\n            <tr id=\"product-" + product._id + "\">\n                <td>" + product.name + "</td>\n                <td>" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</td>\n                <td>\n                    <span class=\"description-preview\">" + (product.description.length > 120 ? product.description.slice(0, 120) + '...' : product.description) + "</span>\n                    " + (product.description.length > 100 ? '<a href="#" class="read-more">...</a>' : '') + "\n                    <span class=\"full-description\" style=\"display:none;\">" + product.description + "</span>\n                </td>\n                <td>$ " + product.price + "</td>\n                <td>" + product.quantity + "</td>\n                <td>" + (product.inSale ? "in sale" : "-") + "</td>\n                <td>\n                    <button onclick=\"handleEditProduct('" + product._id + "')\">\n                        <i class=\"fa-regular fa-pen-to-square\"></i>\n                    </button>\n                    <button onclick=\"handleDeleteProduct('" + product._id + "')\">\n                        <i class=\"fa-solid fa-trash\"></i>\n                    </button>\n                </td>\n            </tr>\n            ";
-    }).join("") + "\n        </tbody>\n    </table>\n</div>\n\n    ";
-}
-;
-function fetchAllProducts() {
+function fetchCategories() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, products, error_1;
+        var response, categories, categorySelect_1, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("Fetching all products");
-                    _a.label = 1;
+                    _a.trys.push([0, 3, , 4]);
+                    console.log("Fetching categories");
+                    return [4 /*yield*/, fetch("/api/categories/get-all-categories")];
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/api/products/get-products")];
-                case 2:
                     response = _a.sent();
                     if (!response.ok)
-                        throw new Error("Failed to fetch products");
+                        throw new Error("Failed to fetch categories");
                     return [4 /*yield*/, response.json()];
+                case 2:
+                    categories = _a.sent();
+                    categorySelect_1 = document.getElementById('category');
+                    if (categorySelect_1) {
+                        categorySelect_1.innerHTML = '<option value="">Select category</option>';
+                        categories.forEach(function (category) {
+                            var option = document.createElement('option');
+                            option.value = category._id;
+                            option.textContent = category.name;
+                            categorySelect_1.appendChild(option);
+                        });
+                    }
+                    else {
+                        console.error("Category select element not found");
+                    }
+                    return [3 /*break*/, 4];
                 case 3:
-                    products = _a.sent();
-                    renderProductsTable(products);
-                    return [3 /*break*/, 5];
-                case 4:
                     error_1 = _a.sent();
-                    console.error("Error fetching products:", error_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    console.error("Error fetching categories:", error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-;
+function renderProductsTable(products) {
+    console.log("Rendering Products Table");
+    var container = document.getElementById("products-table");
+    if (!container)
+        throw new Error("Products table not found");
+    container.innerHTML = "\n        <div class=\"admin-table-container\" id=\"admin-table-container\">\n            <table class=\"admin-table\" id=\"admin-table\">\n                <thead>\n                    <tr>\n                        <th>Name</th>\n                        <th>Category</th>\n                        <th>Description</th>\n                        <th>Price</th>\n                        <th>Stock</th>\n                        <th>In Sale</th>\n                        <th>Actions</th>\n                    </tr>\n                </thead>\n                <tbody id=\"productTableBody\">\n                    " + products.map(function (product) {
+        var _a;
+        return "\n                        <tr id=\"product-" + product._id + "\">\n                            <td>\n                                <span class=\"view\">" + product.name + "</span>\n                                <span class=\"edit hidden\"><input type=\"text\" value=\"" + product.name + "\"></span>\n                            </td>\n                            <td><span class=\"view\">" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</span></td>\n                            <td>\n                                <span class=\"view\">" + product.description + "</span>\n                                <span class=\"edit hidden\"><textarea>" + product.description + "</textarea></span>\n                            </td>\n                            <td>\n                                <span class=\"view\">$ " + product.price + "</span>\n                                <span class=\"edit hidden\"><input type=\"number\" value=\"" + product.price + "\"></span>\n                            </td>\n                            <td>\n                                <span class=\"view\">" + product.quantity + "</span>\n                                <span class=\"edit hidden\"><input type=\"number\" value=\"" + product.quantity + "\"></span>\n                            </td>\n                            <td>" + (product.inSale ? "In Sale" : "-") + "</td>\n                            <td>\n                               <button class=\"edit-btn\" onclick=\"handleEditProduct('" + product._id + "')\">\n                               <i class=\"fa-regular fa-pen-to-square\"></i>\n                               </button>\n                               <button class=\"save-btn\" onclick=\"saveProductChanges('" + product._id + "')\">\n                               <i class=\"fa-regular fa-floppy-disk\"></i>\n                               </button>\n                                <button onclick=\"handleDeleteProduct('" + product._id + "')\">\n                                    <i class=\"fa-solid fa-trash\"></i>\n                                </button>\n                            </td>\n                        </tr>\n                    ";
+    }).join("") + "\n                </tbody>\n            </table>\n        </div>\n    ";
+}
 function handleDeleteProduct(id) {
     var _a;
     return __awaiter(this, void 0, Promise, function () {
@@ -103,7 +98,6 @@ function handleDeleteProduct(id) {
                         })];
                 case 1:
                     response = _b.sent();
-                    // deletePopup();
                     if (response.ok) {
                         (_a = document.getElementById("product-" + id)) === null || _a === void 0 ? void 0 : _a.remove();
                         console.log("Product deleted successfully");
@@ -121,79 +115,127 @@ function handleDeleteProduct(id) {
         });
     });
 }
-;
-//   function deletePopup() {
-//     const container = document.getElementById("products-table");
-//     if (!container) throw new Error("products table not found");
-//     container.innerHTML = `
-//         <div id="deletePopup" class="popup">
-//             <div class="popup-content">
-//                  <p>Are you sure you want to delete this item?</p>
-//                 <div class="popup-actions">
-//                     <button id="confirmDelete" class="popup-btn confirm">Yes</button>
-//                     <button id="cancelDelete" class="popup-btn cancel">No</button>
-//                 </div>
-//             </div>
-//         </div>
-//     `
-//   };
-function handleEditProductField(id, fieldName) {
-    var _this = this;
-    var element = document.getElementById(fieldName + "-" + id);
-    if (!element)
-        return;
-    element.contentEditable = "true";
-    element.focus();
-    element.addEventListener("blur", function () { return __awaiter(_this, void 0, void 0, function () {
-        var value;
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    value = fieldName === "price" || fieldName === "quantity"
-                        ? parseFloat(element.innerText)
-                        : fieldName === "inStock"
-                            ? element.innerText.trim().toLowerCase() === "true"
-                            : element.innerText.trim();
-                    element.contentEditable = "false";
-                    return [4 /*yield*/, updateProduct(id, (_a = {}, _a[fieldName] = value, _a))];
-                case 1:
-                    _b.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); }, { once: true });
-}
-function updateProduct(id, updatedFields) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, errorMessage, error_3;
+function handleEditProduct(productId) {
+    return __awaiter(this, void 0, Promise, function () {
+        var row, viewElements, editElements, editButton, saveButton, nameField, descriptionField, priceField, quantityField, inSaleField;
         return __generator(this, function (_a) {
-            switch (_a.label) {
+            row = document.getElementById("product-" + productId);
+            if (!row) {
+                console.error("Row for product with ID " + productId + " not found");
+                return [2 /*return*/];
+            }
+            viewElements = row.querySelectorAll(".view");
+            editElements = row.querySelectorAll(".edit");
+            editButton = row.querySelector(".edit-btn");
+            saveButton = row.querySelector(".save-btn");
+            if (!editButton || !saveButton) {
+                console.error("Edit or save button not found");
+                return [2 /*return*/];
+            }
+            viewElements.forEach(function (el) { return el.classList.toggle("hidden"); });
+            editElements.forEach(function (el) { return el.classList.toggle("hidden"); });
+            editButton.classList.toggle("hidden");
+            saveButton.classList.toggle("hidden");
+            nameField = row.querySelector("td:nth-child(1) .view");
+            descriptionField = row.querySelector("td:nth-child(3) .view");
+            priceField = row.querySelector("td:nth-child(4) .view");
+            quantityField = row.querySelector("td:nth-child(5) .view");
+            inSaleField = row.querySelector("td:nth-child(6) .view");
+            // No need to fetch categories, as the category will no longer be editable
+            if (nameField && descriptionField && priceField && quantityField) {
+                nameField.innerHTML = "<input type=\"text\" value=\"" + nameField.innerText.trim() + "\">";
+                descriptionField.innerHTML = "<textarea>" + descriptionField.innerText.trim() + "</textarea>";
+                priceField.innerHTML = "<input type=\"number\" value=\"" + priceField.innerText.trim() + "\">";
+                quantityField.innerHTML = "<input type=\"number\" value=\"" + quantityField.innerText.trim() + "\">";
+                inSaleField.innerHTML = "<input type=\"checkbox\" " + (inSaleField.innerText.trim() === 'In Sale' ? 'checked' : '') + ">";
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+function saveProductChanges(productId) {
+    var _a, _b, _c, _d, _e;
+    return __awaiter(this, void 0, Promise, function () {
+        var row, updatedName, updatedDescription, updatedPrice, updatedQuantity, updatedInSale, updatedProduct, response, errorMessage, error_3;
+        return __generator(this, function (_f) {
+            switch (_f.label) {
                 case 0:
-                    _a.trys.push([0, 5, , 6]);
+                    row = document.getElementById("product-" + productId);
+                    if (!row)
+                        return [2 /*return*/];
+                    updatedName = (_a = row.querySelector("td:nth-child(1) .edit input")) === null || _a === void 0 ? void 0 : _a.value;
+                    updatedDescription = (_b = row.querySelector("td:nth-child(3) .edit textarea")) === null || _b === void 0 ? void 0 : _b.value;
+                    updatedPrice = (_c = row.querySelector("td:nth-child(4) .edit input")) === null || _c === void 0 ? void 0 : _c.value;
+                    updatedQuantity = (_d = row.querySelector("td:nth-child(5) .edit input")) === null || _d === void 0 ? void 0 : _d.value;
+                    updatedInSale = (_e = row.querySelector("td:nth-child(6) .edit input")) === null || _e === void 0 ? void 0 : _e.checked;
+                    if (!updatedName || !updatedPrice || !updatedQuantity) {
+                        console.error("Name, price, and quantity are required.");
+                        return [2 /*return*/];
+                    }
+                    updatedProduct = {
+                        id: productId,
+                        updates: {
+                            name: updatedName,
+                            description: updatedDescription,
+                            price: parseFloat(updatedPrice),
+                            quantity: parseInt(updatedQuantity, 10),
+                            inSale: updatedInSale
+                        }
+                    };
+                    _f.label = 1;
+                case 1:
+                    _f.trys.push([1, 6, , 7]);
                     return [4 /*yield*/, fetch("/api/products/edit-product", {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(__assign({ id: id }, updatedFields))
+                            body: JSON.stringify(updatedProduct)
                         })];
-                case 1:
-                    response = _a.sent();
-                    if (!!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.text()];
                 case 2:
-                    errorMessage = _a.sent();
-                    console.error("Failed to update product. Server response:", errorMessage);
-                    throw new Error("Failed to update product");
-                case 3: return [4 /*yield*/, fetchAllProducts()];
+                    response = _f.sent();
+                    if (!!response.ok) return [3 /*break*/, 4];
+                    return [4 /*yield*/, response.text()];
+                case 3:
+                    errorMessage = _f.sent();
+                    throw new Error("Failed to update product: " + errorMessage);
                 case 4:
-                    _a.sent();
-                    return [3 /*break*/, 6];
+                    console.log("Product updated successfully");
+                    return [4 /*yield*/, fetchAllProducts()];
                 case 5:
-                    error_3 = _a.sent();
-                    console.error("Error updating product:", error_3);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    _f.sent();
+                    return [3 /*break*/, 7];
+                case 6:
+                    error_3 = _f.sent();
+                    console.error("Error saving product changes:", error_3);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
 }
+function fetchAllProducts() {
+    return __awaiter(this, void 0, Promise, function () {
+        var response, products, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("/api/products/get-products")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to fetch products");
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    products = _a.sent();
+                    renderProductsTable(products);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_4 = _a.sent();
+                    console.error("Error fetching products:", error_4);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+fetchAllProducts();
