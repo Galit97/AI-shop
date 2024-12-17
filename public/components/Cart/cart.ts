@@ -31,10 +31,9 @@ function renderCart(products: Product[]): string {
                     </div>
                 </div>    
                 ${renderProductsInCart(products)}
-                <div class="back-to-shop">
-                    <a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span>
-                </div>
-            </div>
+        <div class="back-to-shop">
+  <a href="../index.html" class="text-muted">&leftarrow; Back to shop</a>
+</div>
             <div class="col-md-4 summary">
                 <div><h5><b>Summary</b></h5></div>
                 <hr>
@@ -44,14 +43,16 @@ function renderCart(products: Product[]): string {
                 </div>
                 <form>
                     <p>SHIPPING</p>
-                    <select><option class="text-muted">Standard-Delivery- $5.00 - 14-20 Days</option>
-                    <option class="text-muted">Express-Delivery- $10.00 - 2-7 Days</option></select>
+                    <select id="delivery-options">
+  <option value="5" class="text-muted">Standard-Delivery- $5.00 - 14-20 Days</option>
+  <option value="10" class="text-muted">Express-Delivery- $10.00 - 2-7 Days</option>
+</select>
                     <p>APPLY DISCOUNT CODE</p>
                     <input id="code" placeholder="Enter your code">
                 </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">$ ${(parseFloat(totalPrice) + 5).toFixed(2)}</div>
+<div class="col text-right" id="total-price">${" "}</div>
                 </div>
                 <button class="btn">CHECKOUT</button>
             </div>
@@ -131,3 +132,45 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Cart icon not found!');
     }
 });
+
+
+
+/// Delivery options 
+async function fetchTotalPrice(): Promise<number> {
+    try {
+      const response = await fetch("/api/cart/total"); 
+      if (!response.ok) {
+        throw new Error("Failed to fetch total price");
+      }
+      const data: CartData = await response.json();
+      return data.totalPrice;
+    } catch (error) {
+      console.error("Error fetching total price:", error);
+      return 5; 
+    }
+  }
+  
+  async function updateTotalPrice(): Promise<void> {
+    const deliveryOptions = document.getElementById("delivery-options") as HTMLSelectElement | null;
+    const totalPriceElement = document.querySelector(".col.text-right") as HTMLElement | null;
+  
+    if (!deliveryOptions || !totalPriceElement) return;
+  
+    try {
+      const baseTotalPrice = await fetchTotalPrice();
+  
+      const deliveryCost: number = parseFloat(deliveryOptions.value) || 0;
+      const updatedPrice: string = (baseTotalPrice + deliveryCost).toFixed(2);
+  
+      totalPriceElement.textContent = `$ ${updatedPrice}`;
+    } catch (error) {
+      console.error("Error updating total price:", error);
+    }
+  }
+  
+  const deliveryOptions = document.getElementById("delivery-options") as HTMLSelectElement | null;
+  if (deliveryOptions) {
+    deliveryOptions.addEventListener("change", updateTotalPrice);
+  }
+  
+  updateTotalPrice();
