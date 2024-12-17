@@ -40,12 +40,12 @@ function renderCart(products: Product[]): string {
                 <hr>
                 <div class="row">
                     <div class="col">ITEMS ${totalItems}</div>
-                    <div class="col text-right">€ ${totalPrice}</div>
+                    <div class="col text-right">$ ${totalPrice}</div>
                 </div>
                 <form>
                     <p>SHIPPING</p>
                     <select><option class="text-muted">Standard-Delivery- €5.00</option></select>
-                    <p>GIVE CODE</p>
+                    <p>APPLY DISCOUNT CODE</p>
                     <input id="code" placeholder="Enter your code">
                 </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
@@ -60,26 +60,28 @@ function renderCart(products: Product[]): string {
 
 function renderProductsInCart(products: Product[]): string {
     return products.map(product => `
-                    <div class="row border-top border-bottom" id="product-${product._id}">
-                        <div class="row main align-items-center">
-                            <div class="col-2">
-                                <img class="img-fluid" src="${product.image}" alt="${product.name}">
-                            </div>
-                            <div class="col">
-                                <div class="row text-muted">${product.category?.name || "Uncategorized"}</div>
-                                <div class="row">${product.name}</div>
-                            </div>
-                            <div class="col">
-                                <a href="#" class="decrease-qty">-</a>
-                                <span class="border">${product.quantity}</span>
-                                <a href="#" class="increase-qty">+</a>
-                            </div>
-                            <div class="col">
-                                € ${(product.price * product.quantity).toFixed(2)} 
-                                <span class="close">&#10005;</span>
-                            </div>
-                        </div>
-                    </div>
+     <div class="cart-container">
+    <div class="row border-top border-bottom" id="product-${product._id}">
+        <div class="row main align-items-center">
+            <div class="col-2">
+                <img class="img-fluid" src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="col">
+                <div class="row text-muted">${product.category?.name || "Uncategorized"}</div>
+                <div class="row">${product.name}</div>
+            </div>
+            <div class="col">
+                <a href="#" class="decrease-qty">-</a>
+                <span class="border">${product.quantity}</span>
+                <a href="#" class="increase-qty">+</a>
+            </div>
+            <div class="col">
+                € ${(product.price * product.quantity).toFixed(2)} 
+                <span class="close">&#10005;</span>
+            </div>
+        </div>
+    </div>
+</div>
                 `).join('')
 }
 
