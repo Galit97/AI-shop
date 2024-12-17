@@ -1,0 +1,73 @@
+@charset "UTF-8";
+.modal {
+  display: none;
+  /* התחל עם הצגת החלון כנסתר */
+  position: fixed;
+  /* מיקום קבוע במסך */
+  z-index: 1;
+  /* מעל כל האלמנטים האחרים */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* רוחב מלא */
+  height: 100%;
+  /* גובה מלא */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* רקע כהה למחצה */
+}
+
+.modal-content {
+  border-radius: 1rem;
+  background-color: #fff;
+  margin: 15% auto;
+  /* מיקום החלון במרכז */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* גודל החלון */
+  max-width: 600px;
+  /* גודל מקסימלי */
+}
+.modal-content .input {
+  display: none !important;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#sendButton {
+  background-color: #ff4747;
+  color: white;
+  border: none;
+  border-radius: 0.3125rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 20%;
+}
+#sendButton:hover {
+  background-color: #e63e3e;
+}
+
+textarea {
+  /* אני מגדיל את המלבן להכנסת הודעה */
+  width: 300px;
+  /* רוחב של 300 פיקסלים */
+  height: 40px;
+  /* גובה של 40 פיקסלים */
+  font-size: 16px;
+  /* גודל הטקסט */
+  padding: 10px;
+  /* רווח פנימי בתוך השדה */
+}
