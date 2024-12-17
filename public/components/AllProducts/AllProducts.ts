@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    await fetchCategories();
     await fetchAllProducts();
     setupEventListeners();
+    await fetchCategories();
 });
 
 let allProducts: any[] = [];
@@ -25,7 +25,7 @@ function renderPage(): void {
 
     appContainer.innerHTML = `
         <div id="filter-sort-controls">
-            <select id="category" name="category">
+            <select id="categorySection" name="category">
               <option value="">Select category</option>
             </select>
             <select id="sort-filter">
@@ -79,8 +79,8 @@ async function fetchCategories(): Promise<void> {
         
         const categories = await response.json();
         
-        const categorySelect = document.getElementById('category') as HTMLSelectElement;
-        if (!categorySelect) return; 
+        const categorySelect = document.getElementById('categorySection') as HTMLSelectElement;
+        if (!categorySelect) throw new Error("no category selected"); 
 
         categorySelect.innerHTML = '<option value="">Select category</option>';
 
@@ -97,19 +97,27 @@ async function fetchCategories(): Promise<void> {
 
 
 function filterByCategory(category: string): void {
-    const filteredProducts =
-        category === "all" || category === "" 
-            ? allProducts
-            : allProducts.filter((product) => product.category === category);
 
-    renderProducts(filteredProducts);
-};
 
-const categoryFilter = document.getElementById('category') as HTMLSelectElement;
-categoryFilter.addEventListener('change', (event) => {
-    const selectedCategory = (event.target as HTMLSelectElement).value;
-    filterByCategory(selectedCategory);
+document.addEventListener('DOMContentLoaded', () => {
+    const categoryFilter = document.getElementById('categorySection') as HTMLSelectElement;
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', (event: Event) => {
+            const selectedCategory = (event.target as HTMLSelectElement).value;
+            filterByCategory(selectedCategory);
+
+           
+        });
+    }
 });
+//todo - FIX THE ISSUE OF FILTER THE PRODUCT (DOM ISSUE)
+const filteredProducts =
+category === "all" || category === "" 
+    ? allProducts
+    : allProducts.filter((product) => product.category === category);
+    renderProducts(filteredProducts);
+
+};
 
 function sortProducts(criteria: string): void {
     const sortedProducts = [...allProducts];
@@ -151,4 +159,4 @@ function setupEventListeners(): void {
             sortProducts(criteria);
         });
     }
-}
+};

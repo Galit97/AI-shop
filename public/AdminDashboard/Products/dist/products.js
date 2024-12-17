@@ -74,7 +74,6 @@ function fetchCategories() {
     });
 }
 function renderProductsTable(products) {
-    console.log("Rendering Products Table");
     var container = document.getElementById("products-table");
     if (!container)
         throw new Error("Products table not found");
@@ -227,6 +226,7 @@ function fetchAllProducts() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     products = _a.sent();
+                    console.log("Products", products);
                     renderProductsTable(products);
                     return [3 /*break*/, 4];
                 case 3:

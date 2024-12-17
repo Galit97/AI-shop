@@ -82,33 +82,30 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Cart icon not found!');
     }
 });
-//// make the search work - TO DO ////
-var searchButton = document.getElementById('search-button');
-var searchInput = document.getElementById('search-input');
-if (searchButton && searchInput) {
-    searchButton.addEventListener('click', function () {
-        var query = searchInput.value.toLowerCase();
-        var productCards = document.querySelectorAll('.product-card');
-        productCards.forEach(function (card) {
-            var _a, _b, _c, _d;
-            var productName = ((_b = (_a = card.querySelector('.product-name')) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.toLowerCase()) || '';
-            var productDescription = ((_d = (_c = card.querySelector('.product-description')) === null || _c === void 0 ? void 0 : _c.textContent) === null || _d === void 0 ? void 0 : _d.toLowerCase()) || '';
-            if (productName.includes(query) || productDescription.includes(query)) {
-                card.style.display = 'block';
-            }
-            else {
-                card.style.display = 'none';
-            }
-        });
-    });
-    searchInput.addEventListener('keyup', function (e) {
-        if (e.key === 'Enter') {
-            searchButton.click();
-        }
-    });
-}
-else {
-    console.error('Search button or input field not found in the DOM');
-}
+// //// make the search work - TO DO ////
+// const searchButton = document.getElementById('search-button');
+// const searchInput = document.getElementById('search-input');
+// if (searchButton && searchInput) {
+//   searchButton.addEventListener('click', function() {
+//     const query = searchInput.value.toLowerCase();
+//     const productCards = document.querySelectorAll('.product-card');
+//     productCards.forEach(card => {
+//       const productName = card.querySelector('.product-name')?.textContent?.toLowerCase() || '';
+//       const productDescription = card.querySelector('.product-description')?.textContent?.toLowerCase() || '';
+//       if (productName.includes(query) || productDescription.includes(query)) {
+//         card.style.display = 'block';
+//       } else {
+//         card.style.display = 'none';
+//       }
+//     });
+//   });
+//   searchInput.addEventListener('keyup', function(e) {
+//     if (e.key === 'Enter') {
+//       searchButton.click();
+//     }
+//   });
+// } else {
+//   console.error('Search button or input field not found in the DOM');
+// }
 initHeader();
 render();

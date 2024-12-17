@@ -40,7 +40,7 @@ async function fetchCategories(): Promise<void> {
 }
 
 function renderProductsTable(products: Product[]): void {
-    console.log("Rendering Products Table");
+
     const container = document.getElementById("products-table");
     if (!container) throw new Error("Products table not found");
 
@@ -206,6 +206,7 @@ async function fetchAllProducts(): Promise<void> {
         if (!response.ok) throw new Error("Failed to fetch products");
 
         const products: Product[] = await response.json();
+        console.log("Products", products)
         renderProductsTable(products);
     } catch (error) {
         console.error("Error fetching products:", error);

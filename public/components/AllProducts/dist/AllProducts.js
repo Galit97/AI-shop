@@ -45,13 +45,13 @@ var _this = this;
 document.addEventListener("DOMContentLoaded", function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, fetchCategories()];
+            case 0: return [4 /*yield*/, fetchAllProducts()];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, fetchAllProducts()];
+                setupEventListeners();
+                return [4 /*yield*/, fetchCategories()];
             case 2:
                 _a.sent();
-                setupEventListeners();
                 return [2 /*return*/];
         }
     });
@@ -88,7 +88,7 @@ function renderPage() {
     var appContainer = document.getElementById("main");
     if (!appContainer)
         return;
-    appContainer.innerHTML = "\n        <div id=\"filter-sort-controls\">\n            <select id=\"category\" name=\"category\">\n              <option value=\"\">Select category</option>\n            </select>\n            <select id=\"sort-filter\">\n                <option value=\"default\">Sort By</option>\n                <option value=\"price-asc\">Price: Low to High</option>\n                <option value=\"price-desc\">Price: High to Low</option>\n                <option value=\"name-asc\">Name: A to Z</option>\n                <option value=\"name-desc\">Name: Z to A</option>\n            </select>\n        </div>\n\n        <div id=\"product-list\"></div>\n    ";
+    appContainer.innerHTML = "\n        <div id=\"filter-sort-controls\">\n            <select id=\"categorySection\" name=\"category\">\n              <option value=\"\">Select category</option>\n            </select>\n            <select id=\"sort-filter\">\n                <option value=\"default\">Sort By</option>\n                <option value=\"price-asc\">Price: Low to High</option>\n                <option value=\"price-desc\">Price: High to Low</option>\n                <option value=\"name-asc\">Name: A to Z</option>\n                <option value=\"name-desc\">Name: Z to A</option>\n            </select>\n        </div>\n\n        <div id=\"product-list\"></div>\n    ";
 }
 function renderProducts(products) {
     var container = document.getElementById("product-list");
@@ -113,9 +113,9 @@ function fetchCategories() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     categories = _a.sent();
-                    categorySelect_1 = document.getElementById('category');
+                    categorySelect_1 = document.getElementById('categorySection');
                     if (!categorySelect_1)
-                        return [2 /*return*/];
+                        throw new Error("no category selected");
                     categorySelect_1.innerHTML = '<option value="">Select category</option>';
                     categories.forEach(function (category) {
                         var option = document.createElement('option');
@@ -134,17 +134,22 @@ function fetchCategories() {
     });
 }
 function filterByCategory(category) {
+    document.addEventListener('DOMContentLoaded', function () {
+        var categoryFilter = document.getElementById('categorySection');
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', function (event) {
+                var selectedCategory = event.target.value;
+                filterByCategory(selectedCategory);
+            });
+        }
+    });
+    //todo - FIX THE ISSUE OF FILTER THE PRODUCT (DOM ISSUE)
     var filteredProducts = category === "all" || category === ""
         ? allProducts
         : allProducts.filter(function (product) { return product.category === category; });
     renderProducts(filteredProducts);
 }
 ;
-var categoryFilter = document.getElementById('category');
-categoryFilter.addEventListener('change', function (event) {
-    var selectedCategory = event.target.value;
-    filterByCategory(selectedCategory);
-});
 function sortProducts(criteria) {
     var sortedProducts = __spreadArrays(allProducts);
     switch (criteria) {
@@ -181,3 +186,4 @@ function setupEventListeners() {
         });
     }
 }
+;

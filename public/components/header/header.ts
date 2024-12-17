@@ -143,36 +143,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-//// make the search work - TO DO ////
-const searchButton = document.getElementById('search-button');
-const searchInput = document.getElementById('search-input');
+// //// make the search work - TO DO ////
+// const searchButton = document.getElementById('search-button');
+// const searchInput = document.getElementById('search-input');
 
-if (searchButton && searchInput) {
-  searchButton.addEventListener('click', function() {
-    const query = searchInput.value.toLowerCase();
+// if (searchButton && searchInput) {
+//   searchButton.addEventListener('click', function() {
+//     const query = searchInput.value.toLowerCase();
 
-    const productCards = document.querySelectorAll('.product-card');
+//     const productCards = document.querySelectorAll('.product-card');
 
-    productCards.forEach(card => {
-      const productName = card.querySelector('.product-name')?.textContent?.toLowerCase() || '';
-      const productDescription = card.querySelector('.product-description')?.textContent?.toLowerCase() || '';
+//     productCards.forEach(card => {
+//       const productName = card.querySelector('.product-name')?.textContent?.toLowerCase() || '';
+//       const productDescription = card.querySelector('.product-description')?.textContent?.toLowerCase() || '';
 
-      if (productName.includes(query) || productDescription.includes(query)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
+//       if (productName.includes(query) || productDescription.includes(query)) {
+//         card.style.display = 'block';
+//       } else {
+//         card.style.display = 'none';
+//       }
+//     });
+//   });
 
-  searchInput.addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') {
-      searchButton.click();
-    }
-  });
-} else {
-  console.error('Search button or input field not found in the DOM');
-}
+//   searchInput.addEventListener('keyup', function(e) {
+//     if (e.key === 'Enter') {
+//       searchButton.click();
+//     }
+//   });
+// } else {
+//   console.error('Search button or input field not found in the DOM');
+// }
 
 
 initHeader();
