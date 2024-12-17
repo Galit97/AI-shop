@@ -47,7 +47,7 @@ function renderHeader() {
             
           </div>
         <div class="cart">
-            <img src="./images/cart-image.png" alt="Cart Icon">
+            <img id="cart-icon" src="./images/cart-image.png" alt="Cart Icon">
             <span class="cart-items-count">3</span>
         </div>
     </header>`
@@ -124,6 +124,23 @@ window.registerPopup = function () {
     registerPopup.style.display = 'flex';
   }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cartIcon = document.getElementById('cart-icon');
+  if (cartIcon) {
+      cartIcon.addEventListener('click', () => {
+          const cartContainer = document.getElementById('cartPage');
+          if (cartContainer) {
+              showCart(products); 
+          } else {
+              console.error('Cart container not found!');
+          }
+      });
+  } else {
+      console.error('Cart icon not found!');
+  }
+});
+
 
 initHeader();
 

@@ -98,7 +98,7 @@ function loginAdmin(email, password) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(" hcnlav l;ad " + email + " " + password);
+                    console.log(" " + email + " " + password);
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);

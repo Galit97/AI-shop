@@ -89,7 +89,7 @@ function renderAdminLogin() {
     };
   
    async function loginAdmin(email:string, password:string) {
-    console.log(` hcnlav l;ad ${email} ${password}`);
+    console.log(` ${email} ${password}`);
       try {
               const response = await fetch('http://localhost:3000/api/admin/login-admin', {
                   method: 'POST',
