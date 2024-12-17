@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+;
 function handleAddClient(ev) {
     return __awaiter(this, void 0, Promise, function () {
         var formData, newClient, response, error_1;
@@ -127,7 +128,7 @@ function toggleEditClient(id) {
 function saveClientChanges(id) {
     var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, Promise, function () {
-        var row, updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber, updatedAddress, response, error_3;
+        var row, updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber, updatedAddress, response, errorText, error_3;
         return __generator(this, function (_f) {
             switch (_f.label) {
                 case 0:
@@ -158,14 +159,18 @@ function saveClientChanges(id) {
                         })];
                 case 2:
                     response = _f.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
+                    if (!!response.ok) return [3 /*break*/, 4];
+                    return [4 /*yield*/, response.text()];
+                case 3:
+                    errorText = _f.sent();
+                    console.error("Failed to update client:", errorText);
+                    throw new Error("Failed to update client");
+                case 4:
                     console.log("Client updated successfully");
                     return [4 /*yield*/, fetchAllClients()];
-                case 3:
+                case 5:
                     _f.sent();
-                    return [3 /*break*/, 5];
-                case 4: throw new Error("Failed to update client");
-                case 5: return [3 /*break*/, 7];
+                    return [3 /*break*/, 7];
                 case 6:
                     error_3 = _f.sent();
                     console.error("Error updating client:", error_3);

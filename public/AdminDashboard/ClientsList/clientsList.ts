@@ -138,16 +138,19 @@ async function saveClientChanges(id: string): Promise<void> {
             }),
         });
 
-        if (response.ok) {
-            console.log("Client updated successfully");
-            await fetchAllClients();
-        } else {
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Failed to update client:", errorText);
             throw new Error("Failed to update client");
         }
+
+        console.log("Client updated successfully");
+        await fetchAllClients(); 
     } catch (error) {
         console.error("Error updating client:", error);
     }
 }
+
 
 async function handleDeleteClient(id: string): Promise<void> {
     try {

@@ -87,7 +87,6 @@ body {
 }
 
   
-  /* Client List */
   #client-list {
     margin: 2rem auto;
     max-width: 800px;
@@ -137,6 +136,8 @@ body {
               border-radius: 8px;
               cursor: pointer;
               transition: background 0.3s;
+              display: flex;
+              flex-direction: column;
   
               &:hover {
                color: #f0742c;

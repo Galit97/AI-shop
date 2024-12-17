@@ -9,5 +9,5 @@ clientRouter.post("/login-client", setClients_1.login);
 clientRouter.get("/get-all-clients", getClients_1.getAllClients);
 clientRouter.get("/get-client", getClients_1.getClient);
 clientRouter["delete"]("/delete-client", setClients_1.deleteClient);
-clientRouter.put("/update-client", setClients_1.updateClient);
+clientRouter.patch("/update-client", setClients_1.updateClient);
 exports["default"] = clientRouter;

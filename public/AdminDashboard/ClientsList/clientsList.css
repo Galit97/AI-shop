@@ -75,7 +75,6 @@ body {
   background: #e6e6e6;
 }
 
-/* Client List */
 #client-list {
   margin: 2rem auto;
   max-width: 800px;
@@ -120,6 +119,8 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 #client-list table tbody tr td button:hover {
   color: #f0742c;

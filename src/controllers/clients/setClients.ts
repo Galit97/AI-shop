@@ -90,12 +90,21 @@ export async function deleteClient(req: any, res: any) {
 export async function updateClient(req: any, res: any) {
     try {
         const { id, updates } = req.body;
-        if (!id || !updates) throw new Error("Client ID and updates are required");
-        console.log(updates);
-        await ClientModel.findByIdAndUpdate(id, updates, { new: true });
+        if (!id || !updates) {
+            console.error("Missing data:", { id, updates });
+            throw new Error("Client ID and updates are required");
+        }
+        console.log("Received updates:", updates);
+
+        const updatedClient = await ClientModel.findByIdAndUpdate(id, updates, { new: true });
+        if (!updatedClient) {
+            console.log("No client found with id:", id);
+            return res.status(404).send({ error: "Client not found" });
+        }
+        console.log("Client updated successfully:", updatedClient);
         return res.status(200).send({ message: "Client updated successfully" });
     } catch (error: any) {
-        console.error(error);
+        console.error("Error updating client:", error);
         return res.status(500).send({ error: error.message });
     }
-};
+}

@@ -153,22 +153,29 @@ exports.deleteClient = deleteClient;
 ;
 function updateClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, id, updates, error_4;
+        var _a, id, updates, updatedClient, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     _a = req.body, id = _a.id, updates = _a.updates;
-                    if (!id || !updates)
+                    if (!id || !updates) {
+                        console.error("Missing data:", { id: id, updates: updates });
                         throw new Error("Client ID and updates are required");
-                    console.log(updates);
+                    }
+                    console.log("Received updates:", updates);
                     return [4 /*yield*/, clientModel_1.ClientModel.findByIdAndUpdate(id, updates, { "new": true })];
                 case 1:
-                    _b.sent();
+                    updatedClient = _b.sent();
+                    if (!updatedClient) {
+                        console.log("No client found with id:", id);
+                        return [2 /*return*/, res.status(404).send({ error: "Client not found" })];
+                    }
+                    console.log("Client updated successfully:", updatedClient);
                     return [2 /*return*/, res.status(200).send({ message: "Client updated successfully" })];
                 case 2:
                     error_4 = _b.sent();
-                    console.error(error_4);
+                    console.error("Error updating client:", error_4);
                     return [2 /*return*/, res.status(500).send({ error: error_4.message })];
                 case 3: return [2 /*return*/];
             }
@@ -176,4 +183,3 @@ function updateClient(req, res) {
     });
 }
 exports.updateClient = updateClient;
-;

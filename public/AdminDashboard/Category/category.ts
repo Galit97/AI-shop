@@ -52,12 +52,20 @@ function renderCategories(categories: any[]): void {
                     .map(
                         (category) => `
                         <tr id="category-${category._id}">
-                            <td>${category.name}</td>
                             <td>
-                                <button class="edit-btn" onclick="handleEditCategory('${category._id}')">
-                                 <i class="fa-regular fa-pen-to-square"></i></button>
+                                <span class="view">${category.name}</span>
+                                <input class="edit hidden" type="text" value="${category.name}" />
+                            </td>
+                            <td>
+                                <button class="edit-btn" onclick="toggleEditCategory('${category._id}')">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="save-btn hidden" onclick="saveCategoryChanges('${category._id}')">
+                                    <i class="fa-regular fa-floppy-disk"></i>
+                                </button>
                                 <button onclick="handleDeleteCategory('${category._id}')">
-                                <i class="fa-solid fa-trash"></i></button>
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `
@@ -67,6 +75,7 @@ function renderCategories(categories: any[]): void {
         </table>
     `;
 }
+
 
 async function handleDeleteCategory(id: string): Promise<void> {
     try {
@@ -86,24 +95,53 @@ async function handleDeleteCategory(id: string): Promise<void> {
     }
 }
 
-async function handleEditCategory(id: string): Promise<void> {
-    const name = prompt("Enter new category name:");
-    if (!name) return;
+function toggleEditCategory(id: string): void {
+    const row = document.getElementById(`category-${id}`);
+    if (!row) return;
+
+    const viewElements = row.querySelectorAll(".view");
+    const editElements = row.querySelectorAll(".edit");
+    const editButton = row.querySelector(".edit-btn") as HTMLButtonElement;
+    const saveButton = row.querySelector(".save-btn") as HTMLButtonElement;
+
+    viewElements.forEach((el) => el.classList.toggle("hidden"));
+    editElements.forEach((el) => el.classList.toggle("hidden"));
+    editButton.classList.toggle("hidden");
+    saveButton.classList.toggle("hidden");
+}
+
+async function saveCategoryChanges(id: string): Promise<void> {
+    const row = document.getElementById(`category-${id}`);
+    if (!row) return;
+
+    const inputElement = row.querySelector("td input.edit") as HTMLInputElement;
+    const updatedName = inputElement?.value.trim(); 
+
+    if (!updatedName) {
+        console.error("Error: Name is required.");
+        return;
+    }
 
     try {
         const response = await fetch("/api/categories/edit-category", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, name }),
+            body: JSON.stringify({
+                id,
+                name: updatedName,
+            }),
         });
 
-        if (response.ok) {
-            await fetchAllCategories();
-        } else {
-            throw new Error("Failed to edit category");
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Failed to update category:", errorText);
+            throw new Error("Failed to update category");
         }
+
+        console.log("Category updated successfully");
+        await fetchAllCategories();
     } catch (error) {
-        console.error("Error editing category:", error);
+        console.error("Error updating category:", error);
     }
 }
 

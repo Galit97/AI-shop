@@ -103,7 +103,7 @@ function renderCategories(categories) {
     if (!container)
         return;
     container.innerHTML = "\n        <table>\n            <thead>\n                <tr>\n                    <th>Category Name</th>\n                    <th>Actions</th>\n                </tr>\n            </thead>\n            <tbody>\n                " + categories
-        .map(function (category) { return "\n                        <tr id=\"category-" + category._id + "\">\n                            <td>" + category.name + "</td>\n                            <td>\n                                <button class=\"edit-btn\" onclick=\"handleEditCategory('" + category._id + "')\">\n                                 <i class=\"fa-regular fa-pen-to-square\"></i></button>\n                                <button onclick=\"handleDeleteCategory('" + category._id + "')\">\n                                <i class=\"fa-solid fa-trash\"></i></button>\n                            </td>\n                        </tr>\n                    "; })
+        .map(function (category) { return "\n                        <tr id=\"category-" + category._id + "\">\n                            <td>\n                                <span class=\"view\">" + category.name + "</span>\n                                <input class=\"edit hidden\" type=\"text\" value=\"" + category.name + "\" />\n                            </td>\n                            <td>\n                                <button class=\"edit-btn\" onclick=\"toggleEditCategory('" + category._id + "')\">\n                                    <i class=\"fa-regular fa-pen-to-square\"></i>\n                                </button>\n                                <button class=\"save-btn hidden\" onclick=\"saveCategoryChanges('" + category._id + "')\">\n                                    <i class=\"fa-regular fa-floppy-disk\"></i>\n                                </button>\n                                <button onclick=\"handleDeleteCategory('" + category._id + "')\">\n                                    <i class=\"fa-solid fa-trash\"></i>\n                                </button>\n                            </td>\n                        </tr>\n                    "; })
         .join("") + "\n            </tbody>\n        </table>\n    ";
 }
 function handleDeleteCategory(id) {
@@ -137,35 +137,62 @@ function handleDeleteCategory(id) {
         });
     });
 }
-function handleEditCategory(id) {
+function toggleEditCategory(id) {
+    var row = document.getElementById("category-" + id);
+    if (!row)
+        return;
+    var viewElements = row.querySelectorAll(".view");
+    var editElements = row.querySelectorAll(".edit");
+    var editButton = row.querySelector(".edit-btn");
+    var saveButton = row.querySelector(".save-btn");
+    viewElements.forEach(function (el) { return el.classList.toggle("hidden"); });
+    editElements.forEach(function (el) { return el.classList.toggle("hidden"); });
+    editButton.classList.toggle("hidden");
+    saveButton.classList.toggle("hidden");
+}
+function saveCategoryChanges(id) {
     return __awaiter(this, void 0, Promise, function () {
-        var name, response, error_3;
+        var row, inputElement, updatedName, response, errorText, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    name = prompt("Enter new category name:");
-                    if (!name)
+                    row = document.getElementById("category-" + id);
+                    if (!row)
                         return [2 /*return*/];
+                    inputElement = row.querySelector("td input.edit");
+                    updatedName = inputElement === null || inputElement === void 0 ? void 0 : inputElement.value.trim();
+                    if (!updatedName) {
+                        console.error("Error: Name is required.");
+                        return [2 /*return*/];
+                    }
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 6, , 7]);
                     return [4 /*yield*/, fetch("/api/categories/edit-category", {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ id: id, name: name })
+                            body: JSON.stringify({
+                                id: id,
+                                name: updatedName
+                            })
                         })];
                 case 2:
                     response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
-                    return [4 /*yield*/, fetchAllCategories()];
+                    if (!!response.ok) return [3 /*break*/, 4];
+                    return [4 /*yield*/, response.text()];
                 case 3:
+                    errorText = _a.sent();
+                    console.error("Failed to update category:", errorText);
+                    throw new Error("Failed to update category");
+                case 4:
+                    console.log("Category updated successfully");
+                    return [4 /*yield*/, fetchAllCategories()];
+                case 5:
                     _a.sent();
-                    return [3 /*break*/, 5];
-                case 4: throw new Error("Failed to edit category");
-                case 5: return [3 /*break*/, 7];
+                    return [3 /*break*/, 7];
                 case 6:
                     error_3 = _a.sent();
-                    console.error("Error editing category:", error_3);
+                    console.error("Error updating category:", error_3);
                     return [3 /*break*/, 7];
                 case 7: return [2 /*return*/];
             }
