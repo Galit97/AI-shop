@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 ;
 function renderProductView(product) {
-    var container = document.getElementById("viewProduct");
+    var container = document.getElementById("main");
     if (!container)
         return;
     console.log("product", product);
@@ -48,7 +48,7 @@ function navigateToViewProduct() {
     var params = new URLSearchParams(queryString);
     var viewProductParam = params.get("viewProductParam");
     var mainSection = document.getElementById("main");
-    var productViewSection = document.getElementById("viewProduct");
+    // const productViewSection = document.getElementById("viewProduct");
     if (!mainSection || !productViewSection)
         throw new Error("main section or product section not found");
     if (viewProductParam) {
@@ -111,9 +111,7 @@ function addToCart(productId) {
 }
 ;
 function openLoginPopup() {
-    var queryString = window.location.search;
-    var params = new URLSearchParams(queryString);
-    var loginParam = params.get('loginParam');
     var loginPopup = document.getElementById('loginPopup');
 }
+;
 navigateToViewProduct();

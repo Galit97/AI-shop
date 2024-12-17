@@ -16,7 +16,7 @@ interface Product{
 
 
 function renderProductView(product: Product) {
-    const container = document.getElementById("viewProduct");
+    const container = document.getElementById("main");
     if (!container) return;
     console.log("product", product);
     container.innerHTML = `
@@ -52,7 +52,7 @@ function navigateToViewProduct() {
 
     const viewProductParam = params.get("viewProductParam");
     const mainSection = document.getElementById("main");
-    const productViewSection = document.getElementById("viewProduct");
+    // const productViewSection = document.getElementById("viewProduct");
     if(!mainSection || !productViewSection) throw new Error("main section or product section not found");
 
     if (viewProductParam) {
@@ -95,15 +95,11 @@ async function addToCart(productId: string) {
 };
 
 function openLoginPopup() {
-  const queryString = window.location.search;
-  const params:any = new URLSearchParams(queryString);
-
-  const loginParam = params.get('loginParam');
-
 
   const loginPopup = document.getElementById('loginPopup'); 
 
-}
+
+};
 
 
 
