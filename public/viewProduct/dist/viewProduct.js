@@ -115,13 +115,5 @@ function openLoginPopup() {
     var params = new URLSearchParams(queryString);
     var loginParam = params.get('loginParam');
     var loginPopup = document.getElementById('loginPopup');
-    // handleFormLogin();
-    if (!loginParam) {
-        loginPopup.style.display = 'none';
-    }
-    else {
-        loginPopup.style.display = 'block';
-    }
-    ;
 }
 navigateToViewProduct();

@@ -102,12 +102,7 @@ function openLoginPopup() {
 
 
   const loginPopup = document.getElementById('loginPopup'); 
-  // handleFormLogin();
-  if (!loginParam) {
-    loginPopup!.style.display = 'none';
-  } else {
-    loginPopup!.style.display = 'block';
-  };
+
 }
 
 
