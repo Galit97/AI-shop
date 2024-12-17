@@ -106,7 +106,7 @@ function renderCartPage(products: Product[]): void {
     try {
 
 
-        const cartContainer = document.querySelector('#product-list') as HTMLElement;
+        const cartContainer = document.querySelector('#main') as HTMLElement;
         if (!cartContainer) throw new Error('Cart container not found!');
         console.log(renderCart(products))
         cartContainer.innerHTML = renderCart(products);

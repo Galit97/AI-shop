@@ -48,7 +48,7 @@ function navigateToViewProduct() {
     var params = new URLSearchParams(queryString);
     var viewProductParam = params.get("viewProductParam");
     var mainSection = document.getElementById("main");
-    // const productViewSection = document.getElementById("viewProduct");
+    var productViewSection = document.getElementById("viewProduct");
     if (!mainSection || !productViewSection)
         throw new Error("main section or product section not found");
     if (viewProductParam) {

@@ -50,7 +50,7 @@ function renderProducts(products: any[]): void {
             ${products
             .map(
                 (product) => `
-                     <a href="?viewProductParam=${product._id}" class="product-card" id="product-${product._id}">
+                     <div class="product-card" id="product-${product._id}">
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
                         <div class="description-container"><p class="product-description">${product.description}</p></div>
@@ -59,12 +59,23 @@ function renderProducts(products: any[]): void {
                            <p class="product-price">$${product.price}</p>
                         </div>
                          <button class="button-more"><i class="icon fa-solid fa-cart-shopping"></i> Add to cart</button>
-                    </a>
+                    </div>
                 `
             )
             .join("")}
         </div>
     `;
+
+    products.forEach(product => {
+        try {
+           
+            const productElement = document.getElementById(`product-${product._id}`);
+            if(!productElement) throw new Error(`Product ${product._id} not found`);
+            productElement?.addEventListener("click",()=> renderProductView(product))
+        } catch (error) {
+            console.error(error);
+        }
+    });
 }
 
 interface Category {

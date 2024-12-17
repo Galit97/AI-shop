@@ -52,7 +52,7 @@ function navigateToViewProduct() {
 
     const viewProductParam = params.get("viewProductParam");
     const mainSection = document.getElementById("main");
-    // const productViewSection = document.getElementById("viewProduct");
+    const productViewSection = document.getElementById("viewProduct");
     if(!mainSection || !productViewSection) throw new Error("main section or product section not found");
 
     if (viewProductParam) {

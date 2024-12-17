@@ -78,7 +78,7 @@ function fetchCartProducts() {
 }
 function renderCartPage(products) {
     try {
-        var cartContainer = document.querySelector('#product-list');
+        var cartContainer = document.querySelector('#main');
         if (!cartContainer)
             throw new Error('Cart container not found!');
         console.log(renderCart(products));

@@ -45,7 +45,7 @@ function renderHeader() {
 
             
           </div>
-        <div class="cart">
+        <div class="cart" id="cart">
             <img id="cart-icon" src="./images/cart-image.png" alt="Cart Icon">
             <span class="cart-items-count">3</span>
         </div>
@@ -127,21 +127,22 @@ window.registerPopup = function () {
 
 
 /// make the cart page open - TO DO ///
-document.addEventListener('DOMContentLoaded', () => {
-  const cartIcon = document.getElementById('cart-icon');
+
+  const cartIcon = document.getElementById('cart');
   if (cartIcon) {
       cartIcon.addEventListener('click', () => {
-          const cartContainer = document.getElementById('cartPage');
-          if (cartContainer) {
-              showCart();
-          } else {
-              console.error('Cart container not found!');
-          }
+          // const cartContainer = document.getElementById('cartPage');
+          // if (cartContainer) {
+          //     showCart();
+          // } else {
+          //     console.error('Cart container not found!');
+          // }
+          fetchCartProducts();
       });
   } else {
       console.error('Cart icon not found!');
   }
-});
+
 
 // //// make the search work - TO DO ////
 // const searchButton = document.getElementById('search-button');

@@ -95,8 +95,19 @@ function renderProducts(products) {
     if (!container)
         return;
     container.innerHTML = "\n        <div class=\"product-grid\">\n            " + products
-        .map(function (product) { return "\n                     <a href=\"?viewProductParam=" + product._id + "\" class=\"product-card\" id=\"product-" + product._id + "\">\n                        <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n                        <h3 class=\"product-name\">" + product.name + "</h3>\n                        <div class=\"description-container\"><p class=\"product-description\">" + product.description + "</p></div>\n                        <div class=\"bottom-section\">  \n                           <i class=\"icon fa-solid fa-circle-chevron-down\"></i>\n                           <p class=\"product-price\">$" + product.price + "</p>\n                        </div>\n                         <button class=\"button-more\"><i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart</button>\n                    </a>\n                "; })
+        .map(function (product) { return "\n                     <div class=\"product-card\" id=\"product-" + product._id + "\">\n                        <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n                        <h3 class=\"product-name\">" + product.name + "</h3>\n                        <div class=\"description-container\"><p class=\"product-description\">" + product.description + "</p></div>\n                        <div class=\"bottom-section\">  \n                           <i class=\"icon fa-solid fa-circle-chevron-down\"></i>\n                           <p class=\"product-price\">$" + product.price + "</p>\n                        </div>\n                         <button class=\"button-more\"><i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart</button>\n                    </div>\n                "; })
         .join("") + "\n        </div>\n    ";
+    products.forEach(function (product) {
+        try {
+            var productElement = document.getElementById("product-" + product._id);
+            if (!productElement)
+                throw new Error("Product " + product._id + " not found");
+            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () { return renderProductView(product); });
+        }
+        catch (error) {
+            console.error(error);
+        }
+    });
 }
 function fetchCategories() {
     return __awaiter(this, void 0, Promise, function () {
