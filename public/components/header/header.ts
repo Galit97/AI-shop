@@ -55,6 +55,7 @@ function render() {
   const container = document.querySelector('#header'); 
   if (container) {
     container.innerHTML = renderHeader();
+    showWelcomeName();
   } else {
     console.error('Target container not found!');
   };
@@ -126,3 +127,33 @@ window.registerPopup = function () {
 initHeader();
 
 render();
+
+async function showWelcomeName(){
+  try{
+
+  const welcomeName=document.getElementById('loggedInUser');
+  if (!welcomeName)
+    throw new Error('error loginPopup');
+
+  const userName = await fetch('http://localhost:3000/api/clients/get-client-name', {  /* כדי להוסיף את שם הנכנס בדף הראשי עם שלום משתמש */
+    credentials: 'include',
+  });
+  if (!userName.ok) {
+    welcomeName.innerHTML = "Guest";
+    console.log("User is not logged in or cookies not found.");
+    return;
+  }
+
+  const user = await userName.json();
+
+  if (userName){
+    welcomeName.innerHTML = user.user;
+    console.log(`the user ` + user.user  + ` is connected`);
+
+  }
+
+}
+catch(error){
+  console.error('Error:', error);
+}
+}

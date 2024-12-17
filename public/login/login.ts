@@ -118,26 +118,3 @@ function handleFormLogin(): void {
           console.error('Error sending post:', error);
       }
   }
-
-  async function showWelcomeName(){
-    try{
-
-    const welcomeName=document.getElementById('loggedInUser');
-    if (!welcomeName)
-      throw new Error('error loginPopup');
-
-    const userName = await fetch('http://localhost:3000/api/clients/get-client-name', {  /* כדי להוסיף את שם הנכנס בדף הראשי עם שלום משתמש */
-      credentials: 'include',
-    });
-    if (!userName)
-      throw new Error('error fetching userName');
-    const user = await userName.json();
-
-    welcomeName.innerHTML = user.user;
-    console.log(`the user ` + user.user  + ` is connected`);
-    alert("You have logged in successfully");
-  }
-  catch(error){
-    console.error('Error:', error);
-  }
-}
