@@ -1,5 +1,5 @@
 // declare global {
-interface Window {
+  interface Window {
     showLoginPopup: () => void;
     showRegisterPopup: () => void;
 }
