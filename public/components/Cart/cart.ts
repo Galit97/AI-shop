@@ -23,7 +23,7 @@ function renderCart(products: Product[]): string {
     return `
     <div class="cart-container">
         <div class="row">
-            <div class="col-md-8 cart">
+            <div class="col-md-8 cart-inPage">
                 <div class="title">
                     <div class="row">
                         <div class="col"><h4><b>Shopping Cart</b></h4></div>
@@ -61,7 +61,7 @@ function renderCart(products: Product[]): string {
 
 function renderProductsInCart(products: Product[]): string {
     return products.map(product => `
-     <div class="cart-container">
+     <div class="cartPage-container">
     <div class="row border-top border-bottom" id="product-${product._id}">
         <div class="row main align-items-center">
             <div class="col-2">
