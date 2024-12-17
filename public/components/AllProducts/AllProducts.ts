@@ -48,8 +48,8 @@ function renderProducts(products: any[]): void {
     container.innerHTML = `
         <div class="product-grid">
             ${products
-                .map(
-                    (product) => `
+            .map(
+                (product) => `
                      <a href="?viewProductParam=${product._id}" class="product-card" id="product-${product._id}">
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
@@ -61,8 +61,8 @@ function renderProducts(products: any[]): void {
                          <button class="button-more"><i class="icon fa-solid fa-cart-shopping"></i> Add to cart</button>
                     </a>
                 `
-                )
-                .join("")}
+            )
+            .join("")}
         </div>
     `;
 }
@@ -76,11 +76,11 @@ async function fetchCategories(): Promise<void> {
     try {
         const response = await fetch("/api/categories/get-all-categories");
         if (!response.ok) throw new Error("Failed to fetch categories");
-        
+
         const categories = await response.json();
-        
+
         const categorySelect = document.getElementById('categorySection') as HTMLSelectElement;
-        if (!categorySelect) throw new Error("no category selected"); 
+        if (!categorySelect) throw new Error("no category selected");
 
         categorySelect.innerHTML = '<option value="">Select category</option>';
 
@@ -90,31 +90,31 @@ async function fetchCategories(): Promise<void> {
             option.textContent = category.name;
             categorySelect.appendChild(option);
         });
+
+        categorySelect.addEventListener('change', (event) => {
+
+            const selectedCategory = (event.target as HTMLSelectElement).value;
+            console.log(selectedCategory)
+            filterByCategory(selectedCategory);
+
+
+        });
     } catch (error) {
         console.error("Error fetching categories:", error);
     }
 }
 
 
-function filterByCategory(category: string): void {
+function filterByCategory(categoryId: string): void {
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const categoryFilter = document.getElementById('categorySection') as HTMLSelectElement;
-    if (categoryFilter) {
-        categoryFilter.addEventListener('change', (event: Event) => {
-            const selectedCategory = (event.target as HTMLSelectElement).value;
-            filterByCategory(selectedCategory);
 
-           
-        });
-    }
-});
-//todo - FIX THE ISSUE OF FILTER THE PRODUCT (DOM ISSUE)
-const filteredProducts =
-category === "all" || category === "" 
-    ? allProducts
-    : allProducts.filter((product) => product.category === category);
+    //todo - FIX THE ISSUE OF FILTER THE PRODUCT (DOM ISSUE)
+    const filteredProducts =
+        categoryId === "all" || categoryId === ""
+            ? allProducts
+            : allProducts.filter((product) => product.category._id === categoryId);
+
     renderProducts(filteredProducts);
 
 };

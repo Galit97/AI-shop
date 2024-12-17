@@ -19,7 +19,7 @@ const products: Product[] = [];
 function renderCart(products: Product[]): string {
     const totalItems = products.reduce((acc, product) => acc + product.quantity, 0);
     const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2);
-    
+
     return `
     <div class="cart-container">
         <div class="row">
@@ -30,28 +30,7 @@ function renderCart(products: Product[]): string {
                         <div class="col align-self-center text-right text-muted">${totalItems} items</div>
                     </div>
                 </div>    
-                ${products.map((product) => `
-                    <div class="row border-top border-bottom" id="product-${product._id}">
-                        <div class="row main align-items-center">
-                            <div class="col-2">
-                                <img class="img-fluid" src="${product.image}" alt="${product.name}">
-                            </div>
-                            <div class="col">
-                                <div class="row text-muted">${product.category?.name || "Uncategorized"}</div>
-                                <div class="row">${product.name}</div>
-                            </div>
-                            <div class="col">
-                                <a href="#" class="decrease-qty">-</a>
-                                <span class="border">${product.quantity}</span>
-                                <a href="#" class="increase-qty">+</a>
-                            </div>
-                            <div class="col">
-                                € ${(product.price * product.quantity).toFixed(2)} 
-                                <span class="close">&#10005;</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
+                ${renderProductsInCart(products)}
                 <div class="back-to-shop">
                     <a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span>
                 </div>
@@ -79,6 +58,31 @@ function renderCart(products: Product[]): string {
     </div>`;
 }
 
+function renderProductsInCart(products: Product[]): string {
+    return products.map(product => `
+                    <div class="row border-top border-bottom" id="product-${product._id}">
+                        <div class="row main align-items-center">
+                            <div class="col-2">
+                                <img class="img-fluid" src="${product.image}" alt="${product.name}">
+                            </div>
+                            <div class="col">
+                                <div class="row text-muted">${product.category?.name || "Uncategorized"}</div>
+                                <div class="row">${product.name}</div>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="decrease-qty">-</a>
+                                <span class="border">${product.quantity}</span>
+                                <a href="#" class="increase-qty">+</a>
+                            </div>
+                            <div class="col">
+                                € ${(product.price * product.quantity).toFixed(2)} 
+                                <span class="close">&#10005;</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')
+}
+
 async function fetchCartProducts(): Promise<void> {
     console.log("Fetching cart products");
     try {
@@ -87,6 +91,7 @@ async function fetchCartProducts(): Promise<void> {
             throw new Error("Failed to fetch products");
         }
         const cartProducts = await response.json();
+  
         renderCartPage(cartProducts);
     } catch (error) {
         console.error("Error fetching cart products:", error);
@@ -94,12 +99,18 @@ async function fetchCartProducts(): Promise<void> {
 }
 
 function renderCartPage(products: Product[]): void {
-    const cartContainer = document.querySelector('#cartPage');
-    if (cartContainer) {
+    try {
+
+
+        const cartContainer = document.querySelector('#product-list') as HTMLElement;
+        if (!cartContainer) throw new Error('Cart container not found!');
+        console.log(renderCart(products))
         cartContainer.innerHTML = renderCart(products);
         cartContainer.style.display = 'block';
-    } else {
-        console.error('Cart container not found!');
+
+    } catch (error) {
+        console.error("Error rendering cart page:", error);
+
     }
 }
 
