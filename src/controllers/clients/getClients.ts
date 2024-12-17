@@ -2,8 +2,13 @@ import { ClientModel } from "../../models/clientModel";
 
 export async function getClient(req: any, res: any) {
     try {
-        const { id } = req.cookie;
-
+       
+        const clientId = req.cookies.client; 
+        console.log(clientId);
+        if (!clientId) {
+            return res.status(401).json({ message: 'Unauthorized: No clientId provided' });
+        };
+        return res.status(200).send({ message: "client", clientId });
 
 
     } catch (error: any) {

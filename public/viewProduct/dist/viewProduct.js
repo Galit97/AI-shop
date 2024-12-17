@@ -40,7 +40,11 @@ function renderProductView(product) {
     if (!container)
         return;
     console.log("product", product);
+<<<<<<< HEAD
     container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" onclick{}>Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
+=======
+    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" onclick=\"addToCart(" + product.id + ")\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
+>>>>>>> 7b55b85b7dd9be4ec492a50e359e795877b32c46
 }
 ;
 function navigateToViewProduct() {
@@ -65,37 +69,91 @@ function fetchProduct(productId) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+<<<<<<< HEAD
                     console.log("Fetching Product", productId);
                     console.log("Fetching Product");
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
+=======
+                    _a.trys.push([0, 3, , 4]);
+>>>>>>> 7b55b85b7dd9be4ec492a50e359e795877b32c46
                     return [4 /*yield*/, fetch('http://localhost:3000/api/products/get-product', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ "id": productId })
                         })];
+<<<<<<< HEAD
                 case 2:
                     response = _a.sent();
                     console.log(response);
                     return [4 /*yield*/, response.json()];
                 case 3:
+=======
+                case 1:
+                    response = _a.sent();
+                    console.log(response);
+                    return [4 /*yield*/, response.json()];
+                case 2:
+>>>>>>> 7b55b85b7dd9be4ec492a50e359e795877b32c46
                     data = _a.sent();
                     console.log("data", data);
                     if (response.ok) {
                         console.log('success getting product');
                         renderProductView(data.product);
                     }
+<<<<<<< HEAD
                     return [3 /*break*/, 5];
                 case 4:
                     err_1 = _a.sent();
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
+=======
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_1 = _a.sent();
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+>>>>>>> 7b55b85b7dd9be4ec492a50e359e795877b32c46
             }
         });
     });
 }
 ;
+<<<<<<< HEAD
 function addToCart() {
+=======
+function addToCart(productId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        //if client is not connected then show login pop up
+                    }
+                    console.log(response);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+;
+function openLoginPopup() {
+    var queryString = window.location.search;
+    var params = new URLSearchParams(queryString);
+    var loginParam = params.get('loginParam');
+    var loginPopup = document.getElementById('loginPopup');
+    // handleFormLogin();
+    if (!loginParam) {
+        loginPopup.style.display = 'none';
+    }
+    else {
+        loginPopup.style.display = 'block';
+    }
+    ;
+>>>>>>> 7b55b85b7dd9be4ec492a50e359e795877b32c46
 }
 navigateToViewProduct();

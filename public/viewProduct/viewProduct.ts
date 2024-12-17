@@ -33,7 +33,7 @@ function renderProductView(product: Product) {
                 <input type="number" id="quantity" value="1" min="1">
               </div>
 
-              <button class="add-to-cart" onclick{}>Add to Cart</button>
+              <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
               
             </div>
         </div>
@@ -59,8 +59,7 @@ function navigateToViewProduct() {
 };
 
 async function fetchProduct(productId: string) {
-  console.log("Fetching Product", productId);
-  console.log("Fetching Product");
+
       try {
           const response = await fetch('http://localhost:3000/api/products/get-product', {
             method: 'POST',
@@ -81,9 +80,31 @@ async function fetchProduct(productId: string) {
     }
 };
 
-function addToCart() {
-  
+async function addToCart(productId: string) {
+    const response = await fetch("http://localhost:3000/api/clients/get-client");
+    if (!response.ok) {
+        //if client is not connected then show login pop up
+    }
+
+    console.log(response); 
+};
+
+function openLoginPopup() {
+  const queryString = window.location.search;
+  const params:any = new URLSearchParams(queryString);
+
+  const loginParam = params.get('loginParam');
+
+
+  const loginPopup = document.getElementById('loginPopup'); 
+  // handleFormLogin();
+  if (!loginParam) {
+    loginPopup!.style.display = 'none';
+  } else {
+    loginPopup!.style.display = 'block';
+  };
 }
+
 
 
 navigateToViewProduct();

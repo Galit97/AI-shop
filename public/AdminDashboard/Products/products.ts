@@ -68,7 +68,7 @@ async function fetchAllProducts(): Promise<void> {
     console.log("Fetching all products");
     try {
         const response = await fetch("http://localhost:3000/api/products/get-products");
-        if (!response.ok) throw new Error("Failed to fetch products");
+        if (!response.ok) {throw new Error("Failed to fetch products");}
         
         
         const products = await response.json();
