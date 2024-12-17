@@ -123,6 +123,11 @@ function fetchCategories() {
                         option.textContent = category.name;
                         categorySelect_1.appendChild(option);
                     });
+                    categorySelect_1.addEventListener('change', function (event) {
+                        var selectedCategory = event.target.value;
+                        console.log(selectedCategory);
+                        filterByCategory(selectedCategory);
+                    });
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
@@ -133,20 +138,11 @@ function fetchCategories() {
         });
     });
 }
-function filterByCategory(category) {
-    document.addEventListener('DOMContentLoaded', function () {
-        var categoryFilter = document.getElementById('categorySection');
-        if (categoryFilter) {
-            categoryFilter.addEventListener('change', function (event) {
-                var selectedCategory = event.target.value;
-                filterByCategory(selectedCategory);
-            });
-        }
-    });
+function filterByCategory(categoryId) {
     //todo - FIX THE ISSUE OF FILTER THE PRODUCT (DOM ISSUE)
-    var filteredProducts = category === "all" || category === ""
+    var filteredProducts = categoryId === "all" || categoryId === ""
         ? allProducts
-        : allProducts.filter(function (product) { return product.category === category; });
+        : allProducts.filter(function (product) { return product.category._id === categoryId; });
     renderProducts(filteredProducts);
 }
 ;
