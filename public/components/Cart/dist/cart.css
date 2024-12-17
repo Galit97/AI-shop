@@ -1,47 +1,120 @@
 .cart-container {
-  margin: auto;
-  max-width: 950px;
-  width: 90%;
-  padding: 2vh 3vh;
+  padding: 2rem;
   background-color: #fff;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 .cart-container .row {
   margin: 0;
 }
-.cart-container .main {
-  margin: 0;
-  padding: 1vh 0;
+
+.cart {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+}
+.cart .title {
+  margin-bottom: 2rem;
+}
+.cart .title h4 {
+  font-weight: bold;
+}
+.cart .back-to-shop {
+  margin-top: 2rem;
+}
+.cart .back-to-shop a {
+  color: #f0742c;
+  font-size: 1rem;
+}
+.cart .back-to-shop a:hover {
+  text-decoration: none;
+  color: #ff9b10;
+}
+.cart .back-to-shop .text-muted {
+  margin-left: 0.5rem;
+  color: #6c757d;
+}
+
+.summary {
+  padding: 2rem;
+  background-color: #f3f3f3;
+  border-radius: 0.5rem;
+  color: #333;
+}
+.summary h5 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.summary form {
+  margin: 1.5rem 0;
+}
+.summary form p {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary form select,
+.summary form input {
   width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  background-color: #f7f7f7;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+.summary form select:focus,
+.summary form input:focus {
+  outline: none;
+  border-color: #f0742c;
+}
+.summary .btn {
+  background-color: #f0742c;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.summary .btn:hover {
+  background-color: #ff9b10;
+}
+.summary .btn:focus {
+  outline: none;
+}
+
+.main {
+  padding: 1rem 0;
+}
+.main .col-2 img {
+  width: 100%;
+  border-radius: 0.25rem;
+}
+.main .col {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
-.cart-container .main .col-2 img {
-  width: 3.5rem;
-  height: auto;
-}
-.cart-container .main .col {
-  padding: 0 1vh;
-}
-.cart-container .main .col .text-muted {
+.main .col .text-muted {
   font-size: 0.85rem;
   color: #6c757d;
 }
-.cart-container .main .col .decrease-qty,
-.cart-container .main .col .increase-qty {
-  color: #000;
-  text-decoration: none;
-  padding: 0 0.5rem;
-}
-.cart-container .main .col .border {
-  padding: 0 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  display: inline-block;
-}
-.cart-container .main .col .close {
-  font-size: 0.8rem;
+.main .decrease-qty,
+.main .increase-qty {
+  font-size: 1.25rem;
+  margin: 0 0.5rem;
+  color: #f0742c;
   cursor: pointer;
-  margin-left: 1rem;
-  color: #ff0000;
+}
+.main .decrease-qty:hover,
+.main .increase-qty:hover {
+  color: #ff9b10;
+}
+.main .close {
+  color: #dc3545;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.main .close:hover {
+  color: #c82333;
 }
