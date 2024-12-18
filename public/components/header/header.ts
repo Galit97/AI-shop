@@ -27,7 +27,7 @@ function renderHeader() {
           <div class="login-register">
             <img src="./images/user-image.png" alt="User Icon">
             <button id="loginRegisterButton" aria-hasPopup="true" aria-expanded="false">
-            <h3>Welcome </h3>
+            <h3>Welcome <span id="loggedInUser"></span></h3>
             </button>
 
           
@@ -56,6 +56,7 @@ function render() {
   const container = document.querySelector('#header'); 
   if (container) {
     container.innerHTML = renderHeader();
+    showWelcomeName();
   } else {
     console.error('Target container not found!');
   };
@@ -174,6 +175,34 @@ window.registerPopup = function () {
 // } else {
 //   console.error('Search button or input field not found in the DOM');
 // }
+
+async function showWelcomeName() {
+  try {
+    const welcomeName = document.getElementById('loggedInUser');
+    if (!welcomeName) throw new Error('Cannot find element to display the user name.');
+
+    const response = await fetch('http://localhost:3000/api/clients/get-client', {
+      credentials: 'include', 
+    });
+
+    if (!response.ok) {
+      welcomeName.textContent = 'Guest';
+      console.log('User is not logged in or cookies not found.');
+      return;
+    }
+
+    const { firstName } = await response.json();
+    if (firstName) {
+      welcomeName.textContent = firstName;
+      console.log(`The user ${firstName} is connected`);
+    } else {
+      welcomeName.textContent = 'Guest';
+    }
+  } catch (error) {
+    console.error('Error fetching client name:', error);
+  }
+}
+
 
 
 initHeader();
