@@ -1,52 +1,63 @@
 $btn-color: #f0742c;
 $btn-hover-color: #ff9b10;
 
-.cartPage-container {
-  padding: 2rem;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  border-radius: 0.5rem;
+.cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  min-height: 100vh;
+  padding: 3rem 0;
+
+
   .row {
+    width: 90%; 
+    max-width: 1200px; 
     margin: 0;
+    background-color: #fff; 
+
+    border-radius: 1rem; 
   }
 }
 
 .cart-inPage {
   padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 0.5rem;
+  background-color: #fff; 
+  border-radius: 1rem; 
+  border: 1px solid #ccc;
 
-  .title {
-    margin-bottom: 2rem;
-    h4 {
-      font-weight: bold;
+}
+
+.title {
+  margin-bottom: 2rem;
+  h4 {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+
+.back-to-shop {
+  margin-top: 2rem;
+
+  a {
+    color: $btn-color;
+    font-size: 1rem;
+
+    &:hover {
+      text-decoration: none;
+      color: $btn-hover-color;
     }
   }
 
-  .back-to-shop {
-    margin-top: 2rem;
-
-    a {
-      color: $btn-color;
-      font-size: 1rem;
-
-      &:hover {
-        text-decoration: none;
-        color: $btn-hover-color;
-      }
-    }
-
-    .text-muted {
-      margin-left: 0.5rem;
-      color: #6c757d;
-    }
+  .text-muted {
+    margin-left: 0.5rem;
+    color: #6c757d;
   }
 }
 
 .summary {
   padding: 2rem;
-  background-color: #f3f3f3;
-  border-radius: 0.5rem;
+  background-color: #fff; 
+  border-radius: 1rem;
   color: #333;
 
   h5 {
@@ -64,13 +75,14 @@ $btn-hover-color: #ff9b10;
 
     select,
     input {
-      width: 100%;
+      width: 80%; 
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 0.25rem;
       background-color: #f7f7f7;
       margin-bottom: 1rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem; 
+      max-width: 300px; 
 
       &:focus {
         outline: none;
@@ -81,9 +93,10 @@ $btn-hover-color: #ff9b10;
 
   .btn {
     background-color: $btn-color;
+    display: flex;
     color: #fff;
     border: none;
-    width: 100%;
+    width: 20rem;
     padding: 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
@@ -98,7 +111,6 @@ $btn-hover-color: #ff9b10;
     }
   }
 }
-
 
 .main {
   padding: 1rem 0;
