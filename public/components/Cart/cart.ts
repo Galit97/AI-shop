@@ -50,7 +50,7 @@ function renderCart(products: Product[]): string {
                     <p>APPLY DISCOUNT CODE</p>
                     <input id="code" placeholder="Enter your code">
                 </form>
-                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="row" >
                     <div class="col">TOTAL PRICE</div>
 <div class="col text-right" id="total-price">${" "}</div>
                 </div>

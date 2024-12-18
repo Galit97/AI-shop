@@ -1,44 +1,53 @@
-.cartPage-container {
-  padding: 2rem;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  border-radius: 0.5rem;
+.cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 3rem 0;
 }
-.cartPage-container .row {
+.cart-container .row {
+  width: 90%;
+  max-width: 1200px;
   margin: 0;
+  background-color: #fff;
+  border-radius: 1rem;
 }
 
 .cart-inPage {
   padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 0.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
 }
-.cart-inPage .title {
+
+.title {
   margin-bottom: 2rem;
 }
-.cart-inPage .title h4 {
+.title h4 {
   font-weight: bold;
+  font-size: 1.5rem;
 }
-.cart-inPage .back-to-shop {
+
+.back-to-shop {
   margin-top: 2rem;
 }
-.cart-inPage .back-to-shop a {
+.back-to-shop a {
   color: #f0742c;
   font-size: 1rem;
 }
-.cart-inPage .back-to-shop a:hover {
+.back-to-shop a:hover {
   text-decoration: none;
   color: #ff9b10;
 }
-.cart-inPage .back-to-shop .text-muted {
+.back-to-shop .text-muted {
   margin-left: 0.5rem;
   color: #6c757d;
 }
 
 .summary {
   padding: 2rem;
-  background-color: #f3f3f3;
-  border-radius: 0.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
   color: #333;
 }
 .summary h5 {
@@ -54,13 +63,14 @@
 }
 .summary form select,
 .summary form input {
-  width: 100%;
+  width: 80%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
   background-color: #f7f7f7;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  max-width: 300px;
 }
 .summary form select:focus,
 .summary form input:focus {
@@ -69,9 +79,10 @@
 }
 .summary .btn {
   background-color: #f0742c;
+  display: flex;
   color: #fff;
   border: none;
-  width: 100%;
+  width: 20rem;
   padding: 0.75rem;
   font-size: 1rem;
   border-radius: 0.25rem;
