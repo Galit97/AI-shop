@@ -41,15 +41,18 @@ var cartModel_1 = require("../../models/cartModel");
 var productModel_1 = require("../../models/productModel");
 function addToCart(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, productId_1, clientId, quantity, product, cart, existingProduct, error_1;
+        var _a, productId_1, quantity, client, clientId, product, cart, productExists, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 4, , 5]);
-                    _a = req.body, productId_1 = _a.productId, clientId = _a.clientId, quantity = _a.quantity;
+                    _a = req.body, productId_1 = _a.productId, quantity = _a.quantity;
                     if (!productId_1 || !quantity) {
                         return [2 /*return*/, res.status(400).json({ message: 'Product ID and quantity are required' })];
                     }
+                    ;
+                    client = req.client;
+                    clientId = client === null || client === void 0 ? void 0 : client._id;
                     return [4 /*yield*/, productModel_1.ProductModel.findById(productId_1)];
                 case 1:
                     product = _b.sent();
@@ -60,9 +63,9 @@ function addToCart(req, res) {
                 case 2:
                     cart = _b.sent();
                     if (cart) {
-                        existingProduct = cart.products.find(function (p) { return p.product.toString() === productId_1; });
-                        if (existingProduct) {
-                            existingProduct.quantity += quantity;
+                        productExists = cart.products.find(function (p) { return p.product.toString() === productId_1; });
+                        if (productExists) {
+                            productExists.quantity += quantity;
                         }
                         else {
                             cart.products.push({ product: productId_1, quantity: quantity });

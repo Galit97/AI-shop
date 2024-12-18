@@ -14,6 +14,8 @@ import { CartModel } from "../../models/cartModel";
 
 export async function getCart(req: any, res: any) {
     try {
+
+        //TODO GET THE USER'S CART
         const products = await CartModel.find();
         if(!products) return res.status(404).send({ error: "no products"});
         

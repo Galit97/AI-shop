@@ -39,53 +39,52 @@ function renderProductView(product) {
     var container = document.getElementById("main");
     if (!container)
         return;
-    console.log("product", product);
-    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" onclick=\"addToCart(" + product.id + ")\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
-}
-;
-function fetchProduct(productId) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data, err_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/products/get-product', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ "id": productId })
-                        })];
-                case 1:
-                    response = _a.sent();
-                    console.log(response);
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log("data", data);
-                    if (response.ok) {
-                        console.log('success getting product');
-                        renderProductView(data.product);
-                    }
-                    return [3 /*break*/, 4];
-                case 3:
-                    err_1 = _a.sent();
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
+    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\"\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
+    try {
+        var productElement = document.getElementById("addToCart-" + product._id);
+        if (!productElement)
+            throw new Error("Product " + product._id + " not found");
+        productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
+            var quantityInput = document.getElementById('quantity');
+            var quantity = parseInt(quantityInput.value, 10);
+            addToCart(product._id, quantity);
         });
-    });
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 ;
-function addToCart(productId) {
+// async function fetchProduct(productId: string) {
+//       try {
+//           const response = await fetch('http://localhost:3000/api/products/get-product', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({"id": productId}),
+//           });
+//       console.log(response);
+//       const data = await response.json();
+//       console.log("data", data);
+//     if (response.ok) {
+//         console.log('success getting product');
+//         renderProductView(data.product);
+//     }} catch (err) {
+//     }
+// };
+function addToCart(productId, quantity) {
     return __awaiter(this, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client")];
+                case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/cart/add-to-cart", {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ productId: productId, quantity: quantity })
+                    })];
                 case 1:
                     response = _a.sent();
-                    if (!response.ok) {
-                        //if client is not connected then show login pop up
+                    if (response.ok) {
+                        console.log(response);
                     }
                     console.log(response);
                     return [2 /*return*/];

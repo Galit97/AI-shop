@@ -20,9 +20,6 @@ export async function getClient(req: any, res: any) {
             },
         });
 
-        
-        return res.status(200).send({ message: "client connected", clientId });
-
 
     } catch (error: any) {
         console.error(error);

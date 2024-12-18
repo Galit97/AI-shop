@@ -60,7 +60,6 @@ function closeRegisterPopup() {
 };
 
 function render() {
-      console.log('render');
       const container = document.querySelector('#registerPopup');
       if (container) {
         container.innerHTML += renderRegister();

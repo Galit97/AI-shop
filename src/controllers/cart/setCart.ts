@@ -3,10 +3,13 @@ import { ProductModel } from "../../models/productModel";
 
 export async function addToCart(req: any, res: any) {
     try {
-             const { productId, clientId, quantity } = req.body;
+             const { productId, quantity } = req.body;
              if (!productId || !quantity) {
                  return res.status(400).json({ message: 'Product ID and quantity are required' });
-             }
+             };
+
+             const client = req.client;
+             const clientId = client?._id;
      
              const product = await ProductModel.findById(productId);
              if (!product) {
@@ -16,10 +19,10 @@ export async function addToCart(req: any, res: any) {
              let cart = await CartModel.findOne({ clientId });
      
              if (cart) {
-                 const existingProduct = cart.products.find(p => p.product.toString() === productId);
+                 const productExists = cart.products.find(p => p.product.toString() === productId);
      
-                 if (existingProduct) {
-                     existingProduct.quantity += quantity;
+                 if (productExists) {
+                    productExists.quantity += quantity;
                  } else {
                      cart.products.push({ product: productId, quantity });
                  }

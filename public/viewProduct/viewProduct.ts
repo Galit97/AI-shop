@@ -4,7 +4,7 @@ interface category{
 }
 
 interface Product{
-    id: string;
+    _id: string;
     name: string;
     description: string;
     category: Category | null;
@@ -18,7 +18,7 @@ interface Product{
 function renderProductView(product: Product) {
     const container = document.getElementById("main");
     if (!container) return;
-    console.log("product", product);
+
     container.innerHTML = `
         <div class="product-view">
             <div class="main-image">
@@ -38,39 +38,56 @@ function renderProductView(product: Product) {
                 <input type="number" id="quantity" value="1" min="1">
               </div>
 
-              <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+              <button class="add-to-cart" id="addToCart-${product._id}"">Add to Cart</button>
               
             </div>
         </div>
     `
+
+    try {
+           
+      const productElement = document.getElementById(`addToCart-${product._id}`);
+      if(!productElement) throw new Error(`Product ${product._id} not found`);
+      productElement?.addEventListener("click",()=> {
+          const quantityInput = document.getElementById('quantity') as HTMLInputElement;
+          const quantity = parseInt(quantityInput.value, 10);
+          addToCart(product._id, quantity)})
+  } catch (error) {
+      console.error(error);
+  }
 };
 
-async function fetchProduct(productId: string) {
+// async function fetchProduct(productId: string) {
 
-      try {
-          const response = await fetch('http://localhost:3000/api/products/get-product', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({"id": productId}),
-          });
+//       try {
+//           const response = await fetch('http://localhost:3000/api/products/get-product', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({"id": productId}),
+//           });
 
-      console.log(response);
+//       console.log(response);
 
-      const data = await response.json();
-      console.log("data", data);
+//       const data = await response.json();
+//       console.log("data", data);
 
+//     if (response.ok) {
+//         console.log('success getting product');
+//         renderProductView(data.product);
+//     }} catch (err) {
+
+//     }
+// };
+
+async function addToCart(productId: string, quantity:number){
+
+    const response = await fetch("http://localhost:3000/api/cart/add-to-cart" ,{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({productId, quantity}),
+    });
     if (response.ok) {
-        console.log('success getting product');
-        renderProductView(data.product);
-    }} catch (err) {
-
-    }
-};
-
-async function addToCart(productId: string) {
-    const response = await fetch("http://localhost:3000/api/clients/get-client");
-    if (!response.ok) {
-        //if client is not connected then show login pop up
+        console.log(response)
     }
 
     console.log(response); 
@@ -78,7 +95,7 @@ async function addToCart(productId: string) {
 
 function openLoginPopup() {
 
-  const loginPopup = document.getElementById('loginPopup'); 
+    const loginPopup = document.getElementById('loginPopup'); 
 
 
 };
