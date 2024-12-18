@@ -45,24 +45,6 @@ function renderProductView(product: Product) {
     `
 };
 
-
-function navigateToViewProduct() {
-    const queryString = window.location.search;
-    const params:any = new URLSearchParams(queryString);
-
-    const viewProductParam = params.get("viewProductParam");
-    const mainSection = document.getElementById("main");
-    const productViewSection = document.getElementById("viewProduct");
-    if(!mainSection || !productViewSection) throw new Error("main section or product section not found");
-
-    if (viewProductParam) {
-      mainSection.style.display = "none";
-      productViewSection.style.display = "block";
-
-      fetchProduct(viewProductParam);
-    };
-};
-
 async function fetchProduct(productId: string) {
 
       try {
@@ -100,7 +82,3 @@ function openLoginPopup() {
 
 
 };
-
-
-
-navigateToViewProduct();

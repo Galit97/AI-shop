@@ -43,22 +43,6 @@ function renderProductView(product) {
     container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" onclick=\"addToCart(" + product.id + ")\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
 }
 ;
-function navigateToViewProduct() {
-    var queryString = window.location.search;
-    var params = new URLSearchParams(queryString);
-    var viewProductParam = params.get("viewProductParam");
-    var mainSection = document.getElementById("main");
-    var productViewSection = document.getElementById("viewProduct");
-    if (!mainSection || !productViewSection)
-        throw new Error("main section or product section not found");
-    if (viewProductParam) {
-        mainSection.style.display = "none";
-        productViewSection.style.display = "block";
-        fetchProduct(viewProductParam);
-    }
-    ;
-}
-;
 function fetchProduct(productId) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, err_1;
@@ -114,4 +98,3 @@ function openLoginPopup() {
     var loginPopup = document.getElementById('loginPopup');
 }
 ;
-navigateToViewProduct();
