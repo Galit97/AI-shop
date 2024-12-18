@@ -11,6 +11,8 @@ import chatBotRouter from './routes/chatBotRouter';
 
 import categoryRouter from './routes/categoriesRouter';
 import cartRouter from './routes/cartRouter';
+import cookiesRouter from './routes/cookiesRouter';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,6 +36,8 @@ app.use("/api/admin", adminRouter);
 app.use("/api/chatBot", chatBotRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/cookies", cookiesRouter);
+
 
 
 //DB

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 // }
 function renderHeader() {
-    return "\n     <header id=\"header\">\n    <div class=\"logo-container\">\n    <a href=\"../index.html\">\n        <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n    </a>\n</div>\n\n        \n       <div class=\"search-container\">\n        <input type=\"text\" placeholder=\"Search for products...\" \n        aria-label=\"Search\" \n        id=\"search-input\">\n       <button aria-label=\"Search\" id=\"search-button\">\n       <img src=\"./images/Search_Icon.svg.png\" alt=\"Search Icon\">\n       </button>\n       </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n            <h3>Welcome <span id=\"loggedInUser\"></span></h3>\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n                <a href=\"?loginParam=login\">Login</a>\n                <a href=\"?registerParam=register\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"#\" onclick=\"ContactUsPopup()\">Contact us</a>\n                <a href=\"?AdminLoginParam=AdminLogin\">Admin login</a>\n                <a href=\"/logOut\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\" id=\"cart\">\n            <img id=\"cart-icon\" src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <span class=\"cart-items-count\">3</span>\n        </div>\n    </header>";
+    return "\n     <header id=\"header\">\n    <div class=\"logo-container\">\n    <a href=\"../index.html\">\n        <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n    </a>\n</div>\n\n        \n       <div class=\"search-container\">\n        <input type=\"text\" placeholder=\"Search for products...\" \n        aria-label=\"Search\" \n        id=\"search-input\">\n       <button aria-label=\"Search\" id=\"search-button\">\n       <img src=\"./images/Search_Icon.svg.png\" alt=\"Search Icon\">\n       </button>\n       </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n            <h3>Welcome <span id=\"loggedInUser\"></span></h3>\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n                <a href=\"?loginParam=login\">Login</a>\n                <a href=\"?registerParam=register\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"#\" onclick=\"ContactUsPopup()\">Contact us</a>\n                <a href=\"?AdminLoginParam=AdminLogin\">Admin login</a>\n                <a href=\"#\" onclick=\"resetCookies()\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\" id=\"cart\">\n            <img id=\"cart-icon\" src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <span class=\"cart-items-count\">3</span>\n        </div>\n    </header>";
 }
 function render() {
     var container = document.querySelector('#header');
@@ -144,7 +144,7 @@ else {
 // }
 function showWelcomeName() {
     return __awaiter(this, void 0, void 0, function () {
-        var welcomeName, response, firstName, error_1;
+        var welcomeName, response, responseData, firstName, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -157,14 +157,17 @@ function showWelcomeName() {
                         })];
                 case 1:
                     response = _a.sent();
+                    console.log('Response Status:', response.status);
                     if (!response.ok) {
+                        console.error('Failed to fetch user info:', response.statusText);
                         welcomeName.textContent = 'Guest';
-                        console.log('User is not logged in or cookies not found.');
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    firstName = (_a.sent()).firstName;
+                    responseData = _a.sent();
+                    console.log('Response Data:', responseData);
+                    firstName = responseData.firstName;
                     if (firstName) {
                         welcomeName.textContent = firstName;
                         console.log("The user " + firstName + " is connected");

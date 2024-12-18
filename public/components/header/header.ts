@@ -39,7 +39,7 @@ function renderHeader() {
                 <a href="/myOrders">My orders</a>
                 <a href="#" onclick="ContactUsPopup()">Contact us</a>
                 <a href="?AdminLoginParam=AdminLogin">Admin login</a>
-                <a href="/logOut">Log out</a>
+                <a href="#" onclick="resetCookies()">Log out</a>
               </nav>
             </div>
 
@@ -182,16 +182,21 @@ async function showWelcomeName() {
     if (!welcomeName) throw new Error('Cannot find element to display the user name.');
 
     const response = await fetch('http://localhost:3000/api/clients/get-client', {
-      credentials: 'include', 
+      credentials: 'include',
     });
 
+    console.log('Response Status:', response.status);
+
     if (!response.ok) {
+      console.error('Failed to fetch user info:', response.statusText);
       welcomeName.textContent = 'Guest';
-      console.log('User is not logged in or cookies not found.');
       return;
     }
 
-    const { firstName } = await response.json();
+    const responseData = await response.json();
+    console.log('Response Data:', responseData);
+
+    const { firstName } = responseData;
     if (firstName) {
       welcomeName.textContent = firstName;
       console.log(`The user ${firstName} is connected`);
@@ -202,6 +207,7 @@ async function showWelcomeName() {
     console.error('Error fetching client name:', error);
   }
 }
+
 
 
 
