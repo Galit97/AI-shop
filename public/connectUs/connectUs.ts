@@ -36,13 +36,24 @@ function render(){
 
 
 function connectUspopup() {
+  console.log("first")
     initConnectUs();
-    document.getElementById("contactModal").style.display = "block";
+    const modal = document.getElementById("contactModal");
+    if (modal) {
+        modal.style.display = "block";
+    } else {
+        console.error("Modal element not found!");
+    }
   }
 
 
   function closeContactForm() {
-    document.getElementById("contactModal").style.display = "none";
+    const modal = document.getElementById("contactModal");
+    if (modal) {
+        modal.style.display = "none";
+    } else {
+        console.error("Modal element not found!");
+    }
   }
 
   // סגור את החלון אם לוחצים מחוץ לו

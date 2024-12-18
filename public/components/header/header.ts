@@ -1,7 +1,7 @@
 // declare global {
 interface Window {
-    showLoginPopup: () => void;
-    showRegisterPopup: () => void;
+  showLoginPopup: () => void;
+  showRegisterPopup: () => void;
 }
 // }
 
@@ -37,7 +37,7 @@ function renderHeader() {
               <hr>
               <nav id="navbar">
                 <a href="/myOrders">My orders</a>
-                <a href="#" onclick="connectUspopup()">Contact us</a>
+                <div id="contact-us">Contact us</div>
                 <a href="?AdminLoginParam=AdminLogin">Admin login</a>
                 <a href="/logOut">Log out</a>
               </nav>
@@ -53,12 +53,19 @@ function renderHeader() {
 }
 
 function render() {
-  const container = document.querySelector('#header'); 
-  if (container) {
+  try {
+    const container = document.querySelector('#header');
+    if (!container) throw new Error('Target container not found!');
     container.innerHTML = renderHeader();
-  } else {
-    console.error('Target container not found!');
-  };
+
+    const contactUsButton = document.getElementById('contact-us');
+    if (!contactUsButton) throw new Error('Contact us button not found!');
+    contactUsButton.addEventListener('click', connectUspopup);
+
+
+  } catch (error) {
+    console.error('An error occurred:', error.message);
+  }
 };
 
 
@@ -80,9 +87,13 @@ function closeMenu() {
 
 
 function initHeader() {
-  const container = document.querySelector('#header'); 
+  const container = document.querySelector('#header');
   if (container) {
     container.innerHTML = renderHeader();
+    const contactUsButton = document.getElementById('contact-us');
+    if (contactUsButton) {
+      contactUsButton.addEventListener('click', connectUspopup);
+    }
 
     const loginRegisterButton = document.querySelector('#loginRegisterButton') as HTMLElement | null;
     const loginButton = document.getElementById('login') as HTMLElement | null;
@@ -130,16 +141,16 @@ window.registerPopup = function () {
 document.addEventListener('DOMContentLoaded', () => {
   const cartIcon = document.getElementById('cart-icon');
   if (cartIcon) {
-      cartIcon.addEventListener('click', () => {
-          const cartContainer = document.getElementById('cartPage');
-          if (cartContainer) {
-              showCart();
-          } else {
-              console.error('Cart container not found!');
-          }
-      });
+    cartIcon.addEventListener('click', () => {
+      const cartContainer = document.getElementById('cartPage');
+      if (cartContainer) {
+        showCart();
+      } else {
+        console.error('Cart container not found!');
+      }
+    });
   } else {
-      console.error('Cart icon not found!');
+    console.error('Cart icon not found!');
   }
 });
 
