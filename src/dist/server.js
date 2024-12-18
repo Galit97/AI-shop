@@ -8,6 +8,7 @@ var clientRouter_1 = require("./routes/clientRouter");
 var productRouter_1 = require("./routes/productRouter");
 var commentsRouter_1 = require("./routes/commentsRouter");
 var adminRouter_1 = require("./routes/adminRouter");
+var cookie_parser_1 = require("cookie-parser");
 var chatBotRouter_1 = require("./routes/chatBotRouter");
 var categoriesRouter_1 = require("./routes/categoriesRouter");
 var cartRouter_1 = require("./routes/cartRouter");
@@ -17,6 +18,7 @@ var port = process.env.PORT || 3000;
 app.use(body_parser_1["default"].json());
 app.use(express_1["default"].static('public'));
 app.use('/uploads', express_1["default"].static('uploads'));
+app.use(cookie_parser_1["default"]());
 app.listen(port, function () {
     console.log("Server listening on port " + port);
 });

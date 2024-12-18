@@ -40,22 +40,34 @@ exports.getAllClients = exports.getClient = void 0;
 var clientModel_1 = require("../../models/clientModel");
 function getClient(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var clientId;
+        var clientId, client, error_1;
         return __generator(this, function (_a) {
-            try {
-                clientId = req.cookies.client;
-                console.log(clientId);
-                if (!clientId) {
-                    return [2 /*return*/, res.status(401).json({ message: 'Unauthorized: No clientId provided' })];
-                }
-                ;
-                return [2 /*return*/, res.status(200).send({ message: "client", clientId: clientId })];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    clientId = req.cookies.client;
+                    if (!clientId) {
+                        return [2 /*return*/, res.status(401).json({ message: 'Unauthorized: No clientId provided' })];
+                    }
+                    ;
+                    return [4 /*yield*/, clientModel_1.ClientModel.findOne({ _id: clientId }, 'firstName')];
+                case 1:
+                    client = _a.sent();
+                    if (!client) {
+                        return [2 /*return*/, res.status(404).json({ message: 'Client not found' })];
+                    }
+                    return [2 /*return*/, res.status(200).json({
+                            message: 'Client retrieved successfully',
+                            client: {
+                                firstName: client.firstName
+                            }
+                        })];
+                case 2:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
+                case 3: return [2 /*return*/];
             }
-            catch (error) {
-                console.error(error);
-                return [2 /*return*/, res.status(500).send({ error: error.message })];
-            }
-            return [2 /*return*/];
         });
     });
 }
@@ -63,7 +75,7 @@ exports.getClient = getClient;
 ;
 function getAllClients(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var clients, error_1;
+        var clients, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -73,9 +85,9 @@ function getAllClients(req, res) {
                     clients = _a.sent();
                     return [2 /*return*/, res.status(200).json(clients)];
                 case 2:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    return [2 /*return*/, res.status(500).send({ error: error_1.message })];
+                    error_2 = _a.sent();
+                    console.error(error_2);
+                    return [2 /*return*/, res.status(500).send({ error: error_2.message })];
                 case 3: return [2 /*return*/];
             }
         });

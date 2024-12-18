@@ -62,6 +62,7 @@ function closeMenu() {
         console.error('An error occurred:', error.message);
     }
 }
+;
 function initHeader() {
     var container = document.querySelector('#header');
     if (container) {
@@ -157,20 +158,18 @@ function showWelcomeName() {
                         })];
                 case 1:
                     response = _a.sent();
-                    console.log('Response Status:', response.status);
                     if (!response.ok) {
                         console.error('Failed to fetch user info:', response.statusText);
                         welcomeName.textContent = 'Guest';
                         return [2 /*return*/];
                     }
+                    ;
                     return [4 /*yield*/, response.json()];
                 case 2:
                     responseData = _a.sent();
-                    console.log('Response Data:', responseData);
-                    firstName = responseData.firstName;
+                    firstName = responseData.client.firstName;
                     if (firstName) {
                         welcomeName.textContent = firstName;
-                        console.log("The user " + firstName + " is connected");
                     }
                     else {
                         welcomeName.textContent = 'Guest';
@@ -185,5 +184,6 @@ function showWelcomeName() {
         });
     });
 }
+;
 initHeader();
 render();

@@ -4,11 +4,24 @@ export async function getClient(req: any, res: any) {
     try {
        
         const clientId = req.cookies.client; 
-        console.log(clientId);
         if (!clientId) {
             return res.status(401).json({ message: 'Unauthorized: No clientId provided' });
         };
-        return res.status(200).send({ message: "client", clientId });
+        const client = await ClientModel.findOne({ _id: clientId }, 'firstName');
+
+        if (!client) {
+            return res.status(404).json({ message: 'Client not found' });
+        }
+
+        return res.status(200).json({
+            message: 'Client retrieved successfully',
+            client: {
+                firstName: client.firstName,
+            },
+        });
+
+        
+        return res.status(200).send({ message: "client connected", clientId });
 
 
     } catch (error: any) {

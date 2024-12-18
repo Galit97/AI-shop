@@ -6,6 +6,7 @@ import clientRouter from './routes/clientRouter';
 import productRouter from './routes/productRouter';
 import commentsRouter from './routes/commentsRouter';
 import adminRouter from './routes/adminRouter';
+import cookieParser from 'cookie-parser';
 
 import chatBotRouter from './routes/chatBotRouter';
 
@@ -21,6 +22,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
+app.use(cookieParser());
 
 
 

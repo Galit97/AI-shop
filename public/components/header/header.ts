@@ -76,9 +76,7 @@ function closeMenu() {
   catch (error) {
     console.error('An error occurred:', error.message);
   }
-}
-
-
+};
 
 function initHeader() {
   const container = document.querySelector('#header'); 
@@ -185,31 +183,26 @@ async function showWelcomeName() {
       credentials: 'include',
     });
 
-    console.log('Response Status:', response.status);
 
     if (!response.ok) {
       console.error('Failed to fetch user info:', response.statusText);
       welcomeName.textContent = 'Guest';
       return;
-    }
+    };
 
     const responseData = await response.json();
-    console.log('Response Data:', responseData);
 
-    const { firstName } = responseData;
+    const firstName = responseData.client.firstName;
+
     if (firstName) {
       welcomeName.textContent = firstName;
-      console.log(`The user ${firstName} is connected`);
     } else {
       welcomeName.textContent = 'Guest';
     }
   } catch (error) {
     console.error('Error fetching client name:', error);
   }
-}
-
-
-
+};
 
 initHeader();
 
