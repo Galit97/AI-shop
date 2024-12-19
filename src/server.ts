@@ -44,7 +44,7 @@ app.use("/api/connectUs", connectUsRouter);
 
 
 //DB
-const dbUrl = "mongodb+srv://yosefib88:FYdIUMhMIwGscX4y@cluster0.b5vsm.mongodb.net";
+const dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
 const database = 'AI-Shop';
 
 
