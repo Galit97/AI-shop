@@ -185,8 +185,8 @@ header .cart .cart-items-count {
     width: 100%;
   }
   header .logo-container,
-header .login-register,
-header .cart {
+  header .login-register,
+  header .cart {
     display: flex;
     align-items: center;
   }
@@ -256,4 +256,4 @@ header .cart {
     display: flex;
     padding-left: 0.8rem;
   }
-}
+}/*# sourceMappingURL=header.css.map */
