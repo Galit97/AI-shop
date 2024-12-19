@@ -9,7 +9,7 @@ export async function getCart(req: any, res: any) {
         //TODO GET THE USER'S CART
         const cart = await CartModel.findOne({ clientId: clientId }).populate('products.product');
                 if(!cart) return res.status(401).send({ message: "no products"});
-        console.log("cart", cart);
+        console.log("cart", cart.products);
         return res.status(200).send(cart);
     } catch (error) {
         console.error("Error in addToCart:", error);

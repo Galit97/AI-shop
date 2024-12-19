@@ -58,7 +58,6 @@ function getClientFromCookie(req, res, next) {
                     if (!client) {
                         return [2 /*return*/, res.status(404).json({ message: 'Client not found' })];
                     }
-                    // res.status(200).json({message: 'Client retrieved successfully', clientId });
                     req.client = client;
                     next();
                     return [3 /*break*/, 4];

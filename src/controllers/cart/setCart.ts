@@ -28,8 +28,8 @@ export async function addToCart(req: any, res: any) {
                  }
              } else {
                  cart = new CartModel({
-                     clientId,
                      products: [{ product: productId, quantity }],
+                     clientId,
                      total: quantity * product.price, 
                  });
              }

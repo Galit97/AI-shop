@@ -15,7 +15,7 @@ interface Product {
 };
 
 interface Cart {
-    products: Product[];
+    products: { product: Product; quantity: number }[];
     total: number;
 }
 
@@ -25,8 +25,9 @@ function renderCart(cart: Cart): string {
     console.log("renderCart", cart.total);
     const totalItems = cart.products.reduce((acc, product) => acc + product.quantity, 0);
     //problem here
-    const totalPrice = cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2);
-    const products: Product[] = cart.products;
+    const totalPrice = 10;
+    // cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2);
+    const products = cart.products;
     console.log("products", products)
 
     return `
@@ -69,9 +70,9 @@ function renderCart(cart: Cart): string {
     </div>`;
 }
 
-function renderProductsInCart(product: Product[]): string {
-    console.log("in renderProduct",);
-    return products.map(product => `
+function renderProductsInCart(products: { product: Product; quantity: number }[]): string {
+    console.log("in renderProduct", products);
+    return products.map(({ product, quantity }) => `
      <div class="cartPage-container">
     <div class="row border-top border-bottom" id="product-${product._id}">
         <div class="row main align-items-center">
@@ -84,7 +85,7 @@ function renderProductsInCart(product: Product[]): string {
             </div>
             <div class="col">
                 <a href="#" class="decrease-qty">-</a>
-                <span class="border">${product.quantity}</span>
+                <span class="border">${quantity}</span>
                 <a href="#" class="increase-qty">+</a>
             </div>
             <div class="col">

@@ -13,8 +13,6 @@ export async function getClientFromCookie(req: any, res: any, next: NextFunction
         if (!client) {
             return res.status(404).json({ message: 'Client not found' });
         }
-
-        // res.status(200).json({message: 'Client retrieved successfully', clientId });
         req.client = client;
         next();
         

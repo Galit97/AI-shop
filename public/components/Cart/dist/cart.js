@@ -40,16 +40,18 @@ function renderCart(cart) {
     console.log("renderCart", cart.total);
     var totalItems = cart.products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
     //problem here
-    var totalPrice = cart.products.reduce(function (acc, product) { return acc + product.price * product.quantity; }, 0).toFixed(2);
+    var totalPrice = 10;
+    // cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2);
     var products = cart.products;
     console.log("products", products);
     return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products) + "\n                <div class=\"back-to-shop\">\n                <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n        </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n  <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - 14-20 Days</option>\n  <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 - 2-7 Days</option>\n</select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n                <div class=\"col text-right\" id=\"total-price\">" + " " + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
 }
-function renderProductsInCart(product) {
-    console.log("in renderProduct");
-    return products.map(function (product) {
-        var _a;
-        return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row text-muted\">" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</div>\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a href=\"#\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + product.quantity + "</span>\n                <a href=\"#\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                \u20AC " + (product.price * product.quantity).toFixed(2) + " \n                <span class=\"close\">&#10005;</span>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
+function renderProductsInCart(products) {
+    console.log("in renderProduct", products);
+    return products.map(function (_a) {
+        var _b;
+        var product = _a.product, quantity = _a.quantity;
+        return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row text-muted\">" + (((_b = product.category) === null || _b === void 0 ? void 0 : _b.name) || "Uncategorized") + "</div>\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a href=\"#\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a href=\"#\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                \u20AC " + (product.price * product.quantity).toFixed(2) + " \n                <span class=\"close\">&#10005;</span>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
     }).join('');
 }
 function fetchCartProducts() {

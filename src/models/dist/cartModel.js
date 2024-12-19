@@ -7,7 +7,7 @@ exports.CartSchema = new mongoose_1.Schema({
     products: [{
             product: {
                 type: mongoose_1.Schema.Types.ObjectId,
-                ref: 'product',
+                ref: 'Product',
                 required: true
             },
             quantity: {

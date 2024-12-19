@@ -73,8 +73,8 @@ function addToCart(req, res) {
                     }
                     else {
                         cart = new cartModel_1.CartModel({
-                            clientId: clientId,
                             products: [{ product: productId_1, quantity: quantity }],
+                            clientId: clientId,
                             total: quantity * product.price
                         });
                     }

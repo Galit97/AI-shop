@@ -52,7 +52,7 @@ function getCart(req, res) {
                     cart = _a.sent();
                     if (!cart)
                         return [2 /*return*/, res.status(401).send({ message: "no products" })];
-                    console.log("cart", cart);
+                    console.log("cart", cart.products);
                     return [2 /*return*/, res.status(200).send(cart)];
                 case 2:
                     error_1 = _a.sent();
