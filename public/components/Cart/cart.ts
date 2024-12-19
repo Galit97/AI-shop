@@ -89,8 +89,11 @@ function renderProductsInCart(products: { product: Product; quantity: number }[]
                 <a href="#" class="increase-qty">+</a>
             </div>
             <div class="col">
-                € ${(product.price * product.quantity).toFixed(2)} 
-                <span class="close">&#10005;</span>
+                $ ${product.price} * ${quantity}
+            </div>
+            <div class="col">
+                $ ${(product.price * quantity).toFixed(2)} 
+                <i class="close fa-solid fa-x"></i>
             </div>
         </div>
     </div>
