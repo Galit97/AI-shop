@@ -34,13 +34,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+;
 var products = [];
-function renderCart(products) {
-    var totalItems = products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
-    var totalPrice = products.reduce(function (acc, product) { return acc + product.price * product.quantity; }, 0).toFixed(2);
-    return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products) + "\n        <div class=\"back-to-shop\">\n  <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n</div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n  <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - 14-20 Days</option>\n  <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 - 2-7 Days</option>\n</select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n<div class=\"col text-right\" id=\"total-price\">" + " " + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
+function renderCart(cart) {
+    console.log("renderCart", cart.total);
+    var totalItems = cart.products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
+    //problem here
+    var totalPrice = cart.products.reduce(function (acc, product) { return acc + product.price * product.quantity; }, 0).toFixed(2);
+    var products = cart.products;
+    console.log("products", products);
+    return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products) + "\n                <div class=\"back-to-shop\">\n                <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n        </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n  <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - 14-20 Days</option>\n  <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 - 2-7 Days</option>\n</select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n                <div class=\"col text-right\" id=\"total-price\">" + " " + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
 }
-function renderProductsInCart(products) {
+function renderProductsInCart(product) {
+    console.log("in renderProduct");
     return products.map(function (product) {
         var _a;
         return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row text-muted\">" + (((_a = product.category) === null || _a === void 0 ? void 0 : _a.name) || "Uncategorized") + "</div>\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a href=\"#\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + product.quantity + "</span>\n                <a href=\"#\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                \u20AC " + (product.price * product.quantity).toFixed(2) + " \n                <span class=\"close\">&#10005;</span>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
@@ -48,7 +54,7 @@ function renderProductsInCart(products) {
 }
 function fetchCartProducts() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, cartProducts, error_1;
+        var response, cart, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -64,8 +70,8 @@ function fetchCartProducts() {
                     }
                     return [4 /*yield*/, response.json()];
                 case 3:
-                    cartProducts = _a.sent();
-                    renderCartPage(cartProducts);
+                    cart = _a.sent();
+                    renderCartPage(cart);
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
@@ -76,14 +82,12 @@ function fetchCartProducts() {
         });
     });
 }
-function renderCartPage(products) {
+function renderCartPage(cart) {
     try {
         var cartContainer = document.querySelector('#main');
         if (!cartContainer)
             throw new Error('Cart container not found!');
-        console.log(renderCart(products));
-        cartContainer.innerHTML = renderCart(products);
-        cartContainer.style.display = 'block';
+        cartContainer.innerHTML = renderCart(cart);
     }
     catch (error) {
         console.error("Error rendering cart page:", error);

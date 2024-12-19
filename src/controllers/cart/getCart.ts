@@ -1,25 +1,16 @@
 import { CartModel } from "../../models/cartModel";
 
-// export async function getCart(req: any, res: any) {
-//     try {
-//         const { productId, userId } = req.body;
-
-        
-//     } catch (error: any) {
-//         console.error("Error in addToCart:", error);
-//         return res.status(500).send({ error: "Internal Server Error" });
-//     }
-// };
-
 
 export async function getCart(req: any, res: any) {
     try {
+        const client = req.client;
+        const clientId = client?._id;
 
         //TODO GET THE USER'S CART
-        const products = await CartModel.find();
-        if(!products) return res.status(404).send({ error: "no products"});
-        
-        return res.status(200).send(products);
+        const cart = await CartModel.findOne({clientId: clientId});
+        if(!cart) return res.status(401).send({ message: "no products"});
+        console.log("cart", cart);
+        return res.status(200).send(cart);
     } catch (error) {
         console.error("Error in addToCart:", error);
         return res.status(500).send({ error: "Internal Server Error" });

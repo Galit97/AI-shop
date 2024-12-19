@@ -38,27 +38,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.getCart = void 0;
 var cartModel_1 = require("../../models/cartModel");
-// export async function getCart(req: any, res: any) {
-//     try {
-//         const { productId, userId } = req.body;
-//     } catch (error: any) {
-//         console.error("Error in addToCart:", error);
-//         return res.status(500).send({ error: "Internal Server Error" });
-//     }
-// };
 function getCart(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var products, error_1;
+        var client, clientId, cart, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, cartModel_1.CartModel.find()];
+                    client = req.client;
+                    clientId = client === null || client === void 0 ? void 0 : client._id;
+                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId })];
                 case 1:
-                    products = _a.sent();
-                    if (!products)
-                        return [2 /*return*/, res.status(404).send({ error: "no products" })];
-                    return [2 /*return*/, res.status(200).send(products)];
+                    cart = _a.sent();
+                    if (!cart)
+                        return [2 /*return*/, res.status(401).send({ message: "no products" })];
+                    console.log("cart", cart);
+                    return [2 /*return*/, res.status(200).send(cart)];
                 case 2:
                     error_1 = _a.sent();
                     console.error("Error in addToCart:", error_1);
