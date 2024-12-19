@@ -13,7 +13,7 @@ import chatBotRouter from './routes/chatBotRouter';
 import categoryRouter from './routes/categoriesRouter';
 import cartRouter from './routes/cartRouter';
 import cookiesRouter from './routes/cookiesRouter';
-
+import connectUsRouter from './routes/ConnectUsRouter';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -39,11 +39,12 @@ app.use("/api/chatBot", chatBotRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/cookies", cookiesRouter);
+app.use("/api/connectUs", connectUsRouter);
 
 
 
 //DB
-const dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
+const dbUrl = "mongodb+srv://yosefib88:FYdIUMhMIwGscX4y@cluster0.b5vsm.mongodb.net";
 const database = 'AI-Shop';
 
 
