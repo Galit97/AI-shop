@@ -47,7 +47,7 @@ function getCart(req, res) {
                     _a.trys.push([0, 2, , 3]);
                     client = req.client;
                     clientId = client === null || client === void 0 ? void 0 : client._id;
-                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId })];
+                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate('products.product')];
                 case 1:
                     cart = _a.sent();
                     if (!cart)
