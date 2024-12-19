@@ -21,14 +21,12 @@ interface Cart {
 
 const products: Product[] = [];
 
-function renderCart(cart: Cart): string {
-    console.log("renderCart", cart.total);
+function renderCart(cart: Cart, isCartEmpty:boolean): string {
     const totalItems = cart.products.reduce((acc, product) => acc + product.quantity, 0);
-    //problem here
-    const totalPrice = 10;
-    // cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2);
+
+    const totalPrice = cart.total;
     const products = cart.products;
-    console.log("products", products)
+    console.log("is cart", isCartEmpty);
 
     return `
     <div class="cart-container">
@@ -62,7 +60,7 @@ function renderCart(cart: Cart): string {
                 </form>
                 <div class="row" >
                     <div class="col">TOTAL PRICE</div>
-                <div class="col text-right" id="total-price">${" "}</div>
+                <div class="col text-right" id="total-price">${totalPrice}</div>
                 </div>
                 <button class="btn">CHECKOUT</button>
             </div>
@@ -103,6 +101,7 @@ function renderProductsInCart(products: { product: Product; quantity: number }[]
 
 async function fetchCartProducts(): Promise<void> {
     console.log("Fetching cart products");
+    let isCartEmpty:boolean;
     try {
         const response = await fetch("http://localhost:3000/api/cart/get-cart");
         if (!response.ok) {
@@ -110,18 +109,24 @@ async function fetchCartProducts(): Promise<void> {
         }
         const cart = await response.json();
 
-        renderCartPage(cart);
+        if(cart.message === "cart is empty"){
+            isCartEmpty = true;
+        } else {
+            isCartEmpty = false;
+        }
+
+        renderCartPage(cart, isCartEmpty);
     } catch (error) {
         console.error("Error fetching cart products:", error);
     }
 }
 
-function renderCartPage(cart: Cart): void {
+function renderCartPage(cart: Cart, isCartEmpty:boolean): void {
     try {
         const cartContainer = document.querySelector('#main') as HTMLElement;
         if (!cartContainer) throw new Error('Cart container not found!');
         
-        cartContainer.innerHTML = renderCart(cart);
+        cartContainer.innerHTML = renderCart(cart, isCartEmpty);
 
     } catch (error) {
         console.error("Error rendering cart page:", error);

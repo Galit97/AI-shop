@@ -59,9 +59,11 @@ function addToCart(req, res) {
                     if (!product) {
                         return [2 /*return*/, res.status(404).json({ message: 'Product not found' })];
                     }
-                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId })];
+                    console.log("Product", product.price);
+                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate('products.product')];
                 case 2:
                     cart = _b.sent();
+                    ;
                     if (cart) {
                         productExists = cart.products.find(function (p) { return p.product.toString() === productId_1; });
                         if (productExists) {
@@ -69,6 +71,7 @@ function addToCart(req, res) {
                         }
                         else {
                             cart.products.push({ product: productId_1, quantity: quantity });
+                            cart.total += product.price;
                         }
                     }
                     else {

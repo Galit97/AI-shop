@@ -51,7 +51,6 @@ function getClientFromCookie(req, res, next) {
                     clientId = req.cookies.client;
                     if (!clientId)
                         return [2 /*return*/, res.status(200).send({ message: "Client not connected" })];
-                    console.log("ccc", clientId);
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({ _id: clientId })];
                 case 2:
                     client = _a.sent();

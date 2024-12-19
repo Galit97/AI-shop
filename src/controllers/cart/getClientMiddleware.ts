@@ -7,7 +7,7 @@ export async function getClientFromCookie(req: any, res: any, next: NextFunction
     try {
         const clientId = req.cookies.client; 
         if( !clientId ) return res.status(200).send({ message: "Client not connected" });
-        console.log("ccc", clientId);
+
         const client = await ClientModel.findOne({ _id: clientId });
 
         if (!client) {

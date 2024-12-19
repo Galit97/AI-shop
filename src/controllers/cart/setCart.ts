@@ -15,8 +15,9 @@ export async function addToCart(req: any, res: any) {
              if (!product) {
                  return res.status(404).json({ message: 'Product not found' });
              }
+             console.log("Product", product.price);
      
-             let cart = await CartModel.findOne({ clientId });
+             let cart = await CartModel.findOne({ clientId }).populate('products.product');;
      
              if (cart) {
                  const productExists = cart.products.find(p => p.product.toString() === productId);
@@ -25,6 +26,7 @@ export async function addToCart(req: any, res: any) {
                     productExists.quantity += quantity;
                  } else {
                      cart.products.push({ product: productId, quantity });
+                     cart.total += product.price;
                  }
              } else {
                  cart = new CartModel({

@@ -50,9 +50,9 @@ function getCart(req, res) {
                     return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate('products.product')];
                 case 1:
                     cart = _a.sent();
-                    if (!cart)
-                        return [2 /*return*/, res.status(401).send({ message: "no products" })];
-                    console.log("cart", cart.products);
+                    //TODO: Fix Problem of cart empty
+                    if (!cart || cart.products.length === 0)
+                        return [2 /*return*/, res.status(200).send({ message: "cart is empty" })];
                     return [2 /*return*/, res.status(200).send(cart)];
                 case 2:
                     error_1 = _a.sent();
