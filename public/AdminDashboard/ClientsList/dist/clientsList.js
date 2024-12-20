@@ -34,6 +34,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+divinterface;
+Client;
+{
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    address: string | null;
+}
 ;
 function handleAddClient(ev) {
     return __awaiter(this, void 0, Promise, function () {
@@ -108,9 +118,9 @@ function renderClients(clients) {
     var container = document.getElementById("client-list");
     if (!container)
         return;
-    container.innerHTML = "\n    <h1>Active Clients</h1>\n        <table>\n            <thead>\n                <tr>\n                    <th>First Name</th>\n                    <th>Last Name</th>\n                    <th>Email</th>\n                    <th>Phone Number</th>\n                    <th>Address</th>\n                    <th>Actions</th>\n                </tr>\n            </thead>\n            <tbody>\n                " + clients
+    container.innerHTML = "\n  \n    <h1>Active Clients</h1>\n        <table>\n            <thead>\n                <tr>\n                    <th>First Name</th>\n                    <th>Last Name</th>\n                    <th>Email</th>\n                    <th>Phone Number</th>\n                    <th>Address</th>\n                    <th>Actions</th>\n                </tr>\n            </thead>\n            <tbody>\n                " + clients
         .map(function (client) { return "\n                        <tr id=\"client-" + client._id + "\">\n                            <td><span class=\"view\">" + client.firstName + "</span><input class=\"edit hidden\" type=\"text\" value=\"" + client.firstName + "\" /></td>\n                            <td><span class=\"view\">" + client.lastName + "</span><input class=\"edit hidden\" type=\"text\" value=\"" + client.lastName + "\" /></td>\n                            <td><span class=\"view\">" + client.email + "</span><input class=\"edit hidden\" type=\"email\" value=\"" + client.email + "\" /></td>\n                            <td><span class=\"view\">" + client.phoneNumber + "</span><input class=\"edit hidden\" type=\"text\" value=\"" + client.phoneNumber + "\" /></td>\n                            <td><span class=\"view\">" + client.address + "</span><input class=\"edit hidden\" type=\"text\" value=\"" + client.address + "\" /></td>\n                            <td>\n                                <button class=\"edit-btn\" onclick=\"toggleEditClient('" + client._id + "')\">\n                                    <i class=\"fa-regular fa-pen-to-square\"></i>\n                                </button>\n                                <button class=\"save-btn hidden\" onclick=\"saveClientChanges('" + client._id + "')\">\n                                    <i class=\"fa-regular fa-floppy-disk\"></i>\n                                </button>\n                                <button onclick=\"handleDeleteClient('" + client._id + "')\">\n                                    <i class=\"fa-solid fa-trash\"></i>\n                                </button>\n                            </td>\n                        </tr>\n                    "; })
-        .join("") + "\n            </tbody>\n        </table>\n    ";
+        .join("") + "\n            </tbody>\n        </table>\n  \n    ";
 }
 function toggleEditClient(id) {
     var row = document.getElementById("client-" + id);
