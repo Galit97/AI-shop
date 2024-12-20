@@ -170,6 +170,22 @@ function filterByCategory(categoryId) {
         : allProducts.filter(function (product) { return product.category._id === categoryId; });
     renderProducts(filteredProducts);
 }
+<<<<<<< HEAD
+=======
+;
+function filterBySearch(productName) {
+    try {
+        var filteredProducts = allProducts.filter(function (product) {
+            return product.name.toLowerCase().includes(productName.toLowerCase());
+        });
+        renderProducts(filteredProducts);
+    }
+    catch (error) {
+        console.error("Error filtering products:", error);
+    }
+}
+;
+>>>>>>> addsearchbutton
 function sortProducts(criteria) {
     var sortedProducts = __spreadArrays(allProducts);
     switch (criteria) {

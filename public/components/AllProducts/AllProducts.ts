@@ -141,6 +141,19 @@ function filterByCategory(categoryId: string): void {
   renderProducts(filteredProducts);
 }
 
+function filterBySearch(productName: string): void {
+try{
+    const filteredProducts = allProducts.filter((product) =>
+        product.name.toLowerCase().includes(productName.toLowerCase())
+      );
+renderProducts(filteredProducts);
+
+}
+    catch(error){
+        console.error("Error filtering products:", error);
+    }
+};
+
 function sortProducts(criteria: string): void {
   const sortedProducts = [...allProducts];
 

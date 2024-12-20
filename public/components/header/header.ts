@@ -20,7 +20,7 @@ function renderHeader() {
         aria-label="Search" 
         id="search-input">
        <button aria-label="Search" id="search-button">
-       <img src="./images/Search_Icon.svg.png" alt="Search Icon">
+       <img src="./images/Search_Icon.svg.png" id="Search_Icon" alt="Search Icon">
        </button>
        </div>
 
@@ -207,3 +207,25 @@ async function showWelcomeName() {
 initHeader();
 
 render();
+
+searchButton();
+
+function searchButton (){
+  try{
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const searchIcon = document.getElementById('Search_Icon') as HTMLInputElement;
+    searchInput.addEventListener('keydown', function(event) {  /* search when clicked enter */
+      if(event.key === 'Enter'){
+        console.log(searchInput.value);
+        filterBySearch(searchInput.value);
+      }
+    });
+    searchIcon.addEventListener('click', function() {  /* search when clicked the search icon */
+      console.log(searchInput.value);
+      filterBySearch(searchInput.value);
+    });
+  }
+  catch(error){
+    console.error('An error occurred:', error.message);
+  }
+}
