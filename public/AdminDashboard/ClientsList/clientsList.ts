@@ -1,4 +1,4 @@
-interface Client {
+divinterface Client {
     _id: string;
     firstName: string;
     lastName: string;
@@ -55,6 +55,7 @@ function renderClients(clients: Client[]): void {
     if (!container) return;
 
     container.innerHTML = `
+  
     <h1>Active Clients</h1>
         <table>
             <thead>
@@ -94,6 +95,7 @@ function renderClients(clients: Client[]): void {
                     .join("")}
             </tbody>
         </table>
+  
     `;
 }
 

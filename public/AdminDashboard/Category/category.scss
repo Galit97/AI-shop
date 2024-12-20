@@ -1,7 +1,7 @@
 #category-form-container {
     display: flex;
     justify-content: center;
-    align-items: center;  /* Center the form vertically */
+    align-items: center; 
     margin: 2rem auto;
     max-width: 90rem;
   
@@ -10,14 +10,14 @@
       border-radius: 0.2rem;
       padding: 2rem;
       width: 45rem;
-      display: flex;        /* Change to flex */
-      flex-direction: column; /* Stack items in a column */
-      align-items: flex-start; /* Align items to the start */
+      display: flex;     
+      flex-direction: column;
+      align-items: flex-start; 
     
       h1 {
         font-size: 1.2rem;
         margin-bottom: 2rem;
-        text-align: center; /* Center the title */
+        text-align: center;
       }
   
       label {
@@ -29,12 +29,12 @@
       }
   
       input {
-        width: 100%; /* Full width for input */
+        width: 100%; 
         padding: 0.8rem;
         font-size: 1rem;
         border: 1px solid #ddd;
         border-radius: 4px;
-        color: #333;  /* Make text readable */
+        color: #333;  
   
         &:focus {
           outline: none;
@@ -53,7 +53,7 @@
         cursor: pointer;
         transition: background 0.3s;
         margin-top: 1.5rem;
-        width: 100%;  /* Make button full width */
+        width: 100%; 
     
         &:hover {
           background: #e6e6e6;

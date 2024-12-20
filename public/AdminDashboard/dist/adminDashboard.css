@@ -59,27 +59,53 @@
   background-color: #e74c3c;
   color: #fff;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .sidebar {
-    width: 200px;
+    width: 10rem;
   }
   .sidebar .sidebar-menu .sidebar-item a {
     font-size: 16px;
     padding: 8px 12px;
   }
-  .sidebar .sidebar-menu .sidebar-item a .fa {
+  .sidebar .sidebar-menu .sidebar-item a .icon {
     font-size: 18px;
     margin-right: 8px;
   }
 }
-
-.hidden {
-  display: none;
-}
-
-.page-section.active {
-  display: block;
-}
-.page-section.hidden {
-  display: none;
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ecf0f1;
+    padding: 1rem 0;
+  }
+  .sidebar .logo-container {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sidebar .logo-container img {
+    height: 3rem;
+  }
+  .sidebar .sidebar-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .sidebar .sidebar-menu .sidebar-item {
+    margin: 5px 0;
+  }
+  .sidebar .sidebar-menu .sidebar-item a {
+    font-size: 16px;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  .sidebar .sidebar-menu .sidebar-item a .icon {
+    font-size: 1.2rem;
+    margin-right: 0;
+  }
 }

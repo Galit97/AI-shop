@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Center the form vertically */
   margin: 2rem auto;
   max-width: 90rem;
 }
@@ -12,17 +11,13 @@
   padding: 2rem;
   width: 45rem;
   display: flex;
-  /* Change to flex */
   flex-direction: column;
-  /* Stack items in a column */
   align-items: flex-start;
-  /* Align items to the start */
 }
 #category-form-container form h1 {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   text-align: center;
-  /* Center the title */
 }
 #category-form-container form label {
   display: block;
@@ -33,13 +28,11 @@
 }
 #category-form-container form input {
   width: 100%;
-  /* Full width for input */
   padding: 0.8rem;
   font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #333;
-  /* Make text readable */
 }
 #category-form-container form input:focus {
   outline: none;
@@ -57,7 +50,6 @@
   transition: background 0.3s;
   margin-top: 1.5rem;
   width: 100%;
-  /* Make button full width */
 }
 #category-form-container form button:hover {
   background: #e6e6e6;
