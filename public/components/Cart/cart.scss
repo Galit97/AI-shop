@@ -14,8 +14,8 @@ $btn-hover-color: #ff9b10;
     max-width: 1200px; 
     margin: 0;
     background-color: #fff; 
-
     border-radius: 1rem; 
+
   }
 }
 
@@ -201,3 +201,59 @@ $btn-hover-color: #ff9b10;
   }
 }
 
+
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 1rem 0;
+  }
+
+  .cart-container .row {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .cartPage-container .row {
+    display: block;
+    text-align: center;
+    padding: 1rem 0;
+
+    &.main {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cartPage-container .col-2 img {
+    width: 15rem; /* Increased image size */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the image */
+  }
+
+  .cartPage-container .col {
+    margin-bottom: 1rem;
+
+    &:nth-of-type(2) {
+      text-align: center;
+      margin-top: -1rem; /* Adjust spacing to bring text closer to the image */
+      margin-bottom: -1rem;
+    }
+
+    &:nth-of-type(3),
+    &:nth-of-type(4),
+    &:nth-of-type(5) {
+      text-align: center;
+    }
+  }
+
+  .summary {
+    padding: 1rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  .back-to-shop a {
+    font-size: 0.9rem;
+  }
+}
