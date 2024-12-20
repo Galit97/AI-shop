@@ -93,9 +93,6 @@ function renderProductsInCart(
       }">
             </div>
             <div class="col">
-                <div class="row text-muted">${
-                  product.category?.name || "Uncategorized"
-                }</div>
                 <div class="row">${product.name}</div>
             </div>
             <div class="col">
