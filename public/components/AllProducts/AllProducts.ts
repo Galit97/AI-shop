@@ -142,17 +142,15 @@ function filterByCategory(categoryId: string): void {
 }
 
 function filterBySearch(productName: string): void {
-try{
+  try {
     const filteredProducts = allProducts.filter((product) =>
-        product.name.toLowerCase().includes(productName.toLowerCase())
-      );
-renderProducts(filteredProducts);
-
+      product.name.toLowerCase().includes(productName.toLowerCase())
+    );
+    renderProducts(filteredProducts);
+  } catch (error) {
+    console.error("Error filtering products:", error);
+  }
 }
-    catch(error){
-        console.error("Error filtering products:", error);
-    }
-};
 
 function sortProducts(criteria: string): void {
   const sortedProducts = [...allProducts];

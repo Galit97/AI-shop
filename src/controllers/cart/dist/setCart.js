@@ -48,22 +48,22 @@ function addToCart(req, res) {
                     _b.trys.push([0, 4, , 5]);
                     _a = req.body, productId_1 = _a.productId, quantity = _a.quantity;
                     if (!productId_1 || !quantity) {
-                        return [2 /*return*/, res.status(400).json({ message: 'Product ID and quantity are required' })];
+                        return [2 /*return*/, res
+                                .status(400)
+                                .json({ message: "Product ID and quantity are required" })];
                     }
-                    ;
                     client = req.client;
                     clientId = client === null || client === void 0 ? void 0 : client._id;
                     return [4 /*yield*/, productModel_1.ProductModel.findById(productId_1)];
                 case 1:
                     product = _b.sent();
                     if (!product) {
-                        return [2 /*return*/, res.status(404).json({ message: 'Product not found' })];
+                        return [2 /*return*/, res.status(404).json({ message: "Product not found" })];
                     }
                     console.log("Product", product.price);
-                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate('products.product')];
+                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate("products.product")];
                 case 2:
                     cart = _b.sent();
-                    ;
                     if (cart) {
                         productExists = cart.products.find(function (p) { return p.product.toString() === productId_1; });
                         if (productExists) {
@@ -84,7 +84,7 @@ function addToCart(req, res) {
                     return [4 /*yield*/, cart.save()];
                 case 3:
                     _b.sent();
-                    res.status(200).json({ message: 'Cart updated successfully', cart: cart });
+                    res.status(200).json({ message: "Cart updated successfully", cart: cart });
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _b.sent();
@@ -96,7 +96,6 @@ function addToCart(req, res) {
     });
 }
 exports.addToCart = addToCart;
-;
 function removeItem(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, productId, userId;
