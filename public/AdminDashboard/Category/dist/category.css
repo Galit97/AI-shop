@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Center the form vertically */
   margin: 2rem auto;
   max-width: 90rem;
 }
@@ -12,17 +11,13 @@
   padding: 2rem;
   width: 45rem;
   display: flex;
-  /* Change to flex */
   flex-direction: column;
-  /* Stack items in a column */
   align-items: flex-start;
-  /* Align items to the start */
 }
 #category-form-container form h1 {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   text-align: center;
-  /* Center the title */
 }
 #category-form-container form label {
   display: block;
@@ -33,13 +28,11 @@
 }
 #category-form-container form input {
   width: 100%;
-  /* Full width for input */
   padding: 0.8rem;
   font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #333;
-  /* Make text readable */
 }
 #category-form-container form input:focus {
   outline: none;
@@ -57,7 +50,6 @@
   transition: background 0.3s;
   margin-top: 1.5rem;
   width: 100%;
-  /* Make button full width */
 }
 #category-form-container form button:hover {
   background: #e6e6e6;
@@ -131,4 +123,107 @@
 
 button i {
   font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+  #category-list {
+    width: 35rem;
+    margin-right: 8rem;
+  }
+
+  table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  table tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+  }
+
+  table td {
+    flex: 1;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  table td:last-child {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 1024px) {
+  #category-form-container form {
+    width: 30rem;
+    margin-top: 2rem;
+    margin-left: 8rem;
+  }
+}
+@media (max-width: 768px) {
+  #category-form-container form {
+    width: 35rem;
+    margin-top: 15rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row.full-width input {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  table td {
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  table td:before {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  #category-list {
+    margin: 2rem;
+    width: 90%;
+  }
 }

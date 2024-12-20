@@ -118,3 +118,92 @@ h1 {
     font-size: inherit;
     padding: 4px;
 }
+
+
+
+
+
+
+@media (max-width: 1048px) {
+    #admin-table-container {
+      margin-left: 15rem;
+margin-top:10rem;
+      max-width: 100%; 
+    }
+  
+    .admin-table td {
+      padding: 1.2rem;
+      font-size: 0.9rem;
+    }
+  
+    .admin-table td .description-preview {
+      font-size: 0.8rem;
+    }
+  
+    .admin-table td input.edit {
+      padding: 0.6rem;
+    }
+  
+    button {
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 1048px) {
+    #admin-table-container {
+      margin-top: 20rem;
+    }
+  
+    .admin-table td .description-preview {
+      font-size: 0.9rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  
+    .admin-table td button {
+      font-size: 1rem;
+      padding: 0.7rem;
+    }
+  }
+
+
+@media (max-width: 768px) {
+    #admin-table-container {
+      margin-left: 6rem;
+      max-width: 100%; 
+    }
+  
+    .admin-table td {
+      padding: 1.2rem;
+      font-size: 0.9rem;
+    }
+  
+    .admin-table td .description-preview {
+      font-size: 0.8rem;
+    }
+  
+    .admin-table td input.edit {
+      padding: 0.6rem;
+    }
+  
+    button {
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    #admin-table-container {
+      margin-top: 20rem;
+    }
+  
+    .admin-table td .description-preview {
+      font-size: 0.9rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  
+    .admin-table td button {
+      font-size: 1rem;
+      padding: 0.7rem;
+    }
+  }

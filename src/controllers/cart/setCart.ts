@@ -41,6 +41,36 @@ export async function addToCart(req: any, res: any) {
       });
     }
 
+
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    console.log("Product", product.price);
+
+    let cart = await CartModel.findOne({ clientId }).populate(
+      "products.product"
+    );
+
+    if (cart) {
+      const productExists = cart.products.find(
+        (p) => p.product.toString() === productId
+      );
+
+      if (productExists) {
+        productExists.quantity += quantity;
+      } else {
+        cart.products.push({ product: productId, quantity });
+        cart.total += product.price;
+      }
+    } else {
+      cart = new CartModel({
+        products: [{ product: productId, quantity }],
+        clientId,
+        total: quantity * product.price,
+      });
+    }
+
     await cart.save();
 
     res.status(200).json({ message: "Cart updated successfully", cart });
@@ -100,6 +130,12 @@ export async function updateCart(req: any, res: any) {
     await cart.save();
   } catch (error: any) {
     console.error("Error in update cart:", error);
+=======
+export async function removeItem(req: any, res: any) {
+  try {
+    const { productId, userId } = req.body;
+  } catch (error: any) {
+    console.error("Error in addToCart:", error);
     return res.status(500).send({ error: "Internal Server Error" });
   }
 }

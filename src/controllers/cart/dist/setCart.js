@@ -60,6 +60,7 @@ function addToCart(req, res) {
                     if (!product) {
                         return [2 /*return*/, res.status(404).json({ message: "Product not found" })];
                     }
+                    console.log("Product", product.price);
                     return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate("products.product")];
                 case 2:
                     cart = _b.sent();
@@ -96,6 +97,8 @@ function addToCart(req, res) {
 }
 exports.addToCart = addToCart;
 function updateCart(req, res) {
+=======
+function removeItem(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, productId_2, action, client, clientId, cart, productIndex, product, error_2;
         return __generator(this, function (_b) {
