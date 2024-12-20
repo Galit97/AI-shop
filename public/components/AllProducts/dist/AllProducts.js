@@ -95,14 +95,28 @@ function renderProducts(products) {
     if (!container)
         return;
     container.innerHTML = "\n        <div class=\"product-grid\">\n            " + products
-        .map(function (product) { return "\n                     <div class=\"product-card\" id=\"product-" + product._id + "\">\n                        <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n                        <h3 class=\"product-name\">" + product.name + "</h3>\n                        <div class=\"description-container\"><p class=\"product-description\">" + product.description + "</p></div>\n                        <div class=\"bottom-section\">  \n                           <i class=\"icon fa-solid fa-circle-chevron-down\"></i>\n                           <p class=\"product-price\">$" + product.price + "</p>\n                        </div>\n                         <button class=\"button-more\"><i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart</button>\n                    </div>\n                "; })
+        .map(function (product) { return "\n                <div class=\"product-card\">\n                     <div  id=\"product-" + product._id + "\">\n                        <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n                        <h3 class=\"product-name\">" + product.name + "</h3>\n                        <div class=\"description-container\"><p class=\"product-description\">" + product.description + "</p></div>\n                        <div class=\"bottom-section\">  \n                           <i class=\"icon fa-solid fa-circle-chevron-down\"></i>\n                           <p class=\"product-price\">$" + product.price + "</p>\n                        </div>\n                    </div>\n                         <button class=\"button-more\" id=\"addToCart-" + product._id + "\"><i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart</button>\n                    \n                    </div>\n                "; })
         .join("") + "\n        </div>\n    ";
     products.forEach(function (product) {
         try {
             var productElement = document.getElementById("product-" + product._id);
             if (!productElement)
                 throw new Error("Product " + product._id + " not found");
-            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () { return renderProductView(product); });
+            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
+                return renderProductView(product);
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
+        try {
+            var productElement = document.getElementById("addToCart-" + product._id);
+            if (!productElement)
+                throw new Error("Product " + product._id + " not found");
+            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
+                console.log("add to cart pressed");
+                addToCart(product._id, 1);
+            });
         }
         catch (error) {
             console.error(error);
@@ -124,17 +138,17 @@ function fetchCategories() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     categories = _a.sent();
-                    categorySelect_1 = document.getElementById('categorySection');
+                    categorySelect_1 = document.getElementById("categorySection");
                     if (!categorySelect_1)
                         throw new Error("no category selected");
                     categorySelect_1.innerHTML = '<option value="">Select category</option>';
                     categories.forEach(function (category) {
-                        var option = document.createElement('option');
+                        var option = document.createElement("option");
                         option.value = category._id;
                         option.textContent = category.name;
                         categorySelect_1.appendChild(option);
                     });
-                    categorySelect_1.addEventListener('change', function (event) {
+                    categorySelect_1.addEventListener("change", function (event) {
                         var selectedCategory = event.target.value;
                         console.log(selectedCategory);
                         filterByCategory(selectedCategory);
@@ -156,7 +170,6 @@ function filterByCategory(categoryId) {
         : allProducts.filter(function (product) { return product.category._id === categoryId; });
     renderProducts(filteredProducts);
 }
-;
 function sortProducts(criteria) {
     var sortedProducts = __spreadArrays(allProducts);
     switch (criteria) {
@@ -193,4 +206,3 @@ function setupEventListeners() {
         });
     }
 }
-;
