@@ -51,6 +51,7 @@ export async function addToCart(req: any, res: any) {
 }
 
 export async function updateCart(req: any, res: any) {
+  console.log("in updateCart");
   try {
     const { productId, action } = req.body;
 
@@ -65,11 +66,38 @@ export async function updateCart(req: any, res: any) {
       "products.product"
     );
 
-    if (action === "increase") {
-    } else if (action === "decrease") {
-    } else {
-      // remove from cart
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
     }
+
+    const productIndex = cart.products.findIndex(
+      (p) => JSON.stringify(p.product._id) === JSON.stringify(productId)
+    );
+    if (productIndex === -1) {
+      return res.status(404).json({ message: "Product not found in cart" });
+    }
+
+    const product = cart.products[productIndex];
+
+    if (action === "increase") {
+      product.quantity += 1;
+      cart.total += product.product.price;
+    } else if (action === "decrease") {
+      if (product.quantity > 1) {
+        product.quantity -= 1;
+        cart.total -= product.product.price;
+      } else {
+        cart.total -= product.product.price;
+        cart.products.splice(productIndex, 1);
+      }
+    } else if (action === "remove") {
+      cart.total -= product.product.price * product.quantity;
+      cart.products.splice(productIndex, 1);
+    } else {
+      return res.status(400).json({ message: "Invalid action" });
+    }
+
+    await cart.save();
   } catch (error: any) {
     console.error("Error in update cart:", error);
     return res.status(500).send({ error: "Internal Server Error" });

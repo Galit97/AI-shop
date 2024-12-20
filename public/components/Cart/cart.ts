@@ -108,7 +108,7 @@ function renderProductsInCart(
             </div>
             <div class="col">
                 $ ${(product.price * quantity).toFixed(2)} 
-                <i class="close fa-solid fa-x" id=removeItem-${product._id}></i>
+                <i class="close fa-solid fa-x" id=remove-${product._id}></i>
             </div>
         </div>
     </div>
@@ -217,13 +217,13 @@ async function handleUpdateCart(
         throw new Error(`Product ${product.product._id} not found`);
 
       const increaseElement = document.getElementById(
-        `decrease-qty-${product.product._id}`
+        `increase-qty-${product.product._id}`
       );
       if (!increaseElement)
         throw new Error(`Product ${product.product._id} not found`);
 
       const removeElement = document.getElementById(
-        `decrease-qty-${product.product._id}`
+        `remove-${product.product._id}`
       );
       if (!removeElement)
         throw new Error(`Product ${product.product._id} not found`);
@@ -251,7 +251,7 @@ async function fetchCartAndUpdate(
 ) {
   const productId = products.product._id;
 
-  const response = await fetch("/api/cart/update-cart", {
+  const response = await fetch("http://localhost:3000/api/cart/update-cart", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ productId, action }),
@@ -259,7 +259,7 @@ async function fetchCartAndUpdate(
 
   if (!response) throw new Error("Failed to fetch cart");
 
-  const data = await response.json;
+  await response.json();
 }
 
 updateTotalPrice();

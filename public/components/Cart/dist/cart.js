@@ -53,7 +53,7 @@ function renderProductsInCart(products) {
     return products
         .map(function (_a) {
         var product = _a.product, quantity = _a.quantity;
-        return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a id=\"decrease-qty-" + product._id + "\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a id=\"increase-qty-" + product._id + "\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                $ " + product.price + " * " + quantity + "\n            </div>\n            <div class=\"col\">\n                $ " + (product.price * quantity).toFixed(2) + " \n                <i class=\"close fa-solid fa-x\" id=removeItem-" + product._id + "></i>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
+        return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a id=\"decrease-qty-" + product._id + "\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a id=\"increase-qty-" + product._id + "\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                $ " + product.price + " * " + quantity + "\n            </div>\n            <div class=\"col\">\n                $ " + (product.price * quantity).toFixed(2) + " \n                <i class=\"close fa-solid fa-x\" id=remove-" + product._id + "></i>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
     })
         .join("");
 }
@@ -182,10 +182,10 @@ function handleUpdateCart(products) {
                     var decreaseElement = document.getElementById("decrease-qty-" + product.product._id);
                     if (!decreaseElement)
                         throw new Error("Product " + product.product._id + " not found");
-                    var increaseElement = document.getElementById("decrease-qty-" + product.product._id);
+                    var increaseElement = document.getElementById("increase-qty-" + product.product._id);
                     if (!increaseElement)
                         throw new Error("Product " + product.product._id + " not found");
-                    var removeElement = document.getElementById("decrease-qty-" + product.product._id);
+                    var removeElement = document.getElementById("remove-" + product.product._id);
                     if (!removeElement)
                         throw new Error("Product " + product.product._id + " not found");
                     decreaseElement.addEventListener("click", function () {
@@ -208,12 +208,12 @@ function handleUpdateCart(products) {
 }
 function fetchCartAndUpdate(products, action) {
     return __awaiter(this, void 0, void 0, function () {
-        var productId, response, data;
+        var productId, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     productId = products.product._id;
-                    return [4 /*yield*/, fetch("/api/cart/update-cart", {
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/cart/update-cart", {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ productId: productId, action: action })
@@ -222,9 +222,9 @@ function fetchCartAndUpdate(products, action) {
                     response = _a.sent();
                     if (!response)
                         throw new Error("Failed to fetch cart");
-                    return [4 /*yield*/, response.json];
+                    return [4 /*yield*/, response.json()];
                 case 2:
-                    data = _a.sent();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
