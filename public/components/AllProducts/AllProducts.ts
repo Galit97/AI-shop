@@ -50,7 +50,8 @@ function renderProducts(products: any[]): void {
             ${products
               .map(
                 (product) => `
-                     <div class="product-card" id="product-${product._id}">
+                <div class="product-card">
+                     <div  id="product-${product._id}">
                         <img src="${product.image}" alt="${product.name}" class="product-image" />
                         <h3 class="product-name">${product.name}</h3>
                         <div class="description-container"><p class="product-description">${product.description}</p></div>
@@ -58,7 +59,9 @@ function renderProducts(products: any[]): void {
                            <i class="icon fa-solid fa-circle-chevron-down"></i>
                            <p class="product-price">$${product.price}</p>
                         </div>
+                    </div>
                          <button class="button-more" id="addToCart-${product._id}"><i class="icon fa-solid fa-cart-shopping"></i> Add to cart</button>
+                    
                     </div>
                 `
               )
@@ -83,11 +86,8 @@ function renderProducts(products: any[]): void {
       );
       if (!productElement) throw new Error(`Product ${product._id} not found`);
       productElement?.addEventListener("click", () => {
-        const quantityInput = document.getElementById(
-          "quantity"
-        ) as HTMLInputElement;
-        const quantity = parseInt(quantityInput.value, 10);
-        addToCart(product._id, quantity);
+        console.log("add to cart pressed");
+        addToCart(product._id, 1);
       });
     } catch (error) {
       console.error(error);
