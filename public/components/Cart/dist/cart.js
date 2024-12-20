@@ -34,26 +34,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-;
 var products = [];
-function renderCart(cart, isCartEmpty) {
-    var totalItems = cart.products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
-    var totalPrice = cart.total;
-    var products = cart.products;
-    console.log("is cart", isCartEmpty);
-    return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products) + "\n                <div class=\"back-to-shop\">\n                <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n        </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n  <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - 14-20 Days</option>\n  <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 - 2-7 Days</option>\n</select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n                <div class=\"col text-right\" id=\"total-price\">" + totalPrice + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
+function renderCart(cart) {
+    try {
+        if (!cart || !cart.products)
+            throw new Error("cart is missing");
+        var totalItems = cart.products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
+        var totalPrice = cart.total;
+        var products_1 = cart.products;
+        return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products_1) + "\n                <div class=\"back-to-shop\">\n                <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n        </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n  <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - 14-20 Days</option>\n  <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 - 2-7 Days</option>\n</select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n                <div class=\"col text-right\" id=\"total-price\">" + totalPrice + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
+    }
+    catch (e) {
+        console.error(e);
+        return "";
+    }
 }
 function renderProductsInCart(products) {
     console.log("in renderProduct", products);
-    return products.map(function (_a) {
+    return products
+        .map(function (_a) {
         var _b;
         var product = _a.product, quantity = _a.quantity;
         return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row text-muted\">" + (((_b = product.category) === null || _b === void 0 ? void 0 : _b.name) || "Uncategorized") + "</div>\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a href=\"#\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a href=\"#\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                $ " + product.price + " * " + quantity + "\n            </div>\n            <div class=\"col\">\n                $ " + (product.price * quantity).toFixed(2) + " \n                <i class=\"close fa-solid fa-x\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
-    }).join('');
+    })
+        .join("");
 }
 function fetchCartProducts() {
     return __awaiter(this, void 0, Promise, function () {
-        var isCartEmpty, response, cart, error_1;
+        var response, cart, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -70,13 +78,7 @@ function fetchCartProducts() {
                     return [4 /*yield*/, response.json()];
                 case 3:
                     cart = _a.sent();
-                    if (cart.message === "cart is empty") {
-                        isCartEmpty = true;
-                    }
-                    else {
-                        isCartEmpty = false;
-                    }
-                    renderCartPage(cart, isCartEmpty);
+                    renderCartPage(cart);
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
@@ -87,12 +89,12 @@ function fetchCartProducts() {
         });
     });
 }
-function renderCartPage(cart, isCartEmpty) {
+function renderCartPage(cart) {
     try {
-        var cartContainer = document.querySelector('#main');
+        var cartContainer = document.querySelector("#main");
         if (!cartContainer)
-            throw new Error('Cart container not found!');
-        cartContainer.innerHTML = renderCart(cart, isCartEmpty);
+            throw new Error("Cart container not found!");
+        cartContainer.innerHTML = renderCart(cart);
     }
     catch (error) {
         console.error("Error rendering cart page:", error);
@@ -101,18 +103,18 @@ function renderCartPage(cart, isCartEmpty) {
 function showCart() {
     fetchCartProducts();
 }
-document.addEventListener('DOMContentLoaded', function () {
-    var cartIcon = document.getElementById('cart-icon');
+document.addEventListener("DOMContentLoaded", function () {
+    var cartIcon = document.getElementById("cart-icon");
     if (cartIcon) {
-        cartIcon.addEventListener('click', function () {
+        cartIcon.addEventListener("click", function () {
             showCart();
         });
     }
     else {
-        console.error('Cart icon not found!');
+        console.error("Cart icon not found!");
     }
 });
-/// Delivery options 
+/// Delivery options
 function fetchTotalPrice() {
     return __awaiter(this, void 0, Promise, function () {
         var response, data, error_2;

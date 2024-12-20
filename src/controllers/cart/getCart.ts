@@ -8,7 +8,7 @@ export async function getCart(req: any, res: any) {
 
         const cart = await CartModel.findOne({ clientId: clientId }).populate('products.product');
         //TODO: Fix Problem of cart empty
-        if(!cart || cart.products.length === 0) return res.status(200).send({ message: "cart is empty"});
+        if(!cart || cart.products.length === 0) return res.status(200).send({ message: "cart is empty", products: []});
 
         return res.status(200).send(cart);
     } catch (error) {
