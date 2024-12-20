@@ -1,32 +1,37 @@
 interface Category {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 interface Product {
-    _id: string;
-    name: string;
-    description: string;
-    category: Category | null;
-    price: number;
-    quantity: number;
-    inSale: boolean;
-    image: string;
-};
+  _id: string;
+  name: string;
+  description: string;
+  category: Category | null;
+  price: number;
+  quantity: number;
+  inSale: boolean;
+  image: string;
+}
 
 interface Cart {
-    products: { product: Product; quantity: number }[];
-    total: number;
+  products: { product: Product; quantity: number }[];
+  total: number;
 }
 
 const products: Product[] = [];
 
-function renderCart(cart: Cart, isCartEmpty:boolean): string {
-    const totalItems = cart.products.reduce((acc, product) => acc + product.quantity, 0);
+function renderCart(cart: Cart): string {
+  try {
+    if (!cart || !cart.products) throw new Error("cart is missing");
+
+    const totalItems = cart.products.reduce(
+      (acc, product) => acc + product.quantity,
+      0
+    );
 
     const totalPrice = cart.total;
     const products = cart.products;
-    console.log("is cart", isCartEmpty);
 
     return `
     <div class="cart-container">
@@ -66,19 +71,31 @@ function renderCart(cart: Cart, isCartEmpty:boolean): string {
             </div>
         </div>
     </div>`;
+  } catch (e) {
+    console.error(e);
+    return ``;
+  }
 }
 
-function renderProductsInCart(products: { product: Product; quantity: number }[]): string {
-    console.log("in renderProduct", products);
-    return products.map(({ product, quantity }) => `
+function renderProductsInCart(
+  products: { product: Product; quantity: number }[]
+): string {
+  console.log("in renderProduct", products);
+  return products
+    .map(
+      ({ product, quantity }) => `
      <div class="cartPage-container">
     <div class="row border-top border-bottom" id="product-${product._id}">
         <div class="row main align-items-center">
             <div class="col-2">
-                <img class="img-fluid" src="${product.image}" alt="${product.name}">
+                <img class="img-fluid" src="${product.image}" alt="${
+        product.name
+      }">
             </div>
             <div class="col">
-                <div class="row text-muted">${product.category?.name || "Uncategorized"}</div>
+                <div class="row text-muted">${
+                  product.category?.name || "Uncategorized"
+                }</div>
                 <div class="row">${product.name}</div>
             </div>
             <div class="col">
@@ -96,97 +113,94 @@ function renderProductsInCart(products: { product: Product; quantity: number }[]
         </div>
     </div>
 </div>
-                `).join('')
+                `
+    )
+    .join("");
 }
 
 async function fetchCartProducts(): Promise<void> {
-    console.log("Fetching cart products");
-    let isCartEmpty:boolean;
-    try {
-        const response = await fetch("http://localhost:3000/api/cart/get-cart");
-        if (!response.ok) {
-            throw new Error("Failed to fetch products");
-        }
-        const cart = await response.json();
-
-        if(cart.message === "cart is empty"){
-            isCartEmpty = true;
-        } else {
-            isCartEmpty = false;
-        }
-
-        renderCartPage(cart, isCartEmpty);
-    } catch (error) {
-        console.error("Error fetching cart products:", error);
+  console.log("Fetching cart products");
+  try {
+    const response = await fetch("http://localhost:3000/api/cart/get-cart");
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
     }
+    const cart = await response.json();
+
+    renderCartPage(cart);
+  } catch (error) {
+    console.error("Error fetching cart products:", error);
+  }
 }
 
-function renderCartPage(cart: Cart, isCartEmpty:boolean): void {
-    try {
-        const cartContainer = document.querySelector('#main') as HTMLElement;
-        if (!cartContainer) throw new Error('Cart container not found!');
-        
-        cartContainer.innerHTML = renderCart(cart, isCartEmpty);
+function renderCartPage(cart: Cart): void {
+  try {
+    const cartContainer = document.querySelector("#main") as HTMLElement;
+    if (!cartContainer) throw new Error("Cart container not found!");
 
-    } catch (error) {
-        console.error("Error rendering cart page:", error);
-
-    }
+    cartContainer.innerHTML = renderCart(cart);
+  } catch (error) {
+    console.error("Error rendering cart page:", error);
+  }
 }
 
 function showCart(): void {
-    fetchCartProducts();
+  fetchCartProducts();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const cartIcon = document.getElementById('cart-icon');
-    if (cartIcon) {
-        cartIcon.addEventListener('click', () => {
-            showCart();
-        });
-    } else {
-        console.error('Cart icon not found!');
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const cartIcon = document.getElementById("cart-icon");
+  if (cartIcon) {
+    cartIcon.addEventListener("click", () => {
+      showCart();
+    });
+  } else {
+    console.error("Cart icon not found!");
+  }
 });
 
-
-
-/// Delivery options 
+/// Delivery options
 async function fetchTotalPrice(): Promise<number> {
-    try {
-      const response = await fetch("/api/cart/total"); 
-      if (!response.ok) {
-        throw new Error("Failed to fetch total price");
-      }
-      const data: CartData = await response.json();
-      return data.totalPrice;
-    } catch (error) {
-      console.error("Error fetching total price:", error);
-      return 5; 
+  try {
+    const response = await fetch("/api/cart/total");
+    if (!response.ok) {
+      throw new Error("Failed to fetch total price");
     }
+    const data: CartData = await response.json();
+    return data.totalPrice;
+  } catch (error) {
+    console.error("Error fetching total price:", error);
+    return 5;
   }
-  
-  async function updateTotalPrice(): Promise<void> {
-    const deliveryOptions = document.getElementById("delivery-options") as HTMLSelectElement | null;
-    const totalPriceElement = document.querySelector(".col.text-right") as HTMLElement | null;
-  
-    if (!deliveryOptions || !totalPriceElement) return;
-  
-    try {
-      const baseTotalPrice = await fetchTotalPrice();
-  
-      const deliveryCost: number = parseFloat(deliveryOptions.value) || 0;
-      const updatedPrice: string = (baseTotalPrice + deliveryCost).toFixed(2);
-  
-      totalPriceElement.textContent = `$ ${updatedPrice}`;
-    } catch (error) {
-      console.error("Error updating total price:", error);
-    }
+}
+
+async function updateTotalPrice(): Promise<void> {
+  const deliveryOptions = document.getElementById(
+    "delivery-options"
+  ) as HTMLSelectElement | null;
+  const totalPriceElement = document.querySelector(
+    ".col.text-right"
+  ) as HTMLElement | null;
+
+  if (!deliveryOptions || !totalPriceElement) return;
+
+  try {
+    const baseTotalPrice = await fetchTotalPrice();
+
+    const deliveryCost: number = parseFloat(deliveryOptions.value) || 0;
+    const updatedPrice: string = (baseTotalPrice + deliveryCost).toFixed(2);
+
+    totalPriceElement.textContent = `$ ${updatedPrice}`;
+  } catch (error) {
+    console.error("Error updating total price:", error);
   }
-  
-  const deliveryOptions = document.getElementById("delivery-options") as HTMLSelectElement | null;
-  if (deliveryOptions) {
-    deliveryOptions.addEventListener("change", updateTotalPrice);
-  }
-  
-  updateTotalPrice();
+}
+
+const deliveryOptions = document.getElementById(
+  "delivery-options"
+) as HTMLSelectElement | null;
+if (deliveryOptions) {
+  deliveryOptions.addEventListener("change", updateTotalPrice);
+}
+
+updateTotalPrice();
