@@ -31,6 +31,7 @@
   font-size: 1.2rem;
   color: #333;
   margin: 10px 0 5px;
+  height: 3rem;
 }
 .product-card .description-container {
   margin: 5px 0;
@@ -96,4 +97,100 @@
   border-radius: 5px;
   background-color: #fff;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .product-card {
+    padding: 0.8rem;
+  }
+  .product-card .product-image {
+    height: 10rem;
+  }
+  .product-card .product-name {
+    font-size: 1rem;
+    margin: 8px 0 4px;
+  }
+  .product-card .description-container {
+    height: 2.5rem;
+    margin-top: -2rem;
+  }
+  .product-card .description-container .product-description {
+    font-size: 0.8rem;
+  }
+  .product-card .bottom-section {
+    margin-top: 0.8rem;
+  }
+  .product-card .bottom-section .product-price {
+    font-size: 1.1rem;
+  }
+  .product-card .bottom-section .icon {
+    font-size: 1.3rem;
+  }
+  .product-card .button-more {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+  #filter-sort-controls {
+    flex-wrap: wrap;
+    margin: 1rem;
+    gap: 0.5rem;
+  }
+  #filter-sort-controls select {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .product-grid .product-card {
+    padding: 0.6rem;
+  }
+  .product-grid .product-card .product-image {
+    height: 8rem;
+  }
+  .product-grid .product-card .product-image .product-name {
+    font-size: 0.9rem;
+    margin-bottom: -2rem;
+    height: 3rem;
+  }
+  .product-grid .product-card .product-image .product-name .description-container {
+    margin-top: 0;
+    height: 3rem;
+  }
+  .product-grid .product-card .product-image .product-name .description-container .product-description {
+    font-size: 0.75rem;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+  .product-grid .bottom-section {
+    margin-top: 1.5rem;
+  }
+  .product-grid .bottom-section .product-price {
+    font-size: 1rem;
+  }
+  .product-grid .bottom-section .icon {
+    font-size: 1.2rem;
+  }
+  .product-grid .button-more {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+  }
+  .product-grid #filter-sort-controls {
+    flex-direction: column;
+    margin: 0.5rem;
+    gap: 0.3rem;
+  }
+  .product-grid #filter-sort-controls select {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
 }/*# sourceMappingURL=AllProducts.css.map */
