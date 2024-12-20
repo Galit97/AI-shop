@@ -69,3 +69,22 @@
     }
   }
 }
+
+
+@media (max-width: 1024px) {
+  #product-form-container {
+    width: 30rem;
+    margin-top: 2rem;
+    margin-left: 15rem;
+      }
+  }
+
+  @media (max-width: 768px) {
+    #product-form-container {
+      width: 25rem;
+      margin-top: 10rem;
+      margin-right: 2rem;
+      margin-left: 3rem;
+
+    }
+  }
