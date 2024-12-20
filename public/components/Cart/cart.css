@@ -95,38 +95,69 @@
   outline: none;
 }
 
-.main {
+.cartPage-container {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.cartPage-container .row {
+  display: flex;
+  align-items: center;
   padding: 1rem 0;
 }
-.main .col-2 img {
-  width: 100%;
+.cartPage-container .row.main {
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr 2fr 2fr;
+  align-items: center;
+  gap: 1rem;
+}
+.cartPage-container .row .col-2 img {
+  width: 14rem;
+  height: auto;
   border-radius: 0.25rem;
 }
-.main .col {
+.cartPage-container .row .col.text-muted, .cartPage-container .row .col.row {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.main .col .text-muted {
   font-size: 0.85rem;
-  color: #6c757d;
 }
-.main .decrease-qty,
-.main .increase-qty {
+.cartPage-container .row .col:nth-of-type(2) .row {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.cartPage-container .row .col:nth-of-type(3) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cartPage-container .row .col:nth-of-type(3) .decrease-qty,
+.cartPage-container .row .col:nth-of-type(3) .increase-qty {
   font-size: 1.25rem;
   margin: 0 0.5rem;
   color: #f0742c;
   cursor: pointer;
+  text-decoration: none;
 }
-.main .decrease-qty:hover,
-.main .increase-qty:hover {
+.cartPage-container .row .col:nth-of-type(3) .decrease-qty:hover,
+.cartPage-container .row .col:nth-of-type(3) .increase-qty:hover {
   color: #ff9b10;
 }
-.main .close {
+.cartPage-container .row .col:nth-of-type(3) .border {
+  min-width: 2rem;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 0.25rem;
+}
+.cartPage-container .row .col:nth-of-type(4), .cartPage-container .row .col:nth-of-type(5) {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.cartPage-container .row .col:nth-of-type(4) .close, .cartPage-container .row .col:nth-of-type(5) .close {
   color: #dc3545;
   font-size: 1rem;
   cursor: pointer;
 }
-.main .close:hover {
+.cartPage-container .row .col:nth-of-type(4) .close:hover, .cartPage-container .row .col:nth-of-type(5) .close:hover {
   color: #c82333;
 }/*# sourceMappingURL=cart.css.map */

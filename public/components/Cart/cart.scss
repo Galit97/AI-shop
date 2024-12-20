@@ -112,46 +112,92 @@ $btn-hover-color: #ff9b10;
   }
 }
 
-.main {
+
+
+.cartPage-container {
   padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0; 
 
-  .col-2 {
-    img {
-      width: 100%;
-      border-radius: 0.25rem;
-    }
-  }
 
-  .col {
+  .row {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
 
-    .text-muted {
-      font-size: 0.85rem;
-      color: #6c757d;
+    &.main {
+      display: grid;
+      grid-template-columns: 1fr 3fr 2fr 2fr 2fr;
+      align-items: center;
+      gap: 1rem;
     }
-  }
 
-  .decrease-qty,
-  .increase-qty {
-    font-size: 1.25rem;
-    margin: 0 0.5rem;
-    color: $btn-color;
-    cursor: pointer;
-
-    &:hover {
-      color: $btn-hover-color;
+    .col-2 {
+      img {
+        width: 14rem;
+        height: auto;
+        border-radius: 0.25rem;
+      }
     }
-  }
 
-  .close {
-    color: #dc3545;
-    font-size: 1rem;
-    cursor: pointer;
+    .col {
+      &.text-muted,
+      &.row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 0.85rem;
+      }
 
-    &:hover {
-      color: #c82333;
+      &:nth-of-type(2) {
+        .row {
+          font-size: 1rem;
+          font-weight: 600;
+        }
+      }
+
+      &:nth-of-type(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .decrease-qty,
+        .increase-qty {
+          font-size: 1.25rem;
+          margin: 0 0.5rem;
+          color: $btn-color;
+          cursor: pointer;
+          text-decoration: none; 
+
+          &:hover {
+            color: $btn-hover-color;
+          }
+        }
+
+        .border {
+          min-width: 2rem;
+          text-align: center;
+          border: 1px solid #ddd;
+          padding: 0.25rem;
+        }
+      }
+
+      &:nth-of-type(4),
+      &:nth-of-type(5) {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 600;
+
+        .close {
+          color: #dc3545;
+          font-size: 1rem;
+          cursor: pointer;
+
+          &:hover {
+            color: #c82333;
+          }
+        }
+      }
     }
   }
 }
+
