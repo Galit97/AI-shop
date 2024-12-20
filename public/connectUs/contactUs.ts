@@ -12,9 +12,9 @@ function render() {
         <span class="close" onclick="closeContactForm()">&times;</span>
         <h2>Contact Us</h2>
         <form id="contactForm" onsubmit="handleFormContactUs(event)">
-          <label for="name">*Full Name</label><br>
+          <label for="name">Full Name</label><br>
           <input type="text" id="name" name="name" required><br><br>
-          <label for="email">*Email</label><br>
+          <label for="email">Email</label><br>
           <input type="email" id="email" name="email" required><br><br>
           <label for="message">Message</label><br>
           <textarea id="message" name="message" rows="4" required></textarea><br><br>
@@ -49,13 +49,39 @@ window.onclick = function (event) {
   }
 };
 
-function handleFormContactUs(event) {
+async function handleFormContactUs(event) {
   try {
     event.preventDefault();
-    alert("Message not sent anywhere yet.");
-    alert("In the future, I'll attempt to send this message to a real email.");
+    const fullName = document.getElementById("name") as HTMLInputElement;
+    const email = document.getElementById("email") as HTMLInputElement;
+    const message = document.getElementById("message") as HTMLTextAreaElement;
+    if (!fullName.value ||!email.value ||!message.value) {
+      alert("All fields are required.");
+      return;
+    }
+
+    closeContactForm();
+
+    const response = await fetch("/api/connectUs/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName: fullName.value,
+        email: email.value,
+        message: message.value,
+      }),
+      
+    });
+
+    if (response.ok) {
+      alert("The email was sent successfully.");
+    } else {
+      alert("Error sending email.");
+    }
   } catch (error) {
-    console.error(error);
-    alert("Error in submit function.");
+    console.error("Error:", error);
+    alert("Error sending email.");
   }
 }
