@@ -63,57 +63,57 @@ function fetchCartProducts() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("Fetching cart products");
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 4, , 5]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/cart/get-cart")];
-                case 2:
+                case 1:
                     response = _a.sent();
                     if (!response.ok) {
                         throw new Error("Failed to fetch products");
                     }
                     return [4 /*yield*/, response.json()];
-                case 3:
+                case 2:
                     cart = _a.sent();
                     renderCartPage(cart);
-                    return [3 /*break*/, 5];
-                case 4:
+                    return [3 /*break*/, 4];
+                case 3:
                     error_1 = _a.sent();
                     console.error("Error fetching cart products:", error_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
 function renderCartPage(cart) {
-    try {
-        var cartContainer = document.querySelector("#main");
-        if (!cartContainer)
-            throw new Error("Cart container not found!");
-        cartContainer.innerHTML = renderCart(cart);
-        handleUpdateCart(cart.products);
-    }
-    catch (error) {
-        console.error("Error rendering cart page:", error);
-    }
-}
-function showCart() {
-    fetchCartProducts();
-}
-document.addEventListener("DOMContentLoaded", function () {
-    var cartIcon = document.getElementById("cart-icon");
-    if (cartIcon) {
-        cartIcon.addEventListener("click", function () {
-            showCart();
+    return __awaiter(this, void 0, Promise, function () {
+        var cartContainer;
+        return __generator(this, function (_a) {
+            try {
+                cartContainer = document.querySelector("#main");
+                if (!cartContainer)
+                    throw new Error("Cart container not found!");
+                cartContainer.innerHTML = renderCart(cart);
+                handleUpdateCart(cart.products);
+                // await updateTotalPrice();
+            }
+            catch (error) {
+                console.error("Error rendering cart page:", error);
+            }
+            return [2 /*return*/];
         });
-    }
-    else {
-        console.error("Cart icon not found!");
-    }
-});
-/// Delivery options
+    });
+}
+// document.addEventListener("DOMContentLoaded", () => {
+var cartIcon = document.getElementById("cart-icon");
+if (cartIcon) {
+    cartIcon.addEventListener("click", function () {
+        fetchCartProducts();
+    });
+}
+else {
+    console.error("Cart icon not found!");
+}
+// });
 function fetchTotalPrice() {
     return __awaiter(this, void 0, Promise, function () {
         var response, data, error_2;
@@ -140,40 +140,6 @@ function fetchTotalPrice() {
         });
     });
 }
-function updateTotalPrice() {
-    return __awaiter(this, void 0, Promise, function () {
-        var deliveryOptions, totalPriceElement, baseTotalPrice, deliveryCost, updatedPrice, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    deliveryOptions = document.getElementById("delivery-options");
-                    totalPriceElement = document.querySelector(".col.text-right");
-                    if (!deliveryOptions || !totalPriceElement)
-                        return [2 /*return*/];
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, fetchTotalPrice()];
-                case 2:
-                    baseTotalPrice = _a.sent();
-                    deliveryCost = parseFloat(deliveryOptions.value) || 0;
-                    updatedPrice = (baseTotalPrice + deliveryCost).toFixed(2);
-                    totalPriceElement.textContent = "$ " + updatedPrice;
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_3 = _a.sent();
-                    console.error("Error updating total price:", error_3);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-var deliveryOptions = document.getElementById("delivery-options");
-if (deliveryOptions) {
-    deliveryOptions.addEventListener("change", updateTotalPrice);
-}
-// Handle increasing, decreasing, and removing items
 function handleUpdateCart(products) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -188,13 +154,13 @@ function handleUpdateCart(products) {
                     var removeElement = document.getElementById("remove-" + product.product._id);
                     if (!removeElement)
                         throw new Error("Product " + product.product._id + " not found");
-                    decreaseElement.addEventListener("click", function () {
+                    decreaseElement === null || decreaseElement === void 0 ? void 0 : decreaseElement.addEventListener("click", function () {
                         return fetchCartAndUpdate(product, "decrease");
                     });
-                    increaseElement.addEventListener("click", function () {
+                    increaseElement === null || increaseElement === void 0 ? void 0 : increaseElement.addEventListener("click", function () {
                         return fetchCartAndUpdate(product, "increase");
                     });
-                    removeElement.addEventListener("click", function () {
+                    removeElement === null || removeElement === void 0 ? void 0 : removeElement.addEventListener("click", function () {
                         return fetchCartAndUpdate(product, "remove");
                     });
                 }
@@ -222,7 +188,7 @@ function fetchCartAndUpdate(products, action) {
                     response = _a.sent();
                     if (!response)
                         throw new Error("Failed to fetch cart");
-                    return [4 /*yield*/, response.json()];
+                    return [4 /*yield*/, fetchCartProducts()];
                 case 2:
                     _a.sent();
                     return [2 /*return*/];
@@ -230,4 +196,4 @@ function fetchCartAndUpdate(products, action) {
         });
     });
 }
-updateTotalPrice();
+;

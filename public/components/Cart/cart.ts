@@ -119,7 +119,6 @@ function renderProductsInCart(
 }
 
 async function fetchCartProducts(): Promise<void> {
-  console.log("Fetching cart products");
   try {
     const response = await fetch("http://localhost:3000/api/cart/get-cart");
     if (!response.ok) {
@@ -133,34 +132,32 @@ async function fetchCartProducts(): Promise<void> {
   }
 }
 
-function renderCartPage(cart: Cart): void {
+async function renderCartPage(cart: Cart): Promise<void> {
   try {
     const cartContainer = document.querySelector("#main") as HTMLElement;
     if (!cartContainer) throw new Error("Cart container not found!");
 
     cartContainer.innerHTML = renderCart(cart);
+
     handleUpdateCart(cart.products);
+    // await updateTotalPrice();
   } catch (error) {
     console.error("Error rendering cart page:", error);
   }
 }
 
-function showCart(): void {
-  fetchCartProducts();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
   const cartIcon = document.getElementById("cart-icon");
   if (cartIcon) {
     cartIcon.addEventListener("click", () => {
-      showCart();
+      fetchCartProducts();
     });
   } else {
     console.error("Cart icon not found!");
   }
-});
+// });
 
-/// Delivery options
+
 async function fetchTotalPrice(): Promise<number> {
   try {
     const response = await fetch("/api/cart/total");
@@ -175,36 +172,6 @@ async function fetchTotalPrice(): Promise<number> {
   }
 }
 
-async function updateTotalPrice(): Promise<void> {
-  const deliveryOptions = document.getElementById(
-    "delivery-options"
-  ) as HTMLSelectElement | null;
-  const totalPriceElement = document.querySelector(
-    ".col.text-right"
-  ) as HTMLElement | null;
-
-  if (!deliveryOptions || !totalPriceElement) return;
-
-  try {
-    const baseTotalPrice = await fetchTotalPrice();
-
-    const deliveryCost: number = parseFloat(deliveryOptions.value) || 0;
-    const updatedPrice: string = (baseTotalPrice + deliveryCost).toFixed(2);
-
-    totalPriceElement.textContent = `$ ${updatedPrice}`;
-  } catch (error) {
-    console.error("Error updating total price:", error);
-  }
-}
-
-const deliveryOptions = document.getElementById(
-  "delivery-options"
-) as HTMLSelectElement | null;
-if (deliveryOptions) {
-  deliveryOptions.addEventListener("change", updateTotalPrice);
-}
-
-// Handle increasing, decreasing, and removing items
 async function handleUpdateCart(
   products: { product: Product; quantity: number }[]
 ) {
@@ -228,15 +195,15 @@ async function handleUpdateCart(
       if (!removeElement)
         throw new Error(`Product ${product.product._id} not found`);
 
-      decreaseElement.addEventListener("click", () =>
+      decreaseElement?.addEventListener("click", () =>
         fetchCartAndUpdate(product, "decrease")
       );
 
-      increaseElement.addEventListener("click", () =>
+      increaseElement?.addEventListener("click", () =>
         fetchCartAndUpdate(product, "increase")
       );
 
-      removeElement.addEventListener("click", () =>
+      removeElement?.addEventListener("click", () =>
         fetchCartAndUpdate(product, "remove")
       );
     } catch (error) {
@@ -259,7 +226,6 @@ async function fetchCartAndUpdate(
 
   if (!response) throw new Error("Failed to fetch cart");
 
-  await response.json();
-}
+  await fetchCartProducts();
+};
 
-updateTotalPrice();
