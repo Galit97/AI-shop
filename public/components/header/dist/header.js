@@ -34,89 +34,79 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-// }
+//TODO: implement number of items in the cart
 function renderHeader() {
     return "\n     <header id=\"header\">\n    <div class=\"logo-container\">\n    <a href=\"../index.html\">\n        <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n    </a>\n</div>\n\n        \n       <div class=\"search-container\">\n        <input type=\"text\" placeholder=\"Search for products...\" \n        aria-label=\"Search\" \n        id=\"search-input\">\n       <button aria-label=\"Search\" id=\"search-button\">\n       <img src=\"./images/Search_Icon.svg.png\" id=\"Search_Icon\" alt=\"Search Icon\">\n       </button>\n       </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n            <h3>Welcome <span id=\"loggedInUser\"></span></h3>\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n                <a href=\"?loginParam=login\">Login</a>\n                <a href=\"?registerParam=register\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"#\" onclick=\"ContactUsPopup()\">Contact us</a>\n                <a href=\"?AdminLoginParam=AdminLogin\">Admin login</a>\n                <a href=\"#\" onclick=\"resetCookies()\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\" id=\"cart\">\n            <img id=\"cart-icon\" src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <span class=\"cart-items-count\">3</span>\n        </div>\n    </header>";
 }
 function render() {
-    var container = document.querySelector('#header');
+    var container = document.querySelector("#header");
     if (container) {
         container.innerHTML = renderHeader();
         showWelcomeName();
     }
     else {
-        console.error('Target container not found!');
+        console.error("Target container not found!");
     }
-    ;
 }
-;
-var openMenu = document.getElementById('openMenu');
-var loginRegisterButton = document.querySelector('#loginRegisterButton');
+var openMenu = document.getElementById("openMenu");
+var loginRegisterButton = document.querySelector("#loginRegisterButton");
 function closeMenu() {
     try {
         if (openMenu) {
-            openMenu.style.display = 'none';
+            openMenu.style.display = "none";
         }
     }
     catch (error) {
-        console.error('An error occurred:', error.message);
+        console.error("An error occurred:", error.message);
     }
 }
-;
 function initHeader() {
-    var container = document.querySelector('#header');
+    var container = document.querySelector("#header");
     if (container) {
         container.innerHTML = renderHeader();
-        var loginRegisterButton_1 = document.querySelector('#loginRegisterButton');
-        var loginButton = document.getElementById('login');
-        var registerButton = document.getElementById('register');
+        var loginRegisterButton_1 = document.querySelector("#loginRegisterButton");
+        var loginButton = document.getElementById("login");
+        var registerButton = document.getElementById("register");
         if (loginRegisterButton_1 && openMenu) {
-            loginRegisterButton_1.addEventListener('mouseover', function () {
-                alert('Login Register');
-                openMenu.style.display = 'block';
+            loginRegisterButton_1.addEventListener("mouseover", function () {
+                alert("Login Register");
+                openMenu.style.display = "block";
             });
-            loginRegisterButton_1.addEventListener('mouseleave', function () {
-                openMenu.style.display = 'none';
+            loginRegisterButton_1.addEventListener("mouseleave", function () {
+                openMenu.style.display = "none";
             });
         }
         if (loginButton) {
-            loginButton.addEventListener('click', window.initLoginPopup);
+            loginButton.addEventListener("click", window.initLoginPopup);
         }
         if (registerButton) {
-            registerButton.addEventListener('click', window.RegisterPopup);
+            registerButton.addEventListener("click", window.RegisterPopup);
         }
     }
     else {
-        console.error('Target container not found!');
+        console.error("Target container not found!");
     }
 }
 window.initLoginPopup = function () {
-    var loginPopup = document.getElementById('loginPopup');
+    var loginPopup = document.getElementById("loginPopup");
     if (loginPopup) {
-        loginPopup.style.display = 'flex';
+        loginPopup.style.display = "flex";
     }
 };
 window.registerPopup = function () {
-    var registerPopup = document.getElementById('registerPopup');
+    var registerPopup = document.getElementById("registerPopup");
     if (registerPopup) {
-        registerPopup.style.display = 'flex';
+        registerPopup.style.display = "flex";
     }
 };
-/// make the cart page open - TO DO ///
-var cartIcon = document.getElementById('cart');
+var cartIcon = document.getElementById("cart");
 if (cartIcon) {
-    cartIcon.addEventListener('click', function () {
-        // const cartContainer = document.getElementById('cartPage');
-        // if (cartContainer) {
-        //     showCart();
-        // } else {
-        //     console.error('Cart container not found!');
-        // }
+    cartIcon.addEventListener("click", function () {
         fetchCartProducts();
     });
 }
 else {
-    console.error('Cart icon not found!');
+    console.error("Cart icon not found!");
 }
 // //// make the search work - TO DO ////
 // const searchButton = document.getElementById('search-button');
@@ -150,20 +140,19 @@ function showWelcomeName() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    welcomeName = document.getElementById('loggedInUser');
+                    welcomeName = document.getElementById("loggedInUser");
                     if (!welcomeName)
-                        throw new Error('Cannot find element to display the user name.');
-                    return [4 /*yield*/, fetch('http://localhost:3000/api/clients/get-client', {
-                            credentials: 'include'
+                        throw new Error("Cannot find element to display the user name.");
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client", {
+                            credentials: "include"
                         })];
                 case 1:
                     response = _a.sent();
                     if (!response.ok) {
-                        console.error('Failed to fetch user info:', response.statusText);
-                        welcomeName.textContent = 'Guest';
+                        console.error("Failed to fetch user info:", response.statusText);
+                        welcomeName.textContent = "Guest";
                         return [2 /*return*/];
                     }
-                    ;
                     return [4 /*yield*/, response.json()];
                 case 2:
                     responseData = _a.sent();
@@ -172,19 +161,18 @@ function showWelcomeName() {
                         welcomeName.textContent = firstName;
                     }
                     else {
-                        welcomeName.textContent = 'Guest';
+                        welcomeName.textContent = "Guest";
                     }
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
-                    console.error('Error fetching client name:', error_1);
+                    console.error("Error fetching client name:", error_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-;
 initHeader();
 render();
 searchButton();
