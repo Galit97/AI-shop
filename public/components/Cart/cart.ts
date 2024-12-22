@@ -57,9 +57,13 @@ function renderCart(cart: Cart): string {
                 <form>
                     <p>SHIPPING</p>
                     <select id="delivery-options">
-  <option value="5" class="text-muted">Standard-Delivery- $5.00 - 14-20 Days</option>
-  <option value="10" class="text-muted">Express-Delivery- $10.00 - 2-7 Days</option>
-</select>
+                        <option value="5" class="text-muted">Standard-Delivery- $5.00 - $ ${(
+                          totalPrice + 5
+                        ).toFixed(2)} - 14-20 Days</option>
+                        <option value="10" class="text-muted">Express-Delivery- $10.00 $ ${(
+                          totalPrice + 10
+                        ).toFixed(2)} - 2-7 Days</option>
+                    </select>
                     <p>APPLY DISCOUNT CODE</p>
                     <input id="code" placeholder="Enter your code">
                 </form>
@@ -80,7 +84,6 @@ function renderCart(cart: Cart): string {
 function renderProductsInCart(
   products: { product: Product; quantity: number }[]
 ): string {
-  console.log("in renderProduct", products);
   return products
     .map(
       ({ product, quantity }) => `
@@ -96,16 +99,16 @@ function renderProductsInCart(
                 <div class="row">${product.name}</div>
             </div>
             <div class="col">
-                <a href="#" class="decrease-qty">-</a>
+                <a id="decrease-qty-${product._id}" class="decrease-qty">-</a>
                 <span class="border">${quantity}</span>
-                <a href="#" class="increase-qty">+</a>
+                <a id="increase-qty-${product._id}" class="increase-qty">+</a>
             </div>
             <div class="col">
                 $ ${product.price} * ${quantity}
             </div>
             <div class="col">
                 $ ${(product.price * quantity).toFixed(2)} 
-                <i class="close fa-solid fa-x"></i>
+                <i class="close fa-solid fa-x" id=remove-${product._id}></i>
             </div>
         </div>
     </div>
@@ -118,6 +121,7 @@ function renderProductsInCart(
 async function fetchCartProducts(): Promise<void> {
   console.log("Fetching cart products");
   try { 
+  try {
     const response = await fetch("http://localhost:3000/api/cart/get-cart");
     if (!response.ok) {
       const cartContainer = document.querySelector("#main") as HTMLElement;
@@ -143,40 +147,39 @@ async function fetchCartProducts(): Promise<void> {
   }
 }
 
-function renderCartPage(cart: Cart): void {
+async function renderCartPage(cart: Cart): Promise<void> {
   try {
     const cartContainer = document.querySelector("#main") as HTMLElement;
     if (!cartContainer) throw new Error("Cart container not found!");
 
     cartContainer.innerHTML = renderCart(cart);
+
+    handleUpdateCart(cart.products);
+    // await updateTotalPrice();
   } catch (error) {
     console.error("Error rendering cart page:", error);
   }
 }
 
-function showCart(): void {
-  fetchCartProducts();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
   const cartIcon = document.getElementById("cart-icon");
   if (cartIcon) {
     cartIcon.addEventListener("click", () => {
-      showCart();
+      fetchCartProducts();
     });
   } else {
     console.error("Cart icon not found!");
   }
-});
+// });
 
-/// Delivery options
+
 async function fetchTotalPrice(): Promise<number> {
   try {
     const response = await fetch("/api/cart/total");
     if (!response.ok) {
       throw new Error("Failed to fetch total price");
     }
-    const data: CartData = await response.json();
+    const data = await response.json();
     return data.totalPrice;
   } catch (error) {
     console.error("Error fetching total price:", error);
@@ -184,33 +187,60 @@ async function fetchTotalPrice(): Promise<number> {
   }
 }
 
-async function updateTotalPrice(): Promise<void> {
-  const deliveryOptions = document.getElementById(
-    "delivery-options"
-  ) as HTMLSelectElement | null;
-  const totalPriceElement = document.querySelector(
-    ".col.text-right"
-  ) as HTMLElement | null;
+async function handleUpdateCart(
+  products: { product: Product; quantity: number }[]
+) {
+  products.forEach((product) => {
+    try {
+      const decreaseElement = document.getElementById(
+        `decrease-qty-${product.product._id}`
+      );
+      if (!decreaseElement)
+        throw new Error(`Product ${product.product._id} not found`);
 
-  if (!deliveryOptions || !totalPriceElement) return;
+      const increaseElement = document.getElementById(
+        `increase-qty-${product.product._id}`
+      );
+      if (!increaseElement)
+        throw new Error(`Product ${product.product._id} not found`);
 
-  try {
-    const baseTotalPrice = await fetchTotalPrice();
+      const removeElement = document.getElementById(
+        `remove-${product.product._id}`
+      );
+      if (!removeElement)
+        throw new Error(`Product ${product.product._id} not found`);
 
-    const deliveryCost: number = parseFloat(deliveryOptions.value) || 0;
-    const updatedPrice: string = (baseTotalPrice + deliveryCost).toFixed(2);
+      decreaseElement?.addEventListener("click", () =>
+        fetchCartAndUpdate(product, "decrease")
+      );
 
-    totalPriceElement.textContent = `$ ${updatedPrice}`;
-  } catch (error) {
-    console.error("Error updating total price:", error);
-  }
+      increaseElement?.addEventListener("click", () =>
+        fetchCartAndUpdate(product, "increase")
+      );
+
+      removeElement?.addEventListener("click", () =>
+        fetchCartAndUpdate(product, "remove")
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  });
 }
 
-const deliveryOptions = document.getElementById(
-  "delivery-options"
-) as HTMLSelectElement | null;
-if (deliveryOptions) {
-  deliveryOptions.addEventListener("change", updateTotalPrice);
-}
+async function fetchCartAndUpdate(
+  products: { product: Product; quantity: number },
+  action: string
+) {
+  const productId = products.product._id;
 
-updateTotalPrice();
+  const response = await fetch("http://localhost:3000/api/cart/update-cart", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ productId, action }),
+  });
+
+  if (!response) throw new Error("Failed to fetch cart");
+
+  await fetchCartProducts();
+};
+

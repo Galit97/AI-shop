@@ -3,7 +3,6 @@ import express, { Request, Response, NextFunction } from 'express';
 
 
 export async function getClientFromCookie(req: any, res: any, next: NextFunction) {
-    console.log("getClientFromCookie");
     try {
         const clientId = req.cookies.client; 
         if( !clientId )

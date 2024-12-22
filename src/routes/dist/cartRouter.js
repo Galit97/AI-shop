@@ -7,5 +7,5 @@ var getClientMiddleware_1 = require("../controllers/cart/getClientMiddleware");
 var cartRouter = express_1["default"].Router();
 cartRouter.post("/add-to-cart", getClientMiddleware_1.getClientFromCookie, setCart_1.addToCart);
 cartRouter.get("/get-cart", getClientMiddleware_1.getClientFromCookie, getCart_1.getCart);
-cartRouter["delete"]("/remove-item", setCart_1.removeItem);
+cartRouter.patch("/update-cart", getClientMiddleware_1.getClientFromCookie, setCart_1.updateCart);
 exports["default"] = cartRouter;

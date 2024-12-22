@@ -42,7 +42,7 @@ function renderCart(cart) {
         var totalItems = cart.products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
         var totalPrice = cart.total;
         var products_1 = cart.products;
-        return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products_1) + "\n                <div class=\"back-to-shop\">\n                <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n        </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n  <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - 14-20 Days</option>\n  <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 - 2-7 Days</option>\n</select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n                <div class=\"col text-right\" id=\"total-price\">" + totalPrice + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
+        return "\n    <div class=\"cart-container\">\n        <div class=\"row\">\n            <div class=\"col-md-8 cart-inPage\">\n                <div class=\"title\">\n                    <div class=\"row\">\n                        <div class=\"col\"><h4><b>Shopping Cart</b></h4></div>\n                        <div class=\"col align-self-center text-right text-muted\">" + totalItems + " items</div>\n                    </div>\n                </div>    \n                " + renderProductsInCart(products_1) + "\n                <div class=\"back-to-shop\">\n                <a href=\"../index.html\" class=\"text-muted\">&leftarrow; Back to shop</a>\n        </div>\n            <div class=\"col-md-4 summary\">\n                <div><h5><b>Summary</b></h5></div>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col\">ITEMS " + totalItems + "</div>\n                    <div class=\"col text-right\">$ " + totalPrice + "</div>\n                </div>\n                <form>\n                    <p>SHIPPING</p>\n                    <select id=\"delivery-options\">\n                        <option value=\"5\" class=\"text-muted\">Standard-Delivery- $5.00 - $ " + (totalPrice + 5).toFixed(2) + " - 14-20 Days</option>\n                        <option value=\"10\" class=\"text-muted\">Express-Delivery- $10.00 $ " + (totalPrice + 10).toFixed(2) + " - 2-7 Days</option>\n                    </select>\n                    <p>APPLY DISCOUNT CODE</p>\n                    <input id=\"code\" placeholder=\"Enter your code\">\n                </form>\n                <div class=\"row\" >\n                    <div class=\"col\">TOTAL PRICE</div>\n                <div class=\"col text-right\" id=\"total-price\">" + totalPrice + "</div>\n                </div>\n                <button class=\"btn\">CHECKOUT</button>\n            </div>\n        </div>\n    </div>";
     }
     catch (e) {
         console.error(e);
@@ -50,11 +50,10 @@ function renderCart(cart) {
     }
 }
 function renderProductsInCart(products) {
-    console.log("in renderProduct", products);
     return products
         .map(function (_a) {
         var product = _a.product, quantity = _a.quantity;
-        return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a href=\"#\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a href=\"#\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                $ " + product.price + " * " + quantity + "\n            </div>\n            <div class=\"col\">\n                $ " + (product.price * quantity).toFixed(2) + " \n                <i class=\"close fa-solid fa-x\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
+        return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a id=\"decrease-qty-" + product._id + "\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a id=\"increase-qty-" + product._id + "\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                $ " + product.price + " * " + quantity + "\n            </div>\n            <div class=\"col\">\n                $ " + (product.price * quantity).toFixed(2) + " \n                <i class=\"close fa-solid fa-x\" id=remove-" + product._id + "></i>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
     })
         .join("");
 }
@@ -64,12 +63,9 @@ function fetchCartProducts() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("Fetching cart products");
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 4, , 5]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, fetch("http://localhost:3000/api/cart/get-cart")];
-                case 2:
+                case 1:
                     response = _a.sent();
                     if (!response.ok) {
                         cartContainer = document.querySelector("#main");
@@ -85,45 +81,49 @@ function fetchCartProducts() {
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, response.json()];
-                case 3:
+                case 2:
                     cart = _a.sent();
                     renderCartPage(cart);
-                    return [3 /*break*/, 5];
-                case 4:
+                    return [3 /*break*/, 4];
+                case 3:
                     error_1 = _a.sent();
                     console.error("Error fetching cart products:", error_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
 function renderCartPage(cart) {
-    try {
-        var cartContainer = document.querySelector("#main");
-        if (!cartContainer)
-            throw new Error("Cart container not found!");
-        cartContainer.innerHTML = renderCart(cart);
-    }
-    catch (error) {
-        console.error("Error rendering cart page:", error);
-    }
-}
-function showCart() {
-    fetchCartProducts();
-}
-document.addEventListener("DOMContentLoaded", function () {
-    var cartIcon = document.getElementById("cart-icon");
-    if (cartIcon) {
-        cartIcon.addEventListener("click", function () {
-            showCart();
+    return __awaiter(this, void 0, Promise, function () {
+        var cartContainer;
+        return __generator(this, function (_a) {
+            try {
+                cartContainer = document.querySelector("#main");
+                if (!cartContainer)
+                    throw new Error("Cart container not found!");
+                cartContainer.innerHTML = renderCart(cart);
+                handleUpdateCart(cart.products);
+                // await updateTotalPrice();
+            }
+            catch (error) {
+                console.error("Error rendering cart page:", error);
+            }
+            return [2 /*return*/];
         });
-    }
-    else {
-        console.error("Cart icon not found!");
-    }
-});
-/// Delivery options
+    });
+}
+// document.addEventListener("DOMContentLoaded", () => {
+var cartIcon = document.getElementById("cart-icon");
+if (cartIcon) {
+    cartIcon.addEventListener("click", function () {
+        fetchCartProducts();
+    });
+}
+else {
+    console.error("Cart icon not found!");
+}
+// });
 function fetchTotalPrice() {
     return __awaiter(this, void 0, Promise, function () {
         var response, data, error_2;
@@ -150,37 +150,60 @@ function fetchTotalPrice() {
         });
     });
 }
-function updateTotalPrice() {
-    return __awaiter(this, void 0, Promise, function () {
-        var deliveryOptions, totalPriceElement, baseTotalPrice, deliveryCost, updatedPrice, error_3;
+function handleUpdateCart(products) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            products.forEach(function (product) {
+                try {
+                    var decreaseElement = document.getElementById("decrease-qty-" + product.product._id);
+                    if (!decreaseElement)
+                        throw new Error("Product " + product.product._id + " not found");
+                    var increaseElement = document.getElementById("increase-qty-" + product.product._id);
+                    if (!increaseElement)
+                        throw new Error("Product " + product.product._id + " not found");
+                    var removeElement = document.getElementById("remove-" + product.product._id);
+                    if (!removeElement)
+                        throw new Error("Product " + product.product._id + " not found");
+                    decreaseElement === null || decreaseElement === void 0 ? void 0 : decreaseElement.addEventListener("click", function () {
+                        return fetchCartAndUpdate(product, "decrease");
+                    });
+                    increaseElement === null || increaseElement === void 0 ? void 0 : increaseElement.addEventListener("click", function () {
+                        return fetchCartAndUpdate(product, "increase");
+                    });
+                    removeElement === null || removeElement === void 0 ? void 0 : removeElement.addEventListener("click", function () {
+                        return fetchCartAndUpdate(product, "remove");
+                    });
+                }
+                catch (error) {
+                    console.error(error);
+                }
+            });
+            return [2 /*return*/];
+        });
+    });
+}
+function fetchCartAndUpdate(products, action) {
+    return __awaiter(this, void 0, void 0, function () {
+        var productId, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    deliveryOptions = document.getElementById("delivery-options");
-                    totalPriceElement = document.querySelector(".col.text-right");
-                    if (!deliveryOptions || !totalPriceElement)
-                        return [2 /*return*/];
-                    _a.label = 1;
+                    productId = products.product._id;
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/cart/update-cart", {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ productId: productId, action: action })
+                        })];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, fetchTotalPrice()];
+                    response = _a.sent();
+                    if (!response)
+                        throw new Error("Failed to fetch cart");
+                    return [4 /*yield*/, fetchCartProducts()];
                 case 2:
-                    baseTotalPrice = _a.sent();
-                    deliveryCost = parseFloat(deliveryOptions.value) || 0;
-                    updatedPrice = (baseTotalPrice + deliveryCost).toFixed(2);
-                    totalPriceElement.textContent = "$ " + updatedPrice;
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_3 = _a.sent();
-                    console.error("Error updating total price:", error_3);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    _a.sent();
+                    return [2 /*return*/];
             }
         });
     });
 }
-var deliveryOptions = document.getElementById("delivery-options");
-if (deliveryOptions) {
-    deliveryOptions.addEventListener("change", updateTotalPrice);
-}
-updateTotalPrice();
+;
