@@ -119,10 +119,25 @@ function renderProductsInCart(
 }
 
 async function fetchCartProducts(): Promise<void> {
+  console.log("Fetching cart products");
+  try { 
   try {
     const response = await fetch("http://localhost:3000/api/cart/get-cart");
     if (!response.ok) {
-      throw new Error("Failed to fetch products");
+      const cartContainer = document.querySelector("#main") as HTMLElement;
+      cartContainer.innerHTML = `
+      <h1>You must register first</h1>
+      <a href="?registerParam=register"><h1>Register</h1></a>
+  `;
+  cartContainer.style.display = "flex"; // הפוך את הקונטיינר לגמיש
+  cartContainer.style.flexDirection = "column"; // שנה את כיוון הסידור לעמודה
+  cartContainer.style.justifyContent = "center"; // יישור אנכי
+  cartContainer.style.alignItems = "center"; // יישור אופקי
+  cartContainer.style.height = "100vh"; // גובה כל המסך
+  cartContainer.style.textAlign = "center"; // יישור טקסט
+  cartContainer.style.margin = "0"; // הסר מרווחים חיצוניים
+  cartContainer.style.gap = "20px"; // הוסף מרווחים בין האלמנטים
+      return;
     }
     const cart = await response.json();
 

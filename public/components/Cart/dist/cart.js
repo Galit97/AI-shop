@@ -59,7 +59,7 @@ function renderProductsInCart(products) {
 }
 function fetchCartProducts() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, cart, error_1;
+        var response, cartContainer, cart, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -68,7 +68,17 @@ function fetchCartProducts() {
                 case 1:
                     response = _a.sent();
                     if (!response.ok) {
-                        throw new Error("Failed to fetch products");
+                        cartContainer = document.querySelector("#main");
+                        cartContainer.innerHTML = "\n      <h1>You must register first</h1>\n      <a href=\"?registerParam=register\"><h1>Register</h1></a>\n  ";
+                        cartContainer.style.display = "flex"; // הפוך את הקונטיינר לגמיש
+                        cartContainer.style.flexDirection = "column"; // שנה את כיוון הסידור לעמודה
+                        cartContainer.style.justifyContent = "center"; // יישור אנכי
+                        cartContainer.style.alignItems = "center"; // יישור אופקי
+                        cartContainer.style.height = "100vh"; // גובה כל המסך
+                        cartContainer.style.textAlign = "center"; // יישור טקסט
+                        cartContainer.style.margin = "0"; // הסר מרווחים חיצוניים
+                        cartContainer.style.gap = "20px"; // הוסף מרווחים בין האלמנטים
+                        return [2 /*return*/];
                     }
                     return [4 /*yield*/, response.json()];
                 case 2:
