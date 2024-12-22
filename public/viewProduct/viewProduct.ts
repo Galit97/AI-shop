@@ -65,10 +65,9 @@ async function addToCart(productId: string, quantity: number) {
     body: JSON.stringify({ productId, quantity }),
   });
   if (response.ok) {
-    console.log(response);
+    showCartItemsCount();
   }
 
-  console.log(response);
 }
 
 function openLoginPopup() {

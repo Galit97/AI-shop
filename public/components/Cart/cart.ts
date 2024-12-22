@@ -227,5 +227,6 @@ async function fetchCartAndUpdate(
   if (!response) throw new Error("Failed to fetch cart");
 
   await fetchCartProducts();
+  showCartItemsCount();
 };
 

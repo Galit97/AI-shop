@@ -191,6 +191,7 @@ function fetchCartAndUpdate(products, action) {
                     return [4 /*yield*/, fetchCartProducts()];
                 case 2:
                     _a.sent();
+                    showCartItemsCount();
                     return [2 /*return*/];
             }
         });

@@ -45,20 +45,11 @@ function renderHeader() {
           </div>
         <div class="cart" id="cart">
             <img id="cart-icon" src="./images/cart-image.png" alt="Cart Icon">
-            <span class="cart-items-count">3</span>
+            <span class="cart-items-count" id="cartItemsCount"></span>
         </div>
     </header>`;
 }
 
-function render() {
-  const container = document.querySelector("#header");
-  if (container) {
-    container.innerHTML = renderHeader();
-    showWelcomeName();
-  } else {
-    console.error("Target container not found!");
-  }
-}
 
 const openMenu = document.getElementById("openMenu") as HTMLElement | null;
 const loginRegisterButton = document.querySelector(
@@ -79,6 +70,8 @@ function initHeader() {
   const container = document.querySelector("#header");
   if (container) {
     container.innerHTML = renderHeader();
+    showWelcomeName();
+    showCartItemsCount();
 
     const loginRegisterButton = document.querySelector(
       "#loginRegisterButton"
@@ -133,37 +126,6 @@ if (cartIcon) {
 } else {
   console.error("Cart icon not found!");
 }
-
-// //// make the search work - TO DO ////
-// const searchButton = document.getElementById('search-button');
-// const searchInput = document.getElementById('search-input');
-
-// if (searchButton && searchInput) {
-//   searchButton.addEventListener('click', function() {
-//     const query = searchInput.value.toLowerCase();
-
-//     const productCards = document.querySelectorAll('.product-card');
-
-//     productCards.forEach(card => {
-//       const productName = card.querySelector('.product-name')?.textContent?.toLowerCase() || '';
-//       const productDescription = card.querySelector('.product-description')?.textContent?.toLowerCase() || '';
-
-//       if (productName.includes(query) || productDescription.includes(query)) {
-//         card.style.display = 'block';
-//       } else {
-//         card.style.display = 'none';
-//       }
-//     });
-//   });
-
-//   searchInput.addEventListener('keyup', function(e) {
-//     if (e.key === 'Enter') {
-//       searchButton.click();
-//     }
-//   });
-// } else {
-//   console.error('Search button or input field not found in the DOM');
-// }
 
 async function showWelcomeName() {
   try {
@@ -221,5 +183,38 @@ function searchButton (){
   }
   catch(error){
     console.error('An error occurred:', error.message);
+  }
+};
+
+async function showCartItemsCount() {
+
+  try {
+    const cartItemsCount = document.getElementById("cartItemsCount");
+    if (!cartItemsCount)
+      throw new Error("Cannot find element to display the items count.");
+
+
+    const response = await fetch("http://localhost:3000/api/cart/get-cart");
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const cart = await response.json();
+    console.log(cart)
+
+
+    const totalItems = cart.products.reduce(
+      (acc, product) => acc + product.quantity,
+      0
+    );
+
+    if(totalItems > 0) {
+      cartItemsCount.textContent = totalItems;
+    } else {
+      cartItemsCount.textContent = "0";
+    }
+    
+    console.log(totalItems)
+  } catch (error) {
+    console.error("Error fetching cart products:", error);
   }
 }

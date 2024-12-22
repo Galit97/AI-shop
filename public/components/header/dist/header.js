@@ -34,19 +34,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-//TODO: implement number of items in the cart
 function renderHeader() {
-    return "\n     <header id=\"header\">\n    <div class=\"logo-container\">\n    <a href=\"../index.html\">\n        <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n    </a>\n</div>\n\n        \n       <div class=\"search-container\">\n        <input type=\"text\" placeholder=\"Search for products...\" \n        aria-label=\"Search\" \n        id=\"search-input\">\n       <button aria-label=\"Search\" id=\"search-button\">\n       <img src=\"./images/Search_Icon.svg.png\" id=\"Search_Icon\" alt=\"Search Icon\">\n       </button>\n       </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n            <h3>Welcome <span id=\"loggedInUser\"></span></h3>\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n                <a href=\"?loginParam=login\">Login</a>\n                <a href=\"?registerParam=register\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"#\" onclick=\"ContactUsPopup()\">Contact us</a>\n                <a href=\"?AdminLoginParam=AdminLogin\">Admin login</a>\n                <a href=\"#\" onclick=\"resetCookies()\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\" id=\"cart\">\n            <img id=\"cart-icon\" src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <span class=\"cart-items-count\">3</span>\n        </div>\n    </header>";
-}
-function render() {
-    var container = document.querySelector("#header");
-    if (container) {
-        container.innerHTML = renderHeader();
-        showWelcomeName();
-    }
-    else {
-        console.error("Target container not found!");
-    }
+    return "\n     <header id=\"header\">\n    <div class=\"logo-container\">\n    <a href=\"../index.html\">\n        <img src=\"./images/Ai-shop-logo.png\" alt=\"AI Shop Logo\">\n    </a>\n</div>\n\n        \n       <div class=\"search-container\">\n        <input type=\"text\" placeholder=\"Search for products...\" \n        aria-label=\"Search\" \n        id=\"search-input\">\n       <button aria-label=\"Search\" id=\"search-button\">\n       <img src=\"./images/Search_Icon.svg.png\" id=\"Search_Icon\" alt=\"Search Icon\">\n       </button>\n       </div>\n\n          <div class=\"login-register\">\n            <img src=\"./images/user-image.png\" alt=\"User Icon\">\n            <button id=\"loginRegisterButton\" aria-hasPopup=\"true\" aria-expanded=\"false\">\n            <h3>Welcome <span id=\"loggedInUser\"></span></h3>\n            </button>\n\n          \n            <div id=\"openMenu\" class=\"dropdown-menu\">\n                <a href=\"?loginParam=login\">Login</a>\n                <a href=\"?registerParam=register\">Register</a>\n              <hr>\n              <nav id=\"navbar\">\n                <a href=\"/myOrders\">My orders</a>\n                <a href=\"#\" onclick=\"ContactUsPopup()\">Contact us</a>\n                <a href=\"?AdminLoginParam=AdminLogin\">Admin login</a>\n                <a href=\"#\" onclick=\"resetCookies()\">Log out</a>\n              </nav>\n            </div>\n\n            \n          </div>\n        <div class=\"cart\" id=\"cart\">\n            <img id=\"cart-icon\" src=\"./images/cart-image.png\" alt=\"Cart Icon\">\n            <span class=\"cart-items-count\" id=\"cartItemsCount\"></span>\n        </div>\n    </header>";
 }
 var openMenu = document.getElementById("openMenu");
 var loginRegisterButton = document.querySelector("#loginRegisterButton");
@@ -64,6 +53,8 @@ function initHeader() {
     var container = document.querySelector("#header");
     if (container) {
         container.innerHTML = renderHeader();
+        showWelcomeName();
+        showCartItemsCount();
         var loginRegisterButton_1 = document.querySelector("#loginRegisterButton");
         var loginButton = document.getElementById("login");
         var registerButton = document.getElementById("register");
@@ -108,31 +99,6 @@ if (cartIcon) {
 else {
     console.error("Cart icon not found!");
 }
-// //// make the search work - TO DO ////
-// const searchButton = document.getElementById('search-button');
-// const searchInput = document.getElementById('search-input');
-// if (searchButton && searchInput) {
-//   searchButton.addEventListener('click', function() {
-//     const query = searchInput.value.toLowerCase();
-//     const productCards = document.querySelectorAll('.product-card');
-//     productCards.forEach(card => {
-//       const productName = card.querySelector('.product-name')?.textContent?.toLowerCase() || '';
-//       const productDescription = card.querySelector('.product-description')?.textContent?.toLowerCase() || '';
-//       if (productName.includes(query) || productDescription.includes(query)) {
-//         card.style.display = 'block';
-//       } else {
-//         card.style.display = 'none';
-//       }
-//     });
-//   });
-//   searchInput.addEventListener('keyup', function(e) {
-//     if (e.key === 'Enter') {
-//       searchButton.click();
-//     }
-//   });
-// } else {
-//   console.error('Search button or input field not found in the DOM');
-// }
 function showWelcomeName() {
     return __awaiter(this, void 0, void 0, function () {
         var welcomeName, response, responseData, firstName, error_1;
@@ -194,4 +160,43 @@ function searchButton() {
     catch (error) {
         console.error('An error occurred:', error.message);
     }
+}
+;
+function showCartItemsCount() {
+    return __awaiter(this, void 0, void 0, function () {
+        var cartItemsCount, response, cart, totalItems, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    cartItemsCount = document.getElementById("cartItemsCount");
+                    if (!cartItemsCount)
+                        throw new Error("Cannot find element to display the items count.");
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/cart/get-cart")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch products");
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    cart = _a.sent();
+                    console.log(cart);
+                    totalItems = cart.products.reduce(function (acc, product) { return acc + product.quantity; }, 0);
+                    if (totalItems > 0) {
+                        cartItemsCount.textContent = totalItems;
+                    }
+                    else {
+                        cartItemsCount.textContent = "0";
+                    }
+                    console.log(totalItems);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error("Error fetching cart products:", error_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 }

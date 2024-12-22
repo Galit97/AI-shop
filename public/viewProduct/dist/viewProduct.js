@@ -66,9 +66,8 @@ function addToCart(productId, quantity) {
                 case 1:
                     response = _a.sent();
                     if (response.ok) {
-                        console.log(response);
+                        showCartItemsCount();
                     }
-                    console.log(response);
                     return [2 /*return*/];
             }
         });
