@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () { return __awaiter(_th
 var allProducts = [];
 function fetchAllProducts() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, recommendedProductsResponse, products, recommendedProducts, combinedProducts, allProducts_1, error_1;
+        var response, recommendedProductsResponse, products, recommendedProducts, combinedProducts, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -92,11 +92,9 @@ function fetchAllProducts() {
                 case 4:
                     recommendedProducts = _a.sent();
                     combinedProducts = __spreadArrays(recommendedProducts.map(function (product) { return (__assign(__assign({}, product), { isRecommended: true })); }), products.map(function (product) { return (__assign(__assign({}, product), { isRecommended: false })); }));
-                    allProducts_1 = combinedProducts.filter(function (product, index, self) {
-                        return index === self.findIndex(function (p) { return p._id === product._id; });
-                    });
+                    allProducts = combinedProducts.filter(function (product, index, self) { return index === self.findIndex(function (p) { return p._id === product._id; }); });
                     renderPage();
-                    renderProducts(allProducts_1);
+                    renderProducts(allProducts);
                     return [3 /*break*/, 6];
                 case 5:
                     error_1 = _a.sent();
@@ -111,16 +109,16 @@ function renderPage() {
     var appContainer = document.getElementById("main");
     if (!appContainer)
         return;
-    appContainer.innerHTML = "\n        <div id=\"filter-sort-controls\">\n            <select id=\"categorySection\" name=\"category\">\n              <option value=\"\">Select category</option>\n            </select>\n            <select id=\"sort-filter\">\n                <option value=\"default\">Sort By</option>\n                <option value=\"price-asc\">Price: Low to High</option>\n                <option value=\"price-desc\">Price: High to Low</option>\n                <option value=\"name-asc\">Name: A to Z</option>\n                <option value=\"name-desc\">Name: Z to A</option>\n            </select>\n        </div>\n\n        <div id=\"product-list\"></div>\n    ";
+    appContainer.innerHTML = "\n    <div id=\"filter-sort-controls\">\n        <select id=\"categorySection\" name=\"category\">\n          <option value=\"\">Select category</option>\n        </select>\n        <select id=\"sort-filter\">\n            <option value=\"default\">Sort By</option>\n            <option value=\"price-asc\">Price: Low to High</option>\n            <option value=\"price-desc\">Price: High to Low</option>\n            <option value=\"name-asc\">Name: A to Z</option>\n            <option value=\"name-desc\">Name: Z to A</option>\n        </select>\n    </div>\n\n    <div id=\"product-list\"></div>\n  ";
 }
 function renderProducts(products) {
     var _this = this;
     var container = document.getElementById("product-list");
     if (!container)
         return;
-    container.innerHTML = "\n        <div class=\"product-grid\">\n            " + products
-        .map(function (product) { return "\n                <div class=\"product-card\">\n                     <div  id=\"product-" + product._id + "\">\n                        <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n                        <h3 class=\"product-name\">" + product.name + "</h3>\n                        <div class=\"description-container\"><p class=\"product-description\">" + product.description + "</p></div>\n                        <div class=\"bottom-section\">  \n                           <i class=\"icon fa-solid fa-circle-chevron-down\"></i>\n                           <p class=\"product-price\">$" + product.price + "</p>\n                        </div>\n                    </div>\n                         <button class=\"button-more\" id=\"addToCart-" + product._id + "\"><i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart</button>\n                    \n                    </div>\n                "; })
-        .join("") + "\n        </div>\n    ";
+    container.innerHTML = "\n    <div class=\"product-grid\">\n        " + products
+        .map(function (product) { return "\n            <div class=\"product-card\">\n                <div  id=\"product-" + product._id + "\">\n                    <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n                    <h3 class=\"product-name\">" + product.name + "</h3>\n                    <div class=\"description-container\"><p class=\"product-description\">" + product.description + "</p></div>\n                    <div class=\"bottom-section\">  \n                       <i class=\"icon fa-solid fa-circle-chevron-down\"></i>\n                       <p class=\"product-price\">$" + product.price + "</p>\n                    </div>\n                </div>\n                <button class=\"button-more\" id=\"addToCart-" + product._id + "\">\n                  <i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart\n                </button>\n            </div>\n          "; })
+        .join("") + "\n    </div>\n  ";
     products.forEach(function (product) {
         try {
             var productElement = document.getElementById("product-" + product._id);
@@ -135,7 +133,9 @@ function renderProducts(products) {
                             return [4 /*yield*/, getClientId()];
                         case 1:
                             clientId = _a.sent();
-                            setInteraction(clientId, product._id, "view", 1);
+                            if (clientId) {
+                                setInteraction(clientId, product._id, "view", 1);
+                            }
                             ratingStars();
                             return [2 /*return*/];
                     }
@@ -146,10 +146,10 @@ function renderProducts(products) {
             console.error(error);
         }
         try {
-            var productElement = document.getElementById("addToCart-" + product._id);
-            if (!productElement)
+            var addToCartButton = document.getElementById("addToCart-" + product._id);
+            if (!addToCartButton)
                 throw new Error("Product " + product._id + " not found");
-            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
+            addToCartButton === null || addToCartButton === void 0 ? void 0 : addToCartButton.addEventListener("click", function () {
                 addToCart(product._id, 1);
             });
         }
@@ -160,24 +160,30 @@ function renderProducts(products) {
 }
 function getClientId() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, data;
+        var response, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client")];
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client")];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    console.log((data.clientId).toString());
-                    return [2 /*return*/, data.clientId];
+                    return [2 /*return*/, data.clientId ? data.clientId : null];
+                case 3:
+                    error_2 = _a.sent();
+                    console.error("Error getting client ID:", error_2);
+                    return [2 /*return*/, null];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
 function fetchCategories() {
     return __awaiter(this, void 0, Promise, function () {
-        var response, categories, categorySelect_1, error_2;
+        var response, categories, categorySelect_1, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -192,7 +198,7 @@ function fetchCategories() {
                     categories = _a.sent();
                     categorySelect_1 = document.getElementById("categorySection");
                     if (!categorySelect_1)
-                        throw new Error("no category selected");
+                        throw new Error("No category select element");
                     categorySelect_1.innerHTML = '<option value="">Select category</option>';
                     categories.forEach(function (category) {
                         var option = document.createElement("option");
@@ -202,13 +208,12 @@ function fetchCategories() {
                     });
                     categorySelect_1.addEventListener("change", function (event) {
                         var selectedCategory = event.target.value;
-                        console.log(selectedCategory);
                         filterByCategory(selectedCategory);
                     });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_2 = _a.sent();
-                    console.error("Error fetching categories:", error_2);
+                    error_3 = _a.sent();
+                    console.error("Error fetching categories:", error_3);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -216,22 +221,16 @@ function fetchCategories() {
     });
 }
 function filterByCategory(categoryId) {
-    //todo - FIX THE ISSUE OF FILTER THE PRODUCT (DOM ISSUE)
-    var filteredProducts = categoryId === "all" || categoryId === ""
+    var filteredProducts = categoryId === "" || categoryId === "all"
         ? allProducts
-        : allProducts.filter(function (product) { return product.category._id === categoryId; });
+        : allProducts.filter(function (product) { var _a; return ((_a = product.category) === null || _a === void 0 ? void 0 : _a._id) === categoryId; });
     renderProducts(filteredProducts);
 }
 function filterBySearch(productName) {
-    try {
-        var filteredProducts = allProducts.filter(function (product) {
-            return product.name.toLowerCase().includes(productName.toLowerCase());
-        });
-        renderProducts(filteredProducts);
-    }
-    catch (error) {
-        console.error("Error filtering products:", error);
-    }
+    var filteredProducts = allProducts.filter(function (product) {
+        return product.name.toLowerCase().includes(productName.toLowerCase());
+    });
+    renderProducts(filteredProducts);
 }
 function sortProducts(criteria) {
     var sortedProducts = __spreadArrays(allProducts);
@@ -254,7 +253,7 @@ function sortProducts(criteria) {
     renderProducts(sortedProducts);
 }
 function setupEventListeners() {
-    var categoryFilter = document.getElementById("category");
+    var categoryFilter = document.getElementById("categorySection");
     var sortFilter = document.getElementById("sort-filter");
     if (categoryFilter) {
         categoryFilter.addEventListener("change", function (event) {
@@ -266,6 +265,13 @@ function setupEventListeners() {
         sortFilter.addEventListener("change", function (event) {
             var criteria = event.target.value;
             sortProducts(criteria);
+        });
+    }
+    var searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        searchInput.addEventListener("input", function (event) {
+            var searchQuery = event.target.value;
+            filterBySearch(searchQuery);
         });
     }
 }
