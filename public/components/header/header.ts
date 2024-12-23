@@ -8,7 +8,7 @@ function renderHeader() {
      <header id="header">
     <div class="logo-container">
     <a href="../index.html">
-        <img src="./images/Ai-shop-logo.png" alt="AI Shop Logo">
+        <img src="./images/easy-choice-1.png" alt="easy choice Logo">
     </a>
 </div>
 

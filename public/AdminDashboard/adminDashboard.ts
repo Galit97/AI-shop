@@ -2,7 +2,7 @@ function renderDashboard(): string {
     return `
          <div class="sidebar" id="dashboardContainer">
           <div class="logo-container">
-            <img src="../images/Ai-shop-logo.png" alt="AI Shop Logo">
+            <img src="../images/easy-choice-1.png" alt="easy choice Logo">
         </div>
         <ul class="sidebar-menu">
             <li class="sidebar-item">
