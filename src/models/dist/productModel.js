@@ -31,6 +31,10 @@ exports.ProductSchema = new mongoose_1.Schema({
     },
     image: {
         type: String
+    },
+    popularity: {
+        type: Number,
+        "default": 0
     }
 });
 exports.ProductModel = mongoose_1.model('Product', exports.ProductSchema);

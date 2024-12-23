@@ -13,7 +13,8 @@ import chatBotRouter from './routes/chatBotRouter';
 import categoryRouter from './routes/categoriesRouter';
 import cartRouter from './routes/cartRouter';
 import cookiesRouter from './routes/cookiesRouter';
-import connectUsRouter from './routes/ConnectUsRouter';
+import connectUsRouter from './routes/connectUsRouter';
+import interactionsRouter from './routes/interactionsRouter';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -40,6 +41,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/cookies", cookiesRouter);
 app.use("/api/connectUs", connectUsRouter);
+app.use("/api/interaction", interactionsRouter);
 
 
 

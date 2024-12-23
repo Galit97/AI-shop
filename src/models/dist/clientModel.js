@@ -27,6 +27,10 @@ exports.ClientSchema = new mongoose_1.Schema({
     },
     address: {
         type: String
+    },
+    preferences: {
+        type: [String],
+        "default": []
     }
 });
 exports.ClientModel = mongoose_1.model("Client", exports.ClientSchema);

@@ -8,6 +8,7 @@ export interface Client extends Document{
     phoneNumber: string;
     password:string;
     address: string;
+    preferences: [string];
 }
 
 export const ClientSchema = new Schema<Client>({
@@ -35,7 +36,10 @@ export const ClientSchema = new Schema<Client>({
     },
     address: {
         type:String,
-    }
+    },
+    preferences: { 
+        type: [String], 
+        default: [] }
     
 })
 

@@ -10,6 +10,7 @@ export interface Product extends Document {
   quantity: number;
   inSale: boolean;
   image: string;
+  popularity: number;
 }
 
 export const ProductSchema = new Schema<Product>({
@@ -43,6 +44,9 @@ export const ProductSchema = new Schema<Product>({
     type: String,
     // required: true,
   },
+  popularity: { 
+    type: Number, 
+    default: 0 }
 });
 
 export const ProductModel = model('Product', ProductSchema);
