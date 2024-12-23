@@ -35,24 +35,101 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 function renderProductView(product) {
-    var container = document.getElementById("main");
-    if (!container)
-        return;
-    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n                <div class=\"stars\" id='" + product._id + "'>\n                <span class=\"star\" data-value=\"1\">&#9733;</span>\n                <span class=\"star\" data-value=\"2\">&#9733;</span>\n                <span class=\"star\" data-value=\"3\">&#9733;</span>\n                <span class=\"star\" data-value=\"4\">&#9733;</span>\n                <span class=\"star\" data-value=\"5\">&#9733;</span>\n                </div>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\"\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
-    try {
-        var productElement = document.getElementById("addToCart-" + product._id);
-        if (!productElement)
-            throw new Error("Product " + product._id + " not found");
-        productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
-            var quantityInput = document.getElementById("quantity");
-            var quantity = parseInt(quantityInput.value, 10);
-            addToCart(product._id, quantity);
+    return __awaiter(this, void 0, void 0, function () {
+        var container, productElement;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    container = document.getElementById("main");
+                    if (!container)
+                        return [2 /*return*/];
+                    container.innerHTML = "\n    <div class=\"product-view\">\n      <div class=\"main-image\">\n        <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n      </div>\n      <div class=\"product-details\">\n        <h1 class=\"product-title\">" + product.name + "</h1>\n        <p class=\"product-price\">$ " + product.price + "</p>\n        <p class=\"product-description\">" + product.description + "</p>\n        \n        <div class=\"stars\" id='" + product._id + "'>\n          <span class=\"star\" data-value=\"1\">&#9733;</span>\n          <span class=\"star\" data-value=\"2\">&#9733;</span>\n          <span class=\"star\" data-value=\"3\">&#9733;</span>\n          <span class=\"star\" data-value=\"4\">&#9733;</span>\n          <span class=\"star\" data-value=\"5\">&#9733;</span>\n        </div>\n        \n        <div class=\"product-options\">\n          <label for=\"size\">Size:</label>\n          <select id=\"size\">\n            <option value=\"small\">Small</option>\n            <option value=\"medium\">Medium</option>\n            <option value=\"large\">Large</option>\n          </select>\n          <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n        </div>\n\n        <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\">Add to Cart</button>\n\n        <!-- Recommended Products Section -->\n        <div id=\"recommended-products\" class=\"recommended-products\">\n          <h3>You may also like</h3>\n          <div class=\"product-grid\" id=\"recommended-products-list\"></div>\n        </div>\n      </div>\n    </div>\n  ";
+                    // Add event listener for add-to-cart button
+                    try {
+                        productElement = document.getElementById("addToCart-" + product._id);
+                        if (!productElement)
+                            throw new Error("Product " + product._id + " not found");
+                        productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
+                            var quantityInput = document.getElementById("quantity");
+                            var quantity = parseInt(quantityInput.value, 10);
+                            addToCart(product._id, quantity);
+                        });
+                    }
+                    catch (error) {
+                        console.error(error);
+                    }
+                    // Fetch and display recommended products
+                    return [4 /*yield*/, renderRecommendedProducts(product._id)];
+                case 1:
+                    // Fetch and display recommended products
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
-    }
-    catch (error) {
-        console.error(error);
-    }
+    });
 }
+// Function to render recommended products based on the current product category or similar
+function renderRecommendedProducts(currentProductId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, recommendedProducts, filteredRecommended, recommendedProductsList, error_1;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch("/api/products/get-recommended-products")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Failed to fetch recommended products");
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    recommendedProducts = _a.sent();
+                    filteredRecommended = recommendedProducts.filter(function (product) { return product._id !== currentProductId; });
+                    recommendedProductsList = document.getElementById("recommended-products-list");
+                    if (!recommendedProductsList)
+                        return [2 /*return*/];
+                    recommendedProductsList.innerHTML = filteredRecommended
+                        .map(function (product) { return "\n        <div class=\"product-card\">\n          <div id=\"product-" + product._id + "\">\n            <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            <h3 class=\"product-name\">" + product.name + "</h3>\n            <p class=\"product-price\">$" + product.price + "</p>\n          </div>\n          <button class=\"button-more\" id=\"addToCart-" + product._id + "\">\n            <i class=\"icon fa-solid fa-cart-shopping\"></i> Add to cart\n          </button>\n        </div>\n      "; })
+                        .join("");
+                    // Add event listeners for each recommended product
+                    filteredRecommended.forEach(function (product) {
+                        var productElement = document.getElementById("product-" + product._id);
+                        if (productElement) {
+                            productElement.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+                                var clientId;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            renderProductView(product);
+                                            return [4 /*yield*/, getClientId()];
+                                        case 1:
+                                            clientId = _a.sent();
+                                            setInteraction(clientId, product._id, "view", 1);
+                                            ratingStars();
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            }); });
+                        }
+                        var addToCartButton = document.getElementById("addToCart-" + product._id);
+                        if (addToCartButton) {
+                            addToCartButton.addEventListener("click", function () {
+                                addToCart(product._id, 1);
+                            });
+                        }
+                    });
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error("Error fetching recommended products:", error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+// Function to add a product to the cart
 function addToCart(productId, quantity) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data;
@@ -77,6 +154,24 @@ function addToCart(productId, quantity) {
         });
     });
 }
+// Function to get client ID (for interaction tracking)
+function getClientId() {
+    return __awaiter(this, void 0, Promise, function () {
+        var response, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client")];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    return [2 /*return*/, data.clientId];
+            }
+        });
+    });
+}
+// Function to handle product ratings
 function ratingStars() {
     var _this = this;
     var stars = document.querySelectorAll('.star');
@@ -103,7 +198,6 @@ function ratingStars() {
                         return [4 /*yield*/, getClientId()];
                     case 1:
                         clientId = _c.sent();
-                        console.log("Product " + productId + " rated with " + rating + " stars", clientId, parseInt(rating));
                         setRating(clientId, productId, parseInt(rating));
                         _c.label = 2;
                     case 2: return [2 /*return*/];
@@ -112,6 +206,7 @@ function ratingStars() {
         }); });
     });
 }
+// Function to set interaction data (views, ratings, etc.)
 function setInteraction(clientId, productId, type, score) {
     return __awaiter(this, void 0, void 0, function () {
         var response, e_1;
@@ -136,7 +231,7 @@ function setInteraction(clientId, productId, type, score) {
         });
     });
 }
-;
+// Function to submit the product rating
 function setRating(clientId, productId, rating) {
     return __awaiter(this, void 0, void 0, function () {
         var response, e_2;
