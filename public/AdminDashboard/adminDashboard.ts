@@ -72,7 +72,6 @@ function handleMenuClick(ev: Event): void {
         sectionToShow.classList.remove("hidden");
     }
 
-
     if (sectionId === "all-products") {
         renderAllProducts();
     } else if (sectionId === "add-product") {
@@ -85,6 +84,8 @@ function handleMenuClick(ev: Event): void {
         window.location.href = "/"; 
     }
 }
+
+
 
 function renderCategoryPage(): void {
     const categoriesSection = document.getElementById("categories");
@@ -134,7 +135,6 @@ function renderAllProducts () {
         <div id="products-table"></div>
     `;
     fetchAllProducts();
-    // renderProductsTable();
     
 }
 

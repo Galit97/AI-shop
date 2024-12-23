@@ -69,7 +69,6 @@ function renderAllProducts() {
         throw new Error('No products list found');
     productsSection.innerHTML = "\n        <div id=\"products-table\"></div>\n    ";
     fetchAllProducts();
-    // renderProductsTable();
 }
 function initializeDashboard() {
     render();
