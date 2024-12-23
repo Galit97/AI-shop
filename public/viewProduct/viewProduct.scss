@@ -88,3 +88,91 @@
   .star.selected {
     color: gold;
   }
+
+@media (max-width: 768px) {
+  .product-view {
+    margin: 2rem;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .main-image {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .main-image img {
+    width: 100%; 
+    height: auto; 
+  }
+
+  .product-details {
+    flex: none;
+    width: 100%;
+  }
+
+  .product-title {
+    font-size: 20px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+
+  .product-description {
+    font-size: 1rem;
+  }
+
+  .stars {
+    font-size: 20px;
+  }
+
+  .add-to-cart {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .recommended-products {
+    margin-top: 2rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-view {
+    margin: 1rem;
+  }
+
+  .product-title {
+    font-size: 18px;
+  }
+
+  .product-price {
+    font-size: 16px;
+  }
+
+  .product-description {
+    font-size: 0.9rem;
+  }
+
+  .stars {
+    font-size: 18px;
+  }
+
+  .add-to-cart {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    padding: 10px 5px;
+  }
+}
