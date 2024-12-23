@@ -38,7 +38,7 @@ function renderProductView(product) {
     var container = document.getElementById("main");
     if (!container)
         return;
-    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\"\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
+    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n                <div class=\"stars\" data-product-id=\"1\">\n                <span class=\"star\" data-value=\"1\">&#9733;</span>\n                <span class=\"star\" data-value=\"2\">&#9733;</span>\n                <span class=\"star\" data-value=\"3\">&#9733;</span>\n                <span class=\"star\" data-value=\"4\">&#9733;</span>\n                <span class=\"star\" data-value=\"5\">&#9733;</span>\n                </div>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\"\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
     try {
         var productElement = document.getElementById("addToCart-" + product._id);
         if (!productElement)
@@ -76,3 +76,24 @@ function addToCart(productId, quantity) {
 function openLoginPopup() {
     var loginPopup = document.getElementById("loginPopup");
 }
+var stars = document.querySelectorAll('.star');
+stars.forEach(function (star) {
+    star.addEventListener('click', function (event) {
+        var _a, _b;
+        var clickedStar = event.target;
+        var productId = (_a = clickedStar.closest('.stars')) === null || _a === void 0 ? void 0 : _a.getAttribute('data-product-id');
+        var rating = clickedStar.getAttribute('data-value');
+        if (productId && rating) {
+            var allStars = (_b = clickedStar.closest('.stars')) === null || _b === void 0 ? void 0 : _b.querySelectorAll('.star');
+            allStars === null || allStars === void 0 ? void 0 : allStars.forEach(function (star) {
+                if (parseInt(star.getAttribute('data-value') || '0') <= parseInt(rating)) {
+                    star.classList.add('selected');
+                }
+                else {
+                    star.classList.remove('selected');
+                }
+            });
+            console.log("Product " + productId + " rated with " + rating + " stars");
+        }
+    });
+});

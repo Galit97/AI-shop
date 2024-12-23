@@ -27,6 +27,13 @@ function renderProductView(product: Product) {
               <h1 class="product-title">${product.name}</h1>
               <p class="product-price">$ ${product.price}</p>
               <p class="product-description">${product.description}</p>
+                <div class="stars" data-product-id="1">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+                </div>
               <div class="product-options">
                 <label for="size">Size:</label>
                 <select id="size">
@@ -73,3 +80,27 @@ async function addToCart(productId: string, quantity: number) {
 function openLoginPopup() {
   const loginPopup = document.getElementById("loginPopup");
 }
+
+
+const stars = document.querySelectorAll('.star');
+
+stars.forEach((star: Element) => {
+  star.addEventListener('click', (event: Event) => {
+    const clickedStar = event.target as HTMLElement;
+    const productId = clickedStar.closest('.stars')?.getAttribute('data-product-id');
+    const rating = clickedStar.getAttribute('data-value');
+
+    if (productId && rating) {
+      const allStars = clickedStar.closest('.stars')?.querySelectorAll('.star');
+      allStars?.forEach((star: HTMLElement) => {
+        if (parseInt(star.getAttribute('data-value') || '0') <= parseInt(rating)) {
+          star.classList.add('selected');
+        } else {
+          star.classList.remove('selected');
+        }
+      });
+
+      console.log(`Product ${productId} rated with ${rating} stars`);
+    }
+  });
+});

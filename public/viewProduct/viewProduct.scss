@@ -74,3 +74,17 @@
       }
     }
   }
+
+  .stars {
+    display: flex;
+    cursor: pointer;
+  }
+  
+  .star {
+    font-size: 24px;
+    color: #ccc;
+  }
+  
+  .star.selected {
+    color: gold;
+  }
