@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.removeItem = exports.addToCart = void 0;
+exports.updateCart = exports.addToCart = void 0;
 var cartModel_1 = require("../../models/cartModel");
 var productModel_1 = require("../../models/productModel");
 function addToCart(req, res) {
@@ -60,7 +60,6 @@ function addToCart(req, res) {
                     if (!product) {
                         return [2 /*return*/, res.status(404).json({ message: "Product not found" })];
                     }
-                    console.log("Product", product.price);
                     return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate("products.product")];
                 case 2:
                     cart = _b.sent();
@@ -96,19 +95,63 @@ function addToCart(req, res) {
     });
 }
 exports.addToCart = addToCart;
-function removeItem(req, res) {
+function updateCart(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, productId, userId;
+        var _a, productId_2, action, client, clientId, cart, productIndex, product, error_2;
         return __generator(this, function (_b) {
-            try {
-                _a = req.body, productId = _a.productId, userId = _a.userId;
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 3, , 4]);
+                    _a = req.body, productId_2 = _a.productId, action = _a.action;
+                    if (!productId_2) {
+                        return [2 /*return*/, res.status(400).json({ message: "Product ID is required" })];
+                    }
+                    client = req.client;
+                    clientId = client === null || client === void 0 ? void 0 : client._id;
+                    return [4 /*yield*/, cartModel_1.CartModel.findOne({ clientId: clientId }).populate("products.product")];
+                case 1:
+                    cart = _b.sent();
+                    if (!cart) {
+                        return [2 /*return*/, res.status(404).json({ message: "Cart not found" })];
+                    }
+                    productIndex = cart.products.findIndex(function (p) { return JSON.stringify(p.product._id) === JSON.stringify(productId_2); });
+                    if (productIndex === -1) {
+                        return [2 /*return*/, res.status(404).json({ message: "Product not found in cart" })];
+                    }
+                    product = cart.products[productIndex];
+                    if (action === "increase") {
+                        product.quantity += 1;
+                        cart.total += product.product.price;
+                    }
+                    else if (action === "decrease") {
+                        if (product.quantity > 1) {
+                            product.quantity -= 1;
+                            cart.total -= product.product.price;
+                        }
+                        else {
+                            cart.total -= product.product.price;
+                            cart.products.splice(productIndex, 1);
+                        }
+                    }
+                    else if (action === "remove") {
+                        cart.total -= product.product.price * product.quantity;
+                        cart.products.splice(productIndex, 1);
+                    }
+                    else {
+                        return [2 /*return*/, res.status(400).json({ message: "Invalid action" })];
+                    }
+                    return [4 /*yield*/, cart.save()];
+                case 2:
+                    _b.sent();
+                    return [2 /*return*/, res.status(200).send({ message: "Cart updated successfully" })];
+                case 3:
+                    error_2 = _b.sent();
+                    console.error("Error in update cart:", error_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
-            catch (error) {
-                console.error("Error in addToCart:", error);
-                return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
-            }
-            return [2 /*return*/];
         });
     });
 }
-exports.removeItem = removeItem;
+exports.updateCart = updateCart;
+;

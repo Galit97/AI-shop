@@ -44,29 +44,26 @@ function getClientFromCookie(req, res, next) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("getClientFromCookie");
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     clientId = req.cookies.client;
                     if (!clientId) {
                         alert("No client");
                         return [2 /*return*/, res.status(200).send({ message: "Client not connected" })];
                     }
                     return [4 /*yield*/, clientModel_1.ClientModel.findOne({ _id: clientId })];
-                case 2:
+                case 1:
                     client = _a.sent();
                     if (!client) {
                         return [2 /*return*/, res.status(404).json({ message: 'Client not found' })];
                     }
                     req.client = client;
                     next();
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 3];
+                case 2:
                     error_1 = _a.sent();
                     console.error("Error in addToCart:", error_1);
                     return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
-                case 4: return [2 /*return*/];
+                case 3: return [2 /*return*/];
             }
         });
     });
