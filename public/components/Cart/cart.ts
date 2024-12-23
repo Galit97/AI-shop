@@ -84,7 +84,22 @@ function renderCart(cart: Cart): string {
 function renderProductsInCart(
   products: { product: Product; quantity: number }[]
 ): string {
-  return products
+
+   const aggregatedProducts = products.reduce(
+    (acc: { [key: string]: { product: Product; quantity: number } }, current) => {
+      const { product, quantity } = current;
+
+      if (acc[product._id]) {
+        acc[product._id].quantity += quantity;
+      } else {
+        acc[product._id] = { product, quantity };
+      }
+      return acc;
+    },
+    {}
+  );
+  const uniqueProducts = Object.values(aggregatedProducts);
+  return uniqueProducts
     .map(
       ({ product, quantity }) => `
      <div class="cartPage-container">

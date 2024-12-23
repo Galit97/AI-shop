@@ -50,7 +50,18 @@ function renderCart(cart) {
     }
 }
 function renderProductsInCart(products) {
-    return products
+    var aggregatedProducts = products.reduce(function (acc, current) {
+        var product = current.product, quantity = current.quantity;
+        if (acc[product._id]) {
+            acc[product._id].quantity += quantity;
+        }
+        else {
+            acc[product._id] = { product: product, quantity: quantity };
+        }
+        return acc;
+    }, {});
+    var uniqueProducts = Object.values(aggregatedProducts);
+    return uniqueProducts
         .map(function (_a) {
         var product = _a.product, quantity = _a.quantity;
         return "\n     <div class=\"cartPage-container\">\n    <div class=\"row border-top border-bottom\" id=\"product-" + product._id + "\">\n        <div class=\"row main align-items-center\">\n            <div class=\"col-2\">\n                <img class=\"img-fluid\" src=\"" + product.image + "\" alt=\"" + product.name + "\">\n            </div>\n            <div class=\"col\">\n                <div class=\"row\">" + product.name + "</div>\n            </div>\n            <div class=\"col\">\n                <a id=\"decrease-qty-" + product._id + "\" class=\"decrease-qty\">-</a>\n                <span class=\"border\">" + quantity + "</span>\n                <a id=\"increase-qty-" + product._id + "\" class=\"increase-qty\">+</a>\n            </div>\n            <div class=\"col\">\n                $ " + product.price + " * " + quantity + "\n            </div>\n            <div class=\"col\">\n                $ " + (product.price * quantity).toFixed(2) + " \n                <i class=\"close fa-solid fa-x\" id=remove-" + product._id + "></i>\n            </div>\n        </div>\n    </div>\n</div>\n                ";
