@@ -15,6 +15,7 @@ export async function getClient(req: any, res: any) {
 
         return res.status(200).json({
             message: 'Client retrieved successfully',
+            clientId,
             client: {
                 firstName: client.firstName,
             },

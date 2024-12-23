@@ -38,7 +38,7 @@ function renderProductView(product) {
     var container = document.getElementById("main");
     if (!container)
         return;
-    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n                <div class=\"stars\" data-product-id=\"1\">\n                <span class=\"star\" data-value=\"1\">&#9733;</span>\n                <span class=\"star\" data-value=\"2\">&#9733;</span>\n                <span class=\"star\" data-value=\"3\">&#9733;</span>\n                <span class=\"star\" data-value=\"4\">&#9733;</span>\n                <span class=\"star\" data-value=\"5\">&#9733;</span>\n                </div>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\"\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
+    container.innerHTML = "\n        <div class=\"product-view\">\n            <div class=\"main-image\">\n                 <img src=\"" + product.image + "\" alt=\"" + product.name + "\" class=\"product-image\" />\n            </div>\n            <div class=\"product-details\">\n              <h1 class=\"product-title\">" + product.name + "</h1>\n              <p class=\"product-price\">$ " + product.price + "</p>\n              <p class=\"product-description\">" + product.description + "</p>\n                <div class=\"stars\" id='" + product._id + "'>\n                <span class=\"star\" data-value=\"1\">&#9733;</span>\n                <span class=\"star\" data-value=\"2\">&#9733;</span>\n                <span class=\"star\" data-value=\"3\">&#9733;</span>\n                <span class=\"star\" data-value=\"4\">&#9733;</span>\n                <span class=\"star\" data-value=\"5\">&#9733;</span>\n                </div>\n              <div class=\"product-options\">\n                <label for=\"size\">Size:</label>\n                <select id=\"size\">\n                  <option value=\"small\">Small</option>\n                  <option value=\"medium\">Medium</option>\n                  <option value=\"large\">Large</option>\n                </select>\n                <input type=\"number\" id=\"quantity\" value=\"1\" min=\"1\">\n              </div>\n\n              <button class=\"add-to-cart\" id=\"addToCart-" + product._id + "\"\">Add to Cart</button>\n              \n            </div>\n        </div>\n    ";
     try {
         var productElement = document.getElementById("addToCart-" + product._id);
         if (!productElement)
@@ -55,7 +55,7 @@ function renderProductView(product) {
 }
 function addToCart(productId, quantity) {
     return __awaiter(this, void 0, void 0, function () {
-        var response;
+        var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/cart/add-to-cart", {
@@ -65,35 +65,100 @@ function addToCart(productId, quantity) {
                     })];
                 case 1:
                     response = _a.sent();
-                    if (response.ok) {
-                        showCartItemsCount();
-                    }
-                    return [2 /*return*/];
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    showCartItemsCount();
+                    setInteraction(data.clientId, productId, "addToCart", 3);
+                    _a.label = 3;
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
-function openLoginPopup() {
-    var loginPopup = document.getElementById("loginPopup");
-}
-var stars = document.querySelectorAll('.star');
-stars.forEach(function (star) {
-    star.addEventListener('click', function (event) {
-        var _a, _b;
-        var clickedStar = event.target;
-        var productId = (_a = clickedStar.closest('.stars')) === null || _a === void 0 ? void 0 : _a.getAttribute('data-product-id');
-        var rating = clickedStar.getAttribute('data-value');
-        if (productId && rating) {
-            var allStars = (_b = clickedStar.closest('.stars')) === null || _b === void 0 ? void 0 : _b.querySelectorAll('.star');
-            allStars === null || allStars === void 0 ? void 0 : allStars.forEach(function (star) {
-                if (parseInt(star.getAttribute('data-value') || '0') <= parseInt(rating)) {
-                    star.classList.add('selected');
-                }
-                else {
-                    star.classList.remove('selected');
+function ratingStars() {
+    var _this = this;
+    var stars = document.querySelectorAll('.star');
+    stars.forEach(function (star) {
+        star.addEventListener('click', function (event) { return __awaiter(_this, void 0, void 0, function () {
+            var clickedStar, productId, rating, allStars, clientId;
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        clickedStar = event.target;
+                        productId = (_a = clickedStar.closest('.stars')) === null || _a === void 0 ? void 0 : _a.id;
+                        rating = clickedStar.getAttribute('data-value');
+                        if (!(productId && rating)) return [3 /*break*/, 2];
+                        allStars = (_b = clickedStar.closest('.stars')) === null || _b === void 0 ? void 0 : _b.querySelectorAll('.star');
+                        allStars === null || allStars === void 0 ? void 0 : allStars.forEach(function (star) {
+                            if (parseInt(star.getAttribute('data-value') || '0') <= parseInt(rating)) {
+                                star.classList.add('selected');
+                            }
+                            else {
+                                star.classList.remove('selected');
+                            }
+                        });
+                        return [4 /*yield*/, getClientId()];
+                    case 1:
+                        clientId = _c.sent();
+                        console.log("Product " + productId + " rated with " + rating + " stars", clientId, parseInt(rating));
+                        setRating(clientId, productId, parseInt(rating));
+                        _c.label = 2;
+                    case 2: return [2 /*return*/];
                 }
             });
-            console.log("Product " + productId + " rated with " + rating + " stars");
-        }
+        }); });
     });
-});
+}
+function setInteraction(clientId, productId, type, score) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, e_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/interaction/set-interaction', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ clientId: clientId, productId: productId, type: type, score: score })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_1 = _a.sent();
+                    console.error(e_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+;
+function setRating(clientId, productId, rating) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, e_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/api/rating/add-rating', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ clientId: clientId, productId: productId, rating: rating })
+                        })];
+                case 1:
+                    response = _a.sent();
+                    setInteraction(clientId, productId, "rating", rating);
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_2 = _a.sent();
+                    console.error(e_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}

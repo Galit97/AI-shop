@@ -15,7 +15,7 @@ exports.interactionSchema = new mongoose_1["default"].Schema({
     },
     type: {
         type: String,
-        "enum": ['view', 'purchase', 'rating'],
+        "enum": ['view', 'addToCart', 'rating'],
         required: true
     },
     timestamp: {

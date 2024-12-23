@@ -22,7 +22,7 @@ export const interactionSchema = new mongoose.Schema({
 },
   type: { 
     type: String, 
-    enum: ['view', 'purchase', 'rating'], 
+    enum: ['view', 'addToCart', 'rating'], 
     required: true },
   timestamp: { 
     type: Date, 

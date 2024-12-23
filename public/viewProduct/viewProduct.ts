@@ -27,7 +27,7 @@ function renderProductView(product: Product) {
               <h1 class="product-title">${product.name}</h1>
               <p class="product-price">$ ${product.price}</p>
               <p class="product-description">${product.description}</p>
-                <div class="stars" data-product-id="1">
+                <div class="stars" id='${product._id}'>
                 <span class="star" data-value="1">&#9733;</span>
                 <span class="star" data-value="2">&#9733;</span>
                 <span class="star" data-value="3">&#9733;</span>
@@ -72,35 +72,64 @@ async function addToCart(productId: string, quantity: number) {
     body: JSON.stringify({ productId, quantity }),
   });
   if (response.ok) {
+    const data = await response.json();
     showCartItemsCount();
-  }
-
-}
-
-function openLoginPopup() {
-  const loginPopup = document.getElementById("loginPopup");
+    setInteraction(data.clientId, productId, "addToCart", 3);
+  } 
 }
 
 
-const stars = document.querySelectorAll('.star');
+function ratingStars() {
+  const stars = document.querySelectorAll('.star');
 
-stars.forEach((star: Element) => {
-  star.addEventListener('click', (event: Event) => {
-    const clickedStar = event.target as HTMLElement;
-    const productId = clickedStar.closest('.stars')?.getAttribute('data-product-id');
-    const rating = clickedStar.getAttribute('data-value');
-
-    if (productId && rating) {
-      const allStars = clickedStar.closest('.stars')?.querySelectorAll('.star');
-      allStars?.forEach((star: HTMLElement) => {
-        if (parseInt(star.getAttribute('data-value') || '0') <= parseInt(rating)) {
-          star.classList.add('selected');
-        } else {
-          star.classList.remove('selected');
-        }
-      });
-
-      console.log(`Product ${productId} rated with ${rating} stars`);
-    }
+  stars.forEach((star: Element) => {
+    star.addEventListener('click', async (event: Event) => {
+      const clickedStar = event.target as HTMLElement;
+      const productId = clickedStar.closest('.stars')?.id;
+      const rating = clickedStar.getAttribute('data-value');
+  
+      if (productId && rating) {
+        const allStars = clickedStar.closest('.stars')?.querySelectorAll('.star');
+        allStars?.forEach((star) => {
+          if (parseInt(star.getAttribute('data-value') || '0') <= parseInt(rating)) {
+            star.classList.add('selected');
+          } else {
+            star.classList.remove('selected');
+          }
+        });
+        const clientId = await getClientId();
+        console.log(`Product ${productId} rated with ${rating} stars`, clientId, parseInt(rating));
+        setRating(clientId, productId, parseInt(rating));
+      }
+    });
   });
-});
+}
+
+async function setInteraction (clientId: string, productId: string, type: string, score: number) {
+  try{
+    const response = await fetch('http://localhost:3000/api/interaction/set-interaction', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({clientId, productId, type: type, score: score}),
+  });
+  
+
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+async function setRating(clientId: string, productId: string, rating: number) {
+  try{
+    const response = await fetch('http://localhost:3000/api/rating/add-rating', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({clientId, productId, rating: rating}),
+  });
+  setInteraction(clientId, productId, "rating", rating);
+
+  } catch (e) {
+    console.error(e);
+  }
+}
+

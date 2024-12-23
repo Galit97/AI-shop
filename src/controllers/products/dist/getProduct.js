@@ -36,7 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.editProducts = exports.deleteProduct = exports.getProduct = exports.getProducts = void 0;
+exports.recommendedProducts = exports.getRecommendedProducts = exports.editProducts = exports.deleteProduct = exports.getProduct = exports.getProducts = void 0;
+var mongoose_1 = require("mongoose");
+var interactionModel_1 = require("../../models/interactionModel");
 var productModel_1 = require("../../models/productModel");
 exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var products, error_1;
@@ -47,7 +49,7 @@ exports.getProducts = function (req, res) { return __awaiter(void 0, void 0, voi
                 return [4 /*yield*/, productModel_1.ProductModel.find().populate('category', 'name')];
             case 1:
                 products = _a.sent();
-                res.status(200).json(products);
+                res.status(201).json(products);
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
@@ -126,3 +128,68 @@ exports.editProducts = function (req, res) { return __awaiter(void 0, void 0, vo
         }
     });
 }); };
+function getRecommendedProducts(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var client, clientId, recommendations, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    client = req.client;
+                    clientId = client === null || client === void 0 ? void 0 : client._id;
+                    return [4 /*yield*/, recommendedProducts(clientId)];
+                case 1:
+                    recommendations = _a.sent();
+                    res.status(201).json(recommendations);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_5 = _a.sent();
+                    res.status(500).json({ message: 'Error fetching products', error: error_5 });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getRecommendedProducts = getRecommendedProducts;
+function recommendedProducts(clientId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var recommendations, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, interactionModel_1.Interaction.aggregate([
+                            { $match: { clientId: new mongoose_1["default"].Types.ObjectId(clientId) } }, {
+                                $group: {
+                                    _id: '$productId',
+                                    totalScore: { $sum: '$score' }
+                                }
+                            }, {
+                                $sort: { totalScore: -1 }
+                            },
+                            { $limit: 5 },
+                            {
+                                $lookup: {
+                                    from: 'products',
+                                    localField: '_id',
+                                    foreignField: '_id',
+                                    as: 'productDetails'
+                                }
+                            },
+                            { $unwind: '$productDetails' },
+                        ])];
+                case 1:
+                    recommendations = _a.sent();
+                    return [2 /*return*/, recommendations.map(function (rec) { return rec.productDetails; })];
+                case 2:
+                    error_6 = _a.sent();
+                    console.error('Error fetching recommendations:', error_6);
+                    throw error_6;
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.recommendedProducts = recommendedProducts;
+;

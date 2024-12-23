@@ -42,7 +42,7 @@ export async function addToCart(req: any, res: any) {
     }
     await cart.save();
 
-    res.status(200).json({ message: "Cart updated successfully", cart });
+    res.status(200).json({ message: "Cart updated successfully", cart, clientId });
   } catch (error: any) {
     console.error("Error in addToCart:", error);
     return res.status(500).send({ error: "Internal Server Error" });

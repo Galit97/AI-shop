@@ -36,45 +36,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.setInteraction = void 0;
-var interactionModel_1 = require("../../models/interactionModel");
-function setInteraction(req, res) {
+exports.setRating = void 0;
+var ratingModel_1 = require("../../models/ratingModel");
+function setRating(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, clientId, productId, type, score, interactionExist, interaction, error_1;
+        var _a, clientId, productId, rating, ratingExist, newRating, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _a = req.body, clientId = _a.clientId, productId = _a.productId, type = _a.type, score = _a.score;
-                    _b.label = 1;
+                    _b.trys.push([0, 6, , 7]);
+                    _a = req.body, clientId = _a.clientId, productId = _a.productId, rating = _a.rating;
+                    return [4 /*yield*/, ratingModel_1.RatingModel.findOne({ clientId: clientId, productId: productId })];
                 case 1:
-                    _b.trys.push([1, 7, , 8]);
-                    return [4 /*yield*/, interactionModel_1.Interaction.findOne({ clientId: clientId, productId: productId, type: 'rating' })];
+                    ratingExist = _b.sent();
+                    if (!ratingExist) return [3 /*break*/, 3];
+                    ratingExist.rating = rating;
+                    return [4 /*yield*/, ratingExist.save()];
                 case 2:
-                    interactionExist = _b.sent();
-                    if (!interactionExist) return [3 /*break*/, 4];
-                    interactionExist.score = score;
-                    return [4 /*yield*/, interactionExist.save()];
+                    _b.sent();
+                    return [3 /*break*/, 5];
                 case 3:
-                    _b.sent();
-                    return [3 /*break*/, 6];
+                    newRating = new ratingModel_1.RatingModel({
+                        clientId: clientId,
+                        productId: productId,
+                        rating: rating
+                    });
+                    return [4 /*yield*/, newRating.save()];
                 case 4:
-                    interaction = new interactionModel_1.Interaction({ clientId: clientId, productId: productId, type: type, score: score });
-                    return [4 /*yield*/, interaction.save()];
-                case 5:
                     _b.sent();
-                    _b.label = 6;
+                    _b.label = 5;
+                case 5:
+                    res.status(200).json({ message: "Rating added successfully" });
+                    return [3 /*break*/, 7];
                 case 6:
-                    res.status(201).json({ message: 'Interaction logged successfully' });
-                    return [3 /*break*/, 8];
-                case 7:
                     error_1 = _b.sent();
-                    console.error('Error logging interaction:', error_1);
-                    res.status(500).json({ error: 'Failed to log interaction' });
-                    return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                    console.error("Error in addToCart:", error_1);
+                    return [2 /*return*/, res.status(500).send({ error: "Internal Server Error" })];
+                case 7: return [2 /*return*/];
             }
         });
     });
 }
-exports.setInteraction = setInteraction;
-;
+exports.setRating = setRating;

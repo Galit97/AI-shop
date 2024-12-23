@@ -91,6 +91,7 @@ function renderPage() {
     appContainer.innerHTML = "\n        <div id=\"filter-sort-controls\">\n            <select id=\"categorySection\" name=\"category\">\n              <option value=\"\">Select category</option>\n            </select>\n            <select id=\"sort-filter\">\n                <option value=\"default\">Sort By</option>\n                <option value=\"price-asc\">Price: Low to High</option>\n                <option value=\"price-desc\">Price: High to Low</option>\n                <option value=\"name-asc\">Name: A to Z</option>\n                <option value=\"name-desc\">Name: Z to A</option>\n            </select>\n        </div>\n\n        <div id=\"product-list\"></div>\n    ";
 }
 function renderProducts(products) {
+    var _this = this;
     var container = document.getElementById("product-list");
     if (!container)
         return;
@@ -102,9 +103,21 @@ function renderProducts(products) {
             var productElement = document.getElementById("product-" + product._id);
             if (!productElement)
                 throw new Error("Product " + product._id + " not found");
-            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
-                return renderProductView(product);
-            });
+            productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+                var clientId;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            renderProductView(product);
+                            return [4 /*yield*/, getClientId()];
+                        case 1:
+                            clientId = _a.sent();
+                            setInteraction(clientId, product._id, "view", 1);
+                            ratingStars();
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
         }
         catch (error) {
             console.error(error);
@@ -114,13 +127,29 @@ function renderProducts(products) {
             if (!productElement)
                 throw new Error("Product " + product._id + " not found");
             productElement === null || productElement === void 0 ? void 0 : productElement.addEventListener("click", function () {
-                console.log("add to cart pressed");
                 addToCart(product._id, 1);
             });
         }
         catch (error) {
             console.error(error);
         }
+    });
+}
+function getClientId() {
+    return __awaiter(this, void 0, Promise, function () {
+        var response, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("http://localhost:3000/api/clients/get-client")];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    data = _a.sent();
+                    console.log((data.clientId).toString());
+                    return [2 /*return*/, data.clientId];
+            }
+        });
     });
 }
 function fetchCategories() {

@@ -58,6 +58,7 @@ function getClient(req, res) {
                     }
                     return [2 /*return*/, res.status(200).json({
                             message: 'Client retrieved successfully',
+                            clientId: clientId,
                             client: {
                                 firstName: client.firstName
                             }

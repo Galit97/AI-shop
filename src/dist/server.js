@@ -15,6 +15,7 @@ var cartRouter_1 = require("./routes/cartRouter");
 var cookiesRouter_1 = require("./routes/cookiesRouter");
 var connectUsRouter_1 = require("./routes/connectUsRouter");
 var interactionsRouter_1 = require("./routes/interactionsRouter");
+var ratingRouter_1 = require("./routes/ratingRouter");
 var app = express_1["default"]();
 var port = process.env.PORT || 3000;
 app.use(body_parser_1["default"].json());
@@ -35,6 +36,7 @@ app.use("/api/cart", cartRouter_1["default"]);
 app.use("/api/cookies", cookiesRouter_1["default"]);
 app.use("/api/connectUs", connectUsRouter_1["default"]);
 app.use("/api/interaction", interactionsRouter_1["default"]);
+app.use("/api/rating", ratingRouter_1["default"]);
 //DB
 var dbUrl = "mongodb+srv://toharkenin:Q9cij3M4GHk%409Sx@cluster0.bbpiv.mongodb.net";
 var database = 'AI-Shop';

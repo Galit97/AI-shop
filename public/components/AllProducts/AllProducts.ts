@@ -11,6 +11,8 @@ async function fetchAllProducts(): Promise<void> {
     const response = await fetch("/api/products/get-products");
     if (!response.ok) throw new Error("Failed to fetch products");
 
+    
+
     allProducts = await response.json();
     renderPage();
     renderProducts(allProducts);
@@ -73,9 +75,12 @@ function renderProducts(products: any[]): void {
     try {
       const productElement = document.getElementById(`product-${product._id}`);
       if (!productElement) throw new Error(`Product ${product._id} not found`);
-      productElement?.addEventListener("click", () =>
+      productElement?.addEventListener("click", async () => {
         renderProductView(product)
-      );
+        const clientId = await getClientId();
+        setInteraction(clientId, product._id, "view", 1);
+        ratingStars();
+    });
     } catch (error) {
       console.error(error);
     }
@@ -86,7 +91,6 @@ function renderProducts(products: any[]): void {
       );
       if (!productElement) throw new Error(`Product ${product._id} not found`);
       productElement?.addEventListener("click", () => {
-        console.log("add to cart pressed");
         addToCart(product._id, 1);
       });
     } catch (error) {
@@ -94,6 +98,14 @@ function renderProducts(products: any[]): void {
     }
   });
 }
+
+async function getClientId(): Promise<string> {
+    const response = await fetch("http://localhost:3000/api/clients/get-client");
+
+    const data = await response.json();
+    console.log((data.clientId).toString())
+    return data.clientId
+} 
 
 interface Category {
   name: string;

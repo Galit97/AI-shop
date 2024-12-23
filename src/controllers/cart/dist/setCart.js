@@ -83,7 +83,7 @@ function addToCart(req, res) {
                     return [4 /*yield*/, cart.save()];
                 case 3:
                     _b.sent();
-                    res.status(200).json({ message: "Cart updated successfully", cart: cart });
+                    res.status(200).json({ message: "Cart updated successfully", cart: cart, clientId: clientId });
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _b.sent();
