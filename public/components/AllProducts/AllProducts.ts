@@ -11,9 +11,24 @@ async function fetchAllProducts(): Promise<void> {
     const response = await fetch("/api/products/get-products");
     if (!response.ok) throw new Error("Failed to fetch products");
 
-    
+    const recommendedProductsResponse = await fetch("/api/products/get-recommended-products");
+    if (!recommendedProductsResponse.ok) throw new Error("Failed to fetch recommended products");
 
-    allProducts = await response.json();
+    
+    const products = await response.json(); 
+    const recommendedProducts = await recommendedProductsResponse.json();
+
+
+    const combinedProducts = [
+      ...recommendedProducts.map((product: any) => ({ ...product, isRecommended: true })),
+      ...products.map((product: any) => ({ ...product, isRecommended: false })), 
+    ];
+
+    const allProducts = combinedProducts.filter(
+      (product, index, self) =>
+        index === self.findIndex((p) => p._id === product._id)
+    );
+
     renderPage();
     renderProducts(allProducts);
   } catch (error) {
