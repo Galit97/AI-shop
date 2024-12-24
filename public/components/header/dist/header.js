@@ -96,9 +96,6 @@ if (cartIcon) {
         fetchCartProducts();
     });
 }
-else {
-    console.error("Cart icon not found!");
-}
 function showWelcomeName() {
     return __awaiter(this, void 0, void 0, function () {
         var welcomeName, response, responseData, firstName, error_1;

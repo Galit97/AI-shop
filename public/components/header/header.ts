@@ -123,8 +123,6 @@ if (cartIcon) {
   cartIcon.addEventListener("click", () => {
     fetchCartProducts();
   });
-} else {
-  console.error("Cart icon not found!");
 }
 
 async function showWelcomeName() {
