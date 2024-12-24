@@ -6,16 +6,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 let allProducts: any[] = [];
 
-async function fetchAllProducts(): Promise<void> {
+async function fetchAllProducts(clientId?: string): Promise<void> {
   try {
     const response = await fetch("/api/products/get-products");
     if (!response.ok) throw new Error("Failed to fetch products");
 
-    const recommendedProductsResponse = await fetch("/api/products/get-recommended-products");
-    if (!recommendedProductsResponse.ok) throw new Error("Failed to fetch recommended products");
+    const products = await response.json();
 
-    const products = await response.json(); 
-    const recommendedProducts = await recommendedProductsResponse.json();
+    let recommendedProducts: any[] = [];
+    if (clientId) {
+      const recommendedProductsResponse = await fetch("/api/products/get-recommended-products");
+      if (!recommendedProductsResponse.ok) throw new Error("Failed to fetch recommended products");
+      recommendedProducts = await recommendedProductsResponse.json();
+    }
 
     const combinedProducts = [
       ...recommendedProducts.map((product: any) => ({ ...product, isRecommended: true })),
@@ -32,7 +35,6 @@ async function fetchAllProducts(): Promise<void> {
     console.error("Error fetching products:", error);
   }
 }
-
 function renderPage(): void {
   const appContainer = document.getElementById("main");
   if (!appContainer) return;

@@ -68,39 +68,43 @@ document.addEventListener("DOMContentLoaded", function () { return __awaiter(_th
     });
 }); });
 var allProducts = [];
-function fetchAllProducts() {
+function fetchAllProducts(clientId) {
     return __awaiter(this, void 0, Promise, function () {
-        var response, recommendedProductsResponse, products, recommendedProducts, combinedProducts, error_1;
+        var response, products, recommendedProducts, recommendedProductsResponse, combinedProducts, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 5, , 6]);
+                    _a.trys.push([0, 6, , 7]);
                     return [4 /*yield*/, fetch("/api/products/get-products")];
                 case 1:
                     response = _a.sent();
                     if (!response.ok)
                         throw new Error("Failed to fetch products");
-                    return [4 /*yield*/, fetch("/api/products/get-recommended-products")];
+                    return [4 /*yield*/, response.json()];
                 case 2:
+                    products = _a.sent();
+                    recommendedProducts = [];
+                    if (!clientId) return [3 /*break*/, 5];
+                    return [4 /*yield*/, fetch("/api/products/get-recommended-products")];
+                case 3:
                     recommendedProductsResponse = _a.sent();
                     if (!recommendedProductsResponse.ok)
                         throw new Error("Failed to fetch recommended products");
-                    return [4 /*yield*/, response.json()];
-                case 3:
-                    products = _a.sent();
                     return [4 /*yield*/, recommendedProductsResponse.json()];
                 case 4:
                     recommendedProducts = _a.sent();
+                    _a.label = 5;
+                case 5:
                     combinedProducts = __spreadArrays(recommendedProducts.map(function (product) { return (__assign(__assign({}, product), { isRecommended: true })); }), products.map(function (product) { return (__assign(__assign({}, product), { isRecommended: false })); }));
                     allProducts = combinedProducts.filter(function (product, index, self) { return index === self.findIndex(function (p) { return p._id === product._id; }); });
                     renderPage();
                     renderProducts(allProducts);
-                    return [3 /*break*/, 6];
-                case 5:
+                    return [3 /*break*/, 7];
+                case 6:
                     error_1 = _a.sent();
                     console.error("Error fetching products:", error_1);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
