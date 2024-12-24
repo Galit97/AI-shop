@@ -17,7 +17,10 @@ function handleMenuClick(ev) {
         return;
     }
     var sections = document.querySelectorAll(".page-section");
-    sections.forEach(function (section) { return section.classList.add("hidden"); });
+    sections.forEach(function (section) {
+        section.classList.add("hidden");
+        section.innerHTML = "";
+    });
     var sectionToShow = document.getElementById(sectionId);
     if (sectionToShow) {
         sectionToShow.classList.remove("hidden");

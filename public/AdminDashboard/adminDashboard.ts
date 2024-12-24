@@ -65,7 +65,10 @@ function handleMenuClick(ev: Event): void {
     }
 
     const sections = document.querySelectorAll(".page-section");
-    sections.forEach((section) => section.classList.add("hidden"));
+    sections.forEach((section) => {
+        section.classList.add("hidden");
+        section.innerHTML = "";
+    });
 
     const sectionToShow = document.getElementById(sectionId);
     if (sectionToShow) {
@@ -75,15 +78,16 @@ function handleMenuClick(ev: Event): void {
     if (sectionId === "all-products") {
         renderAllProducts();
     } else if (sectionId === "add-product") {
-        renderProductPage(); 
+        renderProductPage();
     } else if (sectionId === "categories") {
         renderCategoryPage();
     } else if (sectionId === "clients") {
-        renderClientPage(); 
+        renderClientPage();
     } else if (sectionId === "home-page") {
         window.location.href = "/"; 
     }
 }
+
 
 
 
