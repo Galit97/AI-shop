@@ -1,0 +1,40 @@
+a video to our project in NodeJS
+Easy choice:
+https://youtu.be/5NraQNyRwSE
+
+
+Easy Choice
+The project is an online e-commerce store, developed as a collaborative team effort using Node.js and MongoDB to deliver a personalized and efficient shopping experience.
+
+Features:
+Dynamic Item Display:
+
+Items with the most interactions (e.g., added to the cart, viewed, or highly rated) are displayed first to customers.
+Filtering and Sorting Options:
+
+Customers can filter items by categories.
+Items can be sorted by price, alphabetical order (A-Z), or other criteria.
+Search Functionality:
+
+Users can search for specific items quickly and efficiently.
+Shopping Cart:
+
+Users can add items to their cart, with real-time price calculations.
+The cart allows editing and deleting items.
+AI Chatbot:
+
+A chatbot powered by AI provides support and product recommendations to assist customers in making informed choices.
+Contact Support:
+
+A contact option is available, allowing customers to send inquiries directly to the service team’s email.
+Admin Panel:
+
+Admins can add, edit, and delete products and categories.
+Admins can also manage and add customer accounts.
+Customer Registration:
+
+Customers can register themselves to create accounts and enjoy a personalized experience.
+Database Management with MongoDB:
+
+The project utilizes MongoDB to efficiently store and manage data for products, categories, customer accounts, and more.
+The project reflects the combined efforts of the team, focusing on creating a robust, scalable, and user-friendly e-commerce platform.
